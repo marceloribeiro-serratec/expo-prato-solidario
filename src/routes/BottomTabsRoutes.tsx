@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import { HomeScreen } from "@/pages/HomeScreen";
 import { COLORS } from "@/constants/colors";
-import { Bot, House, Telescope, Inbox } from "lucide-react-native";
+import { House } from "lucide-react-native";
 
 export type RootTabsParamList = {
     Home: undefined;
