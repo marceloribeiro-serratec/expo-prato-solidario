@@ -18,7 +18,7 @@ export function LoginScreen() {
     const navigation = useNavigation<NavigationProps>();
 
     return (
-        <PageContainerImage>
+        <PageContainerImage statusBarStyle="light" statusBarBackgroundColor={COLORS.black}>
             <LinearGradient
                 colors={[
                     "rgba(255,255,255,0.9)",
