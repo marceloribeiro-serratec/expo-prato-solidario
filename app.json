@@ -1,53 +1,53 @@
 {
-  "expo": {
-    "name": "expo-prato-solidario",
-    "slug": "expo-prato-solidario",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "backgroundColor": "#ffffff",
-    "primaryColor": "#BB001B",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/splash.png",
-        "backgroundColor": "#ffffff"
-      },
-      "backgroundColor": "#ffffff",
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
-    },
-    "androidStatusBar": {
-      "barStyle": "dark-content",
-      "backgroundColor": "#ffffff",
-      "translucent": false
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/splash.png",
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "imageWidth": 200
-        }
-      ],
-      "@react-native-vector-icons/ionicons",
-      "expo-font",
-      "expo-sqlite",
-      "@react-native-vector-icons/feather"
-    ]
-  }
+    "expo": {
+        "name": "expo-prato-solidario",
+        "slug": "expo-prato-solidario",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "backgroundColor": "#ffffff",
+        "primaryColor": "#BB001B",
+        "userInterfaceStyle": "light",
+        "newArchEnabled": true,
+        "splash": {
+            "image": "./assets/android-splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/android-splash.png",
+                "backgroundColor": "#ffffff"
+            },
+            "backgroundColor": "#ffffff",
+            "edgeToEdgeEnabled": true,
+            "predictiveBackGestureEnabled": false
+        },
+        "androidStatusBar": {
+            "barStyle": "dark-content",
+            "backgroundColor": "#ffffff",
+            "translucent": false
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "plugins": [
+            [
+                "expo-splash-screen",
+                {
+                    "image": "./assets/android-splash.png",
+                    "resizeMode": "cover",
+                    "backgroundColor": "#ffffff",
+                    "imageWidth": 200
+                }
+            ],
+            "@react-native-vector-icons/ionicons",
+            "expo-font",
+            "expo-sqlite",
+            "@react-native-vector-icons/feather"
+        ]
+    }
 }
