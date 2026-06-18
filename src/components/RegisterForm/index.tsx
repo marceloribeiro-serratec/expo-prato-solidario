@@ -77,7 +77,7 @@ export function RegisterForm() {
             <Title color={COLORS.red} size={24} fontWeight="bold">
                 Criar Conta
             </Title>
-            <View style={{ marginBottom: 8 }}>
+            <View style={{ marginBottom: 8, marginTop: 16 }}>
                 <Text style={registerForm.label}>Nome Completo</Text>
                 <Controller
                     control={control}

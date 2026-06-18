@@ -2,24 +2,23 @@ import { Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Subtitle } from "@/components/Subtitle";
-import { PageContainerImage } from "@/components/PageContainerImage";
 import { LogoImage } from "@/components/LogoImage";
 import { Title } from "@/components/Title";
 import { Button } from "@/components/Button";
+import { PageContainerScroll } from "@/components/PageContainerScroll";
+import { RegisterForm } from "@/components/RegisterForm";
 
 import { COLORS } from "@/constants/colors";
 
 import { registerScreen } from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProps } from "@/routes/type";
-import { LoginForm } from "@/components/LoginForm";
-import { RegisterForm } from "@/components/RegisterForm";
 
 export function RegisterScreen() {
     const navigation = useNavigation<NavigationProps>();
 
     return (
-        <PageContainerImage>
+        <PageContainerScroll statusBarStyle="light" statusBarBackgroundColor={COLORS.black}>
             <LinearGradient
                 colors={[
                     "rgba(255,255,255,0.9)",
@@ -71,6 +70,6 @@ export function RegisterScreen() {
                     </View>
                 </View>
             </LinearGradient>
-        </PageContainerImage>
+        </PageContainerScroll>
     );
 }
