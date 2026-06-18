@@ -24,15 +24,18 @@ export function WelcomeScreen() {
                     <View style={welcomeScreen.logoContainer}>
                         <LogoImage iconSize={40} />
                     </View>
-                    <Title size={28} color={COLORS.white} fontWeight="bold">
-                        Prato Solidário
-                    </Title>
-                    <Line />
-                    <View>
-                        <Title size={30} color={COLORS.white} fontWeight="500">
+                    <View style={welcomeScreen.titleContainer}>
+                        <Title size={28} color={COLORS.white} fontWeight="bold">
+                            Prato Solidário
+                        </Title>
+                        <Line />
+                    </View>
+                    
+                    <View style={welcomeScreen.subtitleContainer}>
+                        <Title size={26} color={COLORS.white} fontWeight="500">
                             Alimente seu corpo e
                         </Title>
-                         <Title size={30} color={COLORS.white} fontWeight="500">
+                         <Title size={26} color={COLORS.success_light} fontWeight="500">
                             transforme vidas.
                         </Title>
                     </View>
