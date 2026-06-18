@@ -1,13 +1,15 @@
-import {View } from "react-native";
+import { View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { PageContainerImage } from "@/components/PageContainerImage";
 import { LogoImage } from "@/components/LogoImage";
 import { Title } from "@/components/Title";
+import { Line } from "@/components/Line";
+import { Subtitle } from "@/components/Subtitle";
+import { Button } from "@/components/Button";
 
 import { welcomeScreen } from "./style";
 import { COLORS } from "@/constants";
-import { Line } from "@/components/Line";
 
 export function WelcomeScreen() {
     return (
@@ -30,14 +32,43 @@ export function WelcomeScreen() {
                         </Title>
                         <Line />
                     </View>
-                    
+
                     <View style={welcomeScreen.subtitleContainer}>
                         <Title size={26} color={COLORS.white} fontWeight="500">
                             Alimente seu corpo e
                         </Title>
-                         <Title size={26} color={COLORS.success_light} fontWeight="500">
+                        <Title
+                            size={26}
+                            color={COLORS.success_light}
+                            fontWeight="500"
+                        >
                             transforme vidas.
                         </Title>
+                    </View>
+
+                    <View>
+                        <Subtitle
+                            fontSize={18}
+                            color={COLORS.gray_200}
+                            fontWeight="300"
+                            paddingTop={26}
+                        >
+                            Cada pedido no PratoSolidário financia uma refeição
+                            nutrtiva apara quem mais precisa na sua comunidade
+                            local.
+                        </Subtitle>
+                    </View>
+
+                    <View style={{ marginTop: 34 }}>
+                        <Button color={COLORS.red}>
+                            <Title
+                                color={COLORS.white}
+                                size={14}
+                                fontWeight="bold"
+                            >
+                                ENTRAR
+                            </Title>
+                        </Button>
                     </View>
                 </View>
             </LinearGradient>
