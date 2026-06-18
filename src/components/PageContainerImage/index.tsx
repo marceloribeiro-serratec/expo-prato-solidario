@@ -8,7 +8,7 @@ export function PageContainerImage({
     children,
     paddingBottom,
     statusBarBackgroundColor,
-    statusBarStyle = "light",
+    statusBarStyle = "dark",
 }: PageContainerImageProps) {
     return (
         <ImageBackground

@@ -6,7 +6,7 @@ export const divisor = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         gap: 12,
-        marginTop: 24,
+        marginVertical: 24,
     },
     line: {
         flex: 1,

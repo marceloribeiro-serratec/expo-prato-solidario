@@ -37,7 +37,8 @@
     "plugins": [
       "@react-native-vector-icons/ionicons",
       "expo-font",
-      "expo-sqlite"
+      "expo-sqlite",
+      "@react-native-vector-icons/feather"
     ]
   }
 }
