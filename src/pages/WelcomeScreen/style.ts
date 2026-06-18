@@ -4,6 +4,8 @@ export const welcomeScreen = StyleSheet.create({
     container: {
         paddingVertical: 42,
         paddingHorizontal: 24,
+        justifyContent: "center",
+        flex: 1,
     },
     gradient: {
         flex: 1,
@@ -24,5 +26,5 @@ export const welcomeScreen = StyleSheet.create({
     },
     subtitleContainer: {
         marginTop: 54,
-    }
+    },
 });
