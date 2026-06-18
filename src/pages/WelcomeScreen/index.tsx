@@ -28,6 +28,14 @@ export function WelcomeScreen() {
                         Prato Solidário
                     </Title>
                     <Line />
+                    <View>
+                        <Title size={30} color={COLORS.white} fontWeight="500">
+                            Alimente seu corpo e
+                        </Title>
+                         <Title size={30} color={COLORS.white} fontWeight="500">
+                            transforme vidas.
+                        </Title>
+                    </View>
                 </View>
             </LinearGradient>
         </PageContainerImage>

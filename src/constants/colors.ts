@@ -30,7 +30,7 @@ export const COLORS: Colors = {
     info_base: "#2AA1D9",
     info_dark: "#1D7096",
 
-    success_light: "#BFF7BE",
+    success_light: "#7EFBA4",
     success_base: "#4BB84A",
     success_dark: "#19793C",
 
