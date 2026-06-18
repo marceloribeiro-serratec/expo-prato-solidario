@@ -15,8 +15,5 @@ export const pageContainer = StyleSheet.create({
     content: {
         flexGrow: 1,
         justifyContent: 'center',
-        paddingHorizontal: 12,
-        paddingTop: 24,
-        paddingBottom: 24,
     },
 });
