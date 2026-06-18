@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { PageContainerImage } from "@/components/PageContainerImage";
@@ -10,8 +10,18 @@ import { Button } from "@/components/Button";
 
 import { welcomeScreen } from "./style";
 import { COLORS } from "@/constants";
+import { CardImpact } from "@/components/CardImpact";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "./type";
 
 export function WelcomeScreen() {
+
+    const navigation = useNavigation<NavigationProps>();
+
+     function handleNavigateToLogin() {
+        navigation.navigate("login");
+    }
+
     return (
         <PageContainerImage>
             <LinearGradient
@@ -54,13 +64,15 @@ export function WelcomeScreen() {
                             paddingTop={26}
                         >
                             Cada pedido no PratoSolidário financia uma refeição
-                            nutrtiva apara quem mais precisa na sua comunidade
+                            nutrtiva para quem mais precisa na sua comunidade
                             local.
                         </Subtitle>
                     </View>
 
+                    <CardImpact />
+                    
                     <View style={{ marginTop: 34 }}>
-                        <Button color={COLORS.red}>
+                        <Button color={COLORS.red} onPress={handleNavigateToLogin}>
                             <Title
                                 color={COLORS.white}
                                 size={14}
@@ -69,6 +81,19 @@ export function WelcomeScreen() {
                                 ENTRAR
                             </Title>
                         </Button>
+                    </View>
+                    <View style={{ marginTop: 60, alignItems: "center" }}>
+                        <Subtitle color={COLORS.gray_400} fontSize={12}>
+                            Ao continuar, você aceita nossos{" "}
+                            <Text style={{ textDecorationLine: "underline" }}>
+                                Termos de Uso
+                            </Text>{" "}
+                            e a{" "}
+                            <Text style={{ textDecorationLine: "underline" }}>
+                                Política de Privacidade.
+                            </Text>
+                            .
+                        </Subtitle>
                     </View>
                 </View>
             </LinearGradient>
