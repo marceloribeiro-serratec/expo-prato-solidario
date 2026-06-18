@@ -1,10 +1,11 @@
-import { PageContainer } from '@/components/PageContainer';
 import { Text, View } from 'react-native';
+
+import { PageContainerImage } from '@/components/PageContainerImage';
 
 export function WelcomeScreen() {
     return (
-        <PageContainer>
+        <PageContainerImage>
             <Text>WelcomeScreen</Text>
-        </PageContainer>
+        </PageContainerImage>
     );
 }

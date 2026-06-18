@@ -11,7 +11,7 @@ export function PageContainerImage({
 }: PageContainerImageProps) {
     return (
         <ImageBackground
-            source={require("@/assets/background.png")}
+            source={require("../../../assets/welcome.png")}
             style={[
                 pageContainerImage.container,
                 paddingBottom !== undefined && { paddingBottom },
