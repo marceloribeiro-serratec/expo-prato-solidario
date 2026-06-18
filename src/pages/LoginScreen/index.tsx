@@ -12,6 +12,7 @@ import { COLORS } from '@/constants/colors';
 import { loginScreen } from './style';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProps } from '@/routes/type';
+import { LoginForm } from '@/components/LoginForm';
 
 export function LoginScreen() {
 
@@ -37,8 +38,8 @@ export function LoginScreen() {
                         </Title>
                     </View>
 
-                    <View style={loginScreen.subtitleContainer}>
-                        
+                    <View style={loginScreen.formContainer}>
+                         <LoginForm />
                     </View>
 
                     <View style={{ marginTop: 60, alignItems: "center" }}>

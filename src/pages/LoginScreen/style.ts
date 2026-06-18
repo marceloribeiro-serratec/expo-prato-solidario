@@ -1,3 +1,4 @@
+import { COLORS } from "@/constants";
 import { StyleSheet } from "react-native";
 
 export const loginScreen = StyleSheet.create({
@@ -23,6 +24,20 @@ export const loginScreen = StyleSheet.create({
     titleContainer: {
         alignItems: "center",
         justifyContent: "center",
+    },
+    formContainer: {
+        marginTop: 42,
+        backgroundColor: COLORS.white,
+        padding: 24,
+        borderRadius: 8,
+        shadowColor: COLORS.black,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+        elevation: 8,
     },
     subtitleContainer: {
         marginTop: 54,
