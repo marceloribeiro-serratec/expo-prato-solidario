@@ -6,15 +6,12 @@ export const loginForm = StyleSheet.create({
         fontSize: 16,
         paddingVertical: 14,
         paddingHorizontal: 20,
-        borderWidth: 1,
-        borderColor: COLORS.black,
         borderRadius: 6,
-        backgroundColor: COLORS.white,
+        backgroundColor: COLORS.gray_300,
     },
     label: {
         fontSize: 16,
         color: COLORS.black,
-        marginBottom: 10,
     },
     errorText: {
         fontSize: 14,
@@ -24,7 +21,7 @@ export const loginForm = StyleSheet.create({
     },
      buttonForgetPassword: {
         width: "100%",
-        height: 50,
+        height: 40,
         backgroundColor: "transparent",
         justifyContent: "center",
         alignItems: "flex-end",
@@ -32,7 +29,8 @@ export const loginForm = StyleSheet.create({
     areaForgotPassword: {
         flexDirection: "row",
         justifyContent: "space-around",
-        width: 240
+        alignItems: "center",
+        width: 270
     },
     section: {
         flexDirection: "row",
@@ -46,7 +44,7 @@ export const loginForm = StyleSheet.create({
     },
     inputIcon: {
         position: "absolute",
-        top: 47,
+        top: 17,
         left: 10,
         zIndex: 1,
     },

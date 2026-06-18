@@ -23,7 +23,7 @@ export function LoginScreen() {
             <LinearGradient
                 colors={[
                     "rgba(255,255,255,0.9)",
-                    "rgba(255,255,255,0.5)",
+                    "rgba(255,255,255,0.6)",
                     "rgba(255,255,255,0.9)",
                 ]}
                 style={loginScreen.gradient}
@@ -36,6 +36,9 @@ export function LoginScreen() {
                         <Title size={28} color={COLORS.red} fontWeight="bold">
                             Prato Solidário
                         </Title>
+                        <Subtitle fontSize={17} color={COLORS.black} textAlign="center">
+                            Comida boa faz o bem para o corpo e para a alma.
+                        </Subtitle>
                     </View>
 
                     <View style={loginScreen.formContainer}>

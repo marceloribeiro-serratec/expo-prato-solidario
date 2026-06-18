@@ -11,6 +11,8 @@ import { IconInput } from "../IconInput";
 import { COLORS } from "@/constants/colors";
 
 import { loginForm } from "./style";
+import { Divisor } from "../Divisor";
+import { ButtonIcon } from "../ButtonIcon";
 
 const loginFormSchema = z.object({
     email: z
@@ -55,6 +57,10 @@ export function LoginForm() {
         reset();
     }
 
+    function handleLoginWithGoogle() {
+       alert("Login com Google");
+    }
+
     return (
         <View>
             <View style={{ marginBottom: 16 }}>
@@ -91,7 +97,14 @@ export function LoginForm() {
             </View>
 
             <View>
-                <Text style={loginForm.label}>Senha</Text>
+                <View style={loginForm.areaForgotPassword}>
+                    <Text style={loginForm.label}>Senha</Text>
+                    <TouchableOpacity style={loginForm.buttonForgetPassword}>
+                        <Text style={loginForm.paragraph}>
+                            esqueci minha senha
+                        </Text>
+                    </TouchableOpacity>
+                </View>
                 <Controller
                     control={control}
                     name="senha"
@@ -126,18 +139,14 @@ export function LoginForm() {
                     </Text>
                 )}
             </View>
-            <View style={loginForm.areaForgotPassword}>
-                <TouchableOpacity style={loginForm.buttonForgetPassword}>
-                    <Text style={loginForm.paragraph}>esqueceu a senha?</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={{ marginTop: 34 }}>
+            <View style={{ marginTop: 24 }}>
                 <Button color={COLORS.red} onPress={handleSubmit(onSubmit)}>
                     <Title color={COLORS.white} size={14} fontWeight="bold">
-                        LOGIN
+                        Entrar
                     </Title>
                 </Button>
+                <Divisor />
+                <ButtonIcon variant="google" onPress={handleLoginWithGoogle}/>
             </View>
         </View>
     );
