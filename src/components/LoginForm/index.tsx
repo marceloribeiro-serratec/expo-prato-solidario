@@ -13,6 +13,7 @@ import { COLORS } from "@/constants/colors";
 import { loginForm } from "./style";
 import { Divisor } from "../Divisor";
 import { ButtonIcon } from "../ButtonIcon";
+import { Lock } from "lucide-react-native";
 
 const loginFormSchema = z.object({
     email: z
@@ -70,24 +71,22 @@ export function LoginForm() {
                     name="email"
                     rules={{ required: true }}
                     render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            placeholder="Digite seu email..."
-                            placeholderTextColor="#999"
-                            style={[
-                                loginForm.input,
-                                { paddingLeft: 50, paddingRight: 10 },
-                            ]}
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            onBlur={onBlur}
-                            onChangeText={(value) => onChange(value)}
-                            value={value}
-                        />
+                        <View style={loginForm.inputContainer}>
+                            <IconInput iconName="mail" />
+                            <TextInput
+                                placeholder="Digite seu email..."
+                                placeholderTextColor="#999"
+                                style={loginForm.input}
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                onBlur={onBlur}
+                                onChangeText={(value) => onChange(value)}
+                                value={value}
+                            />
+                        </View>
                     )}
                 />
-
-                <IconInput iconName="mail" />
 
                 {errors.email && (
                     <Text style={loginForm.errorText}>
@@ -110,27 +109,28 @@ export function LoginForm() {
                     name="senha"
                     rules={{ required: true }}
                     render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            placeholder="Digite sua senha..."
-                            placeholderTextColor="#999"
-                            style={[
-                                loginForm.input,
-                                { paddingLeft: 50, paddingRight: 10 },
-                            ]}
-                            keyboardType="default"
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            onBlur={onBlur}
-                            secureTextEntry={showPassword}
-                            onChangeText={(value) => onChange(value)}
-                            value={value}
-                        />
+                        <View style={loginForm.inputContainer}>
+                            <IconInput
+                                iconName={showPassword ? "unlock" : "lock"}
+                            />
+                            <TextInput
+                                placeholder="Digite sua senha..."
+                                placeholderTextColor="#999"
+                                style={loginForm.input}
+                                keyboardType="default"
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                onBlur={onBlur}
+                                secureTextEntry={!showPassword}
+                                onChangeText={(value) => onChange(value)}
+                                value={value}
+                            />
+                            <IconInput
+                                iconName={showPassword ? "eye-off" : "eye"}
+                                action={handleShowPassword}
+                            />
+                        </View>
                     )}
-                />
-
-                <IconInput
-                    iconName={showPassword ? "eye-off" : "eye"}
-                    action={handleShowPassword}
                 />
 
                 {errors.senha && (

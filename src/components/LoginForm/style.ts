@@ -2,12 +2,19 @@ import { COLORS } from "@/constants/colors";
 import { StyleSheet } from "react-native";
 
 export const loginForm = StyleSheet.create({
+    inputContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: COLORS.gray_300,
+        borderRadius: 6,
+        paddingHorizontal: 14,
+    },
      input: {
+        flex: 1,
         fontSize: 16,
         paddingVertical: 14,
-        paddingHorizontal: 20,
-        borderRadius: 6,
-        backgroundColor: COLORS.gray_300,
+        paddingHorizontal: 10,
+        color: COLORS.black,
     },
     label: {
         fontSize: 16,
