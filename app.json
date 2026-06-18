@@ -10,7 +10,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/splash.png",
         "backgroundColor": "#ffffff"
       },
       "backgroundColor": "#ffffff",
@@ -27,14 +27,23 @@
       "predictiveBackGestureEnabled": false
     },
     "androidStatusBar": {
-      "barStyle": "light-content",
-      "backgroundColor": "#000000",
+      "barStyle": "dark-content",
+      "backgroundColor": "#ffffff",
       "translucent": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "imageWidth": 200
+        }
+      ],
       "@react-native-vector-icons/ionicons",
       "expo-font",
       "expo-sqlite",
