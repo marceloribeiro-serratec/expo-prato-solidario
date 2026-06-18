@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const welcomeScreen = StyleSheet.create({
+export const loginScreen = StyleSheet.create({
     container: {
         paddingVertical: 42,
         paddingHorizontal: 24,

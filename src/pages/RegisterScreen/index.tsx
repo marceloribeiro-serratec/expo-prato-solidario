@@ -1,4 +1,4 @@
-import { View} from 'react-native';
+import { Text, View} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Subtitle } from '@/components/Subtitle';
@@ -13,7 +13,7 @@ import { loginScreen } from './style';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProps } from '@/routes/type';
 
-export function LoginScreen() {
+export function RegisterScreen() {
 
     const navigation = useNavigation<NavigationProps>();
 
@@ -45,7 +45,7 @@ export function LoginScreen() {
                         <Subtitle color={COLORS.black} fontSize={14}>
                             Não tem uma conta?
                         </Subtitle>
-                        <Button color={COLORS.transparent} onPress={() => navigation.navigate("register")}>
+                        <Button color={COLORS.transparent} onPress={() => navigation.navigate("Register")}>
                             <Title color={COLORS.red}>
                                 Criar conta
                             </Title>
