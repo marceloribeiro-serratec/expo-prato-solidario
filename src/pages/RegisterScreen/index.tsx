@@ -18,7 +18,7 @@ export function RegisterScreen() {
     const navigation = useNavigation<NavigationProps>();
 
     return (
-        <PageContainerScroll statusBarStyle="light" statusBarBackgroundColor={COLORS.black}>
+        <PageContainerScroll statusBarStyle="dark" statusBarBackgroundColor={COLORS.black}>
             <LinearGradient
                 colors={[
                     "rgba(255,255,255,0.9)",
