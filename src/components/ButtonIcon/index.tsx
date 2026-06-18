@@ -14,13 +14,13 @@ export function ButtonIcon({variant, onPress}: {variant: "google" | "apple"; onP
         <Button
             color={COLORS.gray_100}
             border={1}
-            borderColor={COLORS.gray_300}
+            borderColor={COLORS.gray_400}
             onPress={onPress}
         >
             <View style={buttonIcon.buttonIconText}>
                 {variant === "google" ? <GoogleIcon /> : <AppleIcon />}
-                <Title color={COLORS.black} size={13} fontWeight={500}>
-                    Continue with {variant === "google" ? "Google" : "Apple"}
+                <Title color={COLORS.black} size={15} fontWeight={600}>
+                    {variant === "google" ? "Google" : "Apple"}
                 </Title>
             </View>
         </Button>

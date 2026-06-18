@@ -6,7 +6,7 @@ export function Divisor() {
     return (
         <View style={divisor.container}>
             <View style={divisor.line} />
-            <Text style={divisor.text}>OR</Text>
+            <Text style={divisor.text}>Ou entre com</Text>
             <View style={divisor.line} />
         </View>
     );
