@@ -7,6 +7,7 @@ export function Button({
     color,
     border,
     borderColor,
+    style,
     ...rest
 }: ButtonProps) {
     const borderStyles = border ? {
@@ -22,7 +23,8 @@ export function Button({
         <TouchableOpacity
             style={[
                 styles.container,
-                borderStyles
+                borderStyles,
+                style,
             ]}
             {...rest}
         >

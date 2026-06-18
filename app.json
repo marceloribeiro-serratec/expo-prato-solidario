@@ -5,6 +5,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "backgroundColor": "#ffffff",
+    "primaryColor": "#BB001B",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -20,8 +22,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "backgroundColor": "#ffffff",
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#000000",
+      "translucent": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,7 +37,8 @@
     "plugins": [
       "@react-native-vector-icons/ionicons",
       "expo-font",
-      "expo-sqlite"
+      "expo-sqlite",
+      "@react-native-vector-icons/feather"
     ]
   }
 }

@@ -5,6 +5,7 @@ export interface Colors {
 
     blue: string;
     green: string;
+    green_dark: string;
     orange: string;
     red: string;
     yellow: string;
@@ -34,4 +35,6 @@ export interface Colors {
     danger_light: string;
     danger_base: string;
     danger_dark: string;
+
+    transparent: string;
 }
