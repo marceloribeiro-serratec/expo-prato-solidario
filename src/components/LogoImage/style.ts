@@ -7,7 +7,7 @@ export const logoImage = StyleSheet.create({
         justifyContent: "center",
         width: 80,
         height: 80,
-        borderRadius: 12,
+        borderRadius: 18,
         backgroundColor: COLORS.red,
         shadowColor: COLORS.black,
         shadowOffset: {
