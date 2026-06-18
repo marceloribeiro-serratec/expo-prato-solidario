@@ -1,12 +1,6 @@
 import { Feather } from "@react-native-vector-icons/feather";
 
-type FeatherIconName = React.ComponentProps<typeof Feather>["name"];
-
-interface IconInputProps {
-    iconName: FeatherIconName;
-    action?: () => void;
-}
-
+import { IconInputProps } from "./type";
 
 export function IconInput({ iconName, action }: IconInputProps) {
     return (

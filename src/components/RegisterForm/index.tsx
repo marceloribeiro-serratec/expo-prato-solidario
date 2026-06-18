@@ -4,7 +4,7 @@ import { globalStyles } from "../styles/globalStyles";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import InputIcon from "../LoginForm/input-icon";
+import { IconInput } from "../IconInput";
 import { useState } from "react";
 
 const registerFormSchema = z
@@ -27,7 +27,7 @@ const registerFormSchema = z
         path: ["confirmarSenha"],
     });
 
-export default function RegisterForm() {
+export function RegisterForm() {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [showConfirmPassword, setShowConfirmPassword] =
         useState<boolean>(false);
