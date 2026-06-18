@@ -37,4 +37,6 @@ export const COLORS: Colors = {
     danger_light: "#FFD6D6",
     danger_base: "#DB4D4D",
     danger_dark: "#9E4949",
+
+    transparent: "transparent",
 };
