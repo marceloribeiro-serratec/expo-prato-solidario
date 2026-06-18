@@ -35,6 +35,4 @@ export interface Colors {
     danger_light: string;
     danger_base: string;
     danger_dark: string;
-
-    shadow: string;
 }

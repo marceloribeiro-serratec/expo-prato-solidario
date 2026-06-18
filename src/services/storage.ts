@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Salvando um valor
 // Uso: await storeData('themePreference', 'dark')
 // Uso: await storeData('email', 'yan.m.esteves@gmail.com')
-export const storeData = async (key: string, value: string) => {
+export const storeData = async (key: string, value: unknown) => {
     try {
         const jsonValue = JSON.stringify(value);
         await AsyncStorage.setItem(key, jsonValue);

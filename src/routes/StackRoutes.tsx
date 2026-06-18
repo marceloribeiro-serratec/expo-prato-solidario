@@ -16,6 +16,11 @@ export function StackRoutes() {
     return (
         <Stack.Navigator initialRouteName="welcome">
             <Stack.Screen
+                name="welcome"
+                component={WelcomeScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
                 name="login"
                 component={LoginScreen}
                 options={{ headerShown: false }}
@@ -23,11 +28,6 @@ export function StackRoutes() {
             <Stack.Screen
                 name="home"
                 component={BottomTabsRoutes}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="welcome"
-                component={WelcomeScreen}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>
