@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { COLORS } from "@/constants/colors";
 import { pageContainer } from "./style";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { PageContainerProps } from "./type";
@@ -21,7 +22,7 @@ export function PageContainer({
             ]}
         >
             <StatusBar
-                backgroundColor={statusBarBackgroundColor}
+                backgroundColor={statusBarBackgroundColor ?? COLORS.white}
                 style={statusBarStyle}
                 translucent={false}
             />
