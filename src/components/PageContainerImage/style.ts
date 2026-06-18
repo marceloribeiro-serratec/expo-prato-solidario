@@ -1,7 +1,7 @@
 import { COLORS } from '@/constants/colors';
 import { StyleSheet } from 'react-native';
 
-export const pageContainer = StyleSheet.create({
+export const pageContainerImage = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
