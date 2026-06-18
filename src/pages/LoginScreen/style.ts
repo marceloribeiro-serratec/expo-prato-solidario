@@ -42,4 +42,21 @@ export const loginScreen = StyleSheet.create({
     subtitleContainer: {
         marginTop: 54,
     },
+    signupContainer: {
+        marginTop: 40,
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row",
+        gap: 4,
+    },
+    signupText: {
+        width: "auto",
+        paddingTop: 0,
+        lineHeight: 22,
+    },
+    signupButton: {
+        height: "auto",
+        paddingVertical: 0,
+        paddingHorizontal: 0,
+    },
 });

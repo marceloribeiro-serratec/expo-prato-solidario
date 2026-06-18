@@ -30,6 +30,7 @@ export function Subtitle({
     paddingTop,
     fontWeight,
     textAlign,
+    style,
     ...rest
 }: TitleProps) {
     return (
@@ -37,6 +38,7 @@ export function Subtitle({
             style={[
                 styles.subtitle,
                 { color, fontSize, paddingTop, fontWeight, textAlign },
+                style,
             ]}
             {...rest}
         >

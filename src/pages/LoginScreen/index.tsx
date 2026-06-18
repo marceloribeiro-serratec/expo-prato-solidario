@@ -48,23 +48,23 @@ export function LoginScreen() {
                         <LoginForm />
                     </View>
 
-                    <View
-                        style={{
-                            marginTop: 40,
-                            alignItems: "center",
-                            justifyContent: "center",
-                            flexDirection: "row",
-                        }}
-                    >
-                        <Subtitle color={COLORS.black} fontSize={16}>
+                    <View style={loginScreen.signupContainer}>
+                        <Subtitle
+                            color={COLORS.black}
+                            fontSize={16}
+                            style={loginScreen.signupText}
+                        >
                             Não tem uma conta?
                         </Subtitle>
                         <View>
                             <Button
                                 color={COLORS.transparent}
+                                style={loginScreen.signupButton}
                                 onPress={() => navigation.navigate("register")}
                             >
-                                <Title color={COLORS.red}>Criar conta</Title>
+                                <Title color={COLORS.red} size={16}>
+                                    Criar conta
+                                </Title>
                             </Button>
                         </View>
                     </View>
