@@ -5,9 +5,17 @@ export const logoImage = StyleSheet.create({
     container: {
         alignItems: "center",
         justifyContent: "center",
-        width: 96,
-        height: 96,
-        borderRadius: 50,
-        backgroundColor: COLORS.black
+        width: 80,
+        height: 80,
+        borderRadius: 12,
+        backgroundColor: COLORS.red,
+        shadowColor: COLORS.black,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+        elevation: 8,
     },
 });

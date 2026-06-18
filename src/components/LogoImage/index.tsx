@@ -1,16 +1,13 @@
 import { COLORS } from "@/constants";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { View } from "react-native";
 import { logoImage } from "./style";
+import React from "react";
+import { Utensils } from "lucide-react-native";
 
 export function LogoImage({ iconSize }: { iconSize?: number }) {
     return (
         <View style={logoImage.container}>
-            <FontAwesome
-                name="github"
-                size={iconSize ? iconSize : 82}
-                color={COLORS.white}
-            />
+            <Utensils color={COLORS.white} size={iconSize ? iconSize : 82} />
         </View>
     );
 }
