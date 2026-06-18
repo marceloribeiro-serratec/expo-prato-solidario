@@ -1,24 +1,23 @@
-import { View} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
-import { Subtitle } from '@/components/Subtitle';
-import { PageContainerImage } from '@/components/PageContainerImage';
-import { LogoImage } from '@/components/LogoImage';
-import { Title } from '@/components/Title';
-import { Button } from '@/components/Button';
+import { Subtitle } from "@/components/Subtitle";
+import { PageContainerImage } from "@/components/PageContainerImage";
+import { LogoImage } from "@/components/LogoImage";
+import { Title } from "@/components/Title";
+import { Button } from "@/components/Button";
 
-import { COLORS } from '@/constants/colors';
+import { COLORS } from "@/constants/colors";
 
-import { loginScreen } from './style';
-import { useNavigation } from '@react-navigation/native';
-import { NavigationProps } from '@/routes/type';
-import { LoginForm } from '@/components/LoginForm';
+import { loginScreen } from "./style";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "@/routes/type";
+import { LoginForm } from "@/components/LoginForm";
 
 export function LoginScreen() {
-
     const navigation = useNavigation<NavigationProps>();
 
-     return (
+    return (
         <PageContainerImage>
             <LinearGradient
                 colors={[
@@ -36,27 +35,41 @@ export function LoginScreen() {
                         <Title size={28} color={COLORS.red} fontWeight="bold">
                             Prato Solidário
                         </Title>
-                        <Subtitle fontSize={17} color={COLORS.black} textAlign="center">
+                        <Subtitle
+                            fontSize={17}
+                            color={COLORS.black}
+                            textAlign="center"
+                        >
                             Comida boa faz o bem para o corpo e para a alma.
                         </Subtitle>
                     </View>
 
                     <View style={loginScreen.formContainer}>
-                         <LoginForm />
+                        <LoginForm />
                     </View>
 
-                    <View style={{ marginTop: 60, alignItems: "center" }}>
-                        <Subtitle color={COLORS.black} fontSize={14}>
+                    <View
+                        style={{
+                            marginTop: 40,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexDirection: "row",
+                        }}
+                    >
+                        <Subtitle color={COLORS.black} fontSize={16}>
                             Não tem uma conta?
                         </Subtitle>
-                        <Button color={COLORS.transparent} onPress={() => navigation.navigate("register")}>
-                            <Title color={COLORS.red}>
-                                Criar conta
-                            </Title>
-                        </Button>
+                        <View>
+                            <Button
+                                color={COLORS.transparent}
+                                onPress={() => navigation.navigate("register")}
+                            >
+                                <Title color={COLORS.red}>Criar conta</Title>
+                            </Button>
+                        </View>
                     </View>
                 </View>
             </LinearGradient>
         </PageContainerImage>
-     )
+    );
 }
