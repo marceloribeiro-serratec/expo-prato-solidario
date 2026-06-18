@@ -74,7 +74,7 @@ export function RegisterForm() {
     return (
         <View>
             <View style={{ marginBottom: 8 }}>
-                <Text style={registerForm.label}>Nome</Text>
+                <Text style={registerForm.label}>Nome Completo</Text>
                 <Controller
                     control={control}
                     name="nome"
@@ -83,7 +83,7 @@ export function RegisterForm() {
                         <View style={registerForm.inputContainer}>
                             <IconInput iconName="user" />
                             <TextInput
-                                placeholder="Digite seu nome..."
+                                placeholder="como quer ser chamado"
                                 placeholderTextColor="#999"
                                 style={[
                                     registerForm.input,
@@ -117,7 +117,7 @@ export function RegisterForm() {
                         <View style={registerForm.inputContainer}>
                             <IconInput iconName="mail" />
                             <TextInput
-                                placeholder="Digite seu email..."
+                                placeholder="seu@email.com"
                                 placeholderTextColor="#999"
                                 style={[
                                     registerForm.input,
@@ -154,7 +154,7 @@ export function RegisterForm() {
                                 action={handleShowPassword}
                             />
                             <TextInput
-                                placeholder="Digite sua senha..."
+                                placeholder="mínimo 8 caracteres"
                                 placeholderTextColor="#999"
                                 style={[
                                     registerForm.input,
@@ -194,7 +194,7 @@ export function RegisterForm() {
                                 action={handleShowConfirmPassword}
                             />
                             <TextInput
-                                placeholder="Confirme sua senha..."
+                                placeholder="Repita sua senha"
                                 placeholderTextColor="#999"
                                 style={[
                                     registerForm.input,
