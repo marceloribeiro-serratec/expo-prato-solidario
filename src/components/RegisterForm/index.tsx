@@ -11,6 +11,7 @@ import { Button } from "../Button";
 import { Title } from "../Title";
 import { COLORS } from "@/constants";
 import { registerForm } from "./style";
+import { CardImpact } from "../CardImpact";
 
 const registerFormSchema = z
     .object({
@@ -73,6 +74,9 @@ export function RegisterForm() {
 
     return (
         <View>
+            <Title color={COLORS.red} size={24} fontWeight="bold">
+                Criar Conta
+            </Title>
             <View style={{ marginBottom: 8 }}>
                 <Text style={registerForm.label}>Nome Completo</Text>
                 <Controller
@@ -222,11 +226,16 @@ export function RegisterForm() {
             <View style={{ marginTop: 24 }}>
                 <Button color={COLORS.red} onPress={handleSubmit(onSubmit)}>
                     <Title color={COLORS.white} size={14} fontWeight="bold">
-                        <ArrowRight size={16} color={COLORS.white} />
                         Criar minha conta
                     </Title>
                 </Button>
             </View>
+
+            <CardImpact
+                title="Faça a diferença"
+                subtitle="Ao se cadastrar, você ajuda a combater a insegurança alimentar em sua cidade."
+                variant="normal"
+            />
         </View>
     );
 }

@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 
 import { cardImpact } from "./style";
 import { COLORS } from "@/constants/colors";
@@ -6,15 +6,59 @@ import { Title } from "../Title";
 import { Subtitle } from "../Subtitle";
 import { HandHeart } from "lucide-react-native";
 
-export function CardImpact() {
+interface CardImpactProps {
+   title?: string;
+   subtitle?: string;
+   variant?: "opacity" | "normal";
+}
+
+const cardImpactVariants = {
+    opacity: {
+        backgroundContainer: "rgba(0,109,55,0.4)",
+        backgroundIcon: COLORS.success_light,
+        iconColor: COLORS.green_dark,
+        titleColor: COLORS.success_light,
+        subtitleColor: COLORS.white,
+    },
+    normal: {
+        backgroundContainer: COLORS.success_light,
+        backgroundIcon: COLORS.green_dark,
+        iconColor: COLORS.white,
+        titleColor: COLORS.green_dark,
+        subtitleColor: COLORS.green_dark,
+    },
+};
+
+export function CardImpact({
+    title = "+1.2k refeições",
+    subtitle = "Doadas esta semana na sua região.",
+    variant = "opacity",
+}: CardImpactProps) {
+    const variantStyles = cardImpactVariants[variant];
+    
     return (
-        <View style={ cardImpact.container }>
-            <View style={{ backgroundColor: COLORS.success_light, width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center" }}>
-                <HandHeart color={ COLORS.green_dark } size={ 30 } />
+        <View
+            style={[
+                cardImpact.container,
+                { backgroundColor: variantStyles.backgroundContainer },
+            ]}
+        >
+            <View
+                style={[
+                    cardImpact.iconContainer,
+                    { backgroundColor: variantStyles.backgroundIcon },
+                ]}
+            >
+                <HandHeart color={variantStyles.iconColor} size={30} />
             </View>
-            <View>
-                <Title color={ COLORS.success_light }>+1.2K refeições</Title>
-                <Subtitle color={ COLORS.gray_100 }>Doadas esta semana em sua regiâo</Subtitle>
+            <View style={cardImpact.content}>
+                <Title color={variantStyles.titleColor}>{title}</Title>
+                <Subtitle
+                    color={variantStyles.subtitleColor}
+                    style={cardImpact.subtitle}
+                >
+                    {subtitle}
+                </Subtitle>
             </View>
         </View>
     );

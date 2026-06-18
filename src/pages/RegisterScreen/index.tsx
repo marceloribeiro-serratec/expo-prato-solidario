@@ -13,6 +13,7 @@ import { registerScreen } from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProps } from "@/routes/type";
 import { LoginForm } from "@/components/LoginForm";
+import { RegisterForm } from "@/components/RegisterForm";
 
 export function RegisterScreen() {
     const navigation = useNavigation<NavigationProps>();
@@ -45,7 +46,7 @@ export function RegisterScreen() {
                     </View>
 
                     <View style={registerScreen.formContainer}>
-                        <LoginForm />
+                        <RegisterForm />
                     </View>
 
                     <View style={registerScreen.signupContainer}>
