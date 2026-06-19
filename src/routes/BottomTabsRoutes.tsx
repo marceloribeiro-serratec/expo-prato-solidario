@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 
 import { HomeScreen } from "@/pages/HomeScreen";
-import { HistoryScreen } from "@/pages/HistoryScreen"
+import { HistoryScreen } from "@/pages/HistoryScreen";
 import { COLORS } from "@/constants/colors";
 import { HistoryIcon, House } from "lucide-react-native";
 
@@ -19,15 +19,12 @@ export function BottomTabsRoutes() {
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarStyle: {
-                    backgroundColor: COLORS.black,
-                    borderTopColor: COLORS.gray_800,
+                    backgroundColor: COLORS.white,
+                    borderTopColor: COLORS.gray_600,
                 },
-                tabBarActiveTintColor: COLORS.white,
-                tabBarInactiveTintColor: COLORS.gray_500,
-                tabBarLabelStyle: {
-                    fontSize: 12,
-                    fontWeight: "600",
-                },
+                tabBarActiveTintColor: COLORS.red,
+                tabBarInactiveTintColor: COLORS.gray_600,
+                tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => {
                     /* icones do tabs */
                     const icons = {
@@ -41,22 +38,37 @@ export function BottomTabsRoutes() {
                     return (
                         <View
                             style={{
-                                width: 44,
-                                height: 24,
+                                marginTop: 36,
+                                marginBottom: 18,
+                                width: 72,
+                                height: 46,
                                 alignItems: "center",
                                 justifyContent: "center",
-                                borderRadius: 12,
+                                borderRadius: 24,
                                 backgroundColor: focused
-                                    ? COLORS.info_dark
-                                    : "transparent",
+                                    ? COLORS.red
+                                    : COLORS.transparent,
                             }}
                         >
                             <Icon
                                 color={
-                                    focused ? COLORS.info_light : COLORS.gray_500
+                                    focused
+                                        ? COLORS.white
+                                        : COLORS.gray_400
                                 }
                                 size={21}
                             />
+                            <Text
+                                style={{
+                                    color: focused
+                                        ? COLORS.white
+                                        : COLORS.gray_400,
+                                    fontSize: 12,
+                                    fontWeight: focused ? "800" : "400",
+                                }}
+                            >
+                                {route.name}
+                            </Text>
                         </View>
                     );
                 },
@@ -67,7 +79,7 @@ export function BottomTabsRoutes() {
                 component={HomeScreen}
                 options={{ headerShown: false }}
             />
-             <Tabs.Screen
+            <Tabs.Screen
                 name="History"
                 component={HistoryScreen}
                 options={{ headerShown: false }}
