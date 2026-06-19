@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     scrollContainer: {
     paddingHorizontal: 20,
     gap: 16,
-    marginTop: 20,
+    paddingTop: 16,
+    paddingBottom: 16,
     },
 });
