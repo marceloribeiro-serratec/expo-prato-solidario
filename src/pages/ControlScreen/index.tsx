@@ -4,6 +4,10 @@ import { View, Button } from 'react-native';
 import { ModalDinamico, CampoModal } from '../../components/ModalDinamico';
 import { produtoService, Produto } from '@/services/produtoService';
 import { categoriaService, Categoria } from '@/services/categoriaService';
+import { ButtonFoto } from '@/components/ButtonFoto';
+import { Title } from '@/components/Title';
+import { Header } from '@/components/Header';
+import { COLORS } from "@/constants/colors";
 
 export function ControlScreen() {
     const [modalVisibleProduto, setModalVisibleProduto] = useState(false);
@@ -21,7 +25,6 @@ export function ControlScreen() {
         try {
             const listaProdutos = await produtoService.listar();
             setProdutos(listaProdutos);
-            console.log("Produtos carregados do Supabase:", listaProdutos);
         } catch (error) {
             alert("Erro: Não foi possível carregar os produtos.");
         }
@@ -116,12 +119,41 @@ export function ControlScreen() {
         }
     };
 
+     const abrirCamera = () => {
+        alert("Câmera Aberta");
+     }
+
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Button title="Adicionar Produto" onPress={abrirModalCriar} />
+        <View style={styles.pageContainer}>
+            {/* Header */}
+            <View style={styles.headerContainer}>
+                <Header 
+                    title="Prato Solidário" 
+                    titleColor={COLORS.red}
+                    hiddenIcons={['search', 'refresh', 'plus','shoppingCart']}
+                    iconColor={COLORS.red}
+                    showMenu={true}
+                    onPressMenu={() => alert('Menu')} 
+                />
+            </View>
+
+            {/* Título */}
+            <View style={styles.titleContainer}>
+                <Title color={COLORS.black} size={26} fontWeight="bold">
+                Novo Prato
+                </Title>
+                <Title color={COLORS.brown} size={16} fontWeight="regular">
+                Cadastre uma nova opção culinária e defina o impacto social positivo.
+                </Title>
+            </View>
+            <View style={styles.buttonFotoContainer}>
+                <ButtonFoto onPress={abrirCamera} style={{ width: '90%', paddingVertical: 65, alignSelf: 'center' }} />
+            </View>
+            
+            {/*<Button title="Adicionar Produto" onPress={abrirModalCriar} />
             <Button title="Deletar Produto" onPress={() => setModalVisibleDeletar(true)} />
             <Button title="Adicionar Categoria" onPress={() => setModalVisibleCategoria(true)} />
-            <Button title="Editar Produto" onPress={abrirModalEditar} />
+            <Button title="Editar Produto" onPress={abrirModalEditar} />*/}
 
             {/* Modal para inserir/alterar produto */}
             <ModalDinamico

@@ -7,4 +7,6 @@ export type RootStackParamList = {
     home: undefined;
     welcome: undefined;
     register: undefined;
+    control: undefined;
+    product: undefined;
 };
