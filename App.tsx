@@ -4,6 +4,7 @@ import { Image } from "expo-image";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { Routes } from "@/routes";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export default function App() {
     const [isSplashVisible, setIsSplashVisible] = useState(true);
@@ -32,7 +33,9 @@ export default function App() {
 
     return (
         <GestureHandlerRootView style={styles.root}>
-            <Routes />
+            <AuthProvider>
+                <Routes />
+            </AuthProvider>
         </GestureHandlerRootView>
     );
 }
