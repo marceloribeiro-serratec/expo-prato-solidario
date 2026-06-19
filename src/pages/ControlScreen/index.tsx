@@ -139,11 +139,9 @@ export function ControlScreen() {
 
             {/* Título */}
             <View style={styles.titleContainer}>
-                <Title color={COLORS.black} size={26} fontWeight="bold">
-                Novo Prato
-                </Title>
+                <Title color={COLORS.black} size={26} fontWeight="bold">Novo Prato</Title>
                 <Title color={COLORS.brown} size={16} fontWeight="regular">
-                Cadastre uma nova opção culinária e defina o impacto social positivo.
+                    Cadastre uma nova opção culinária e defina o impacto social positivo.
                 </Title>
             </View>
             <View style={styles.buttonFotoContainer}>

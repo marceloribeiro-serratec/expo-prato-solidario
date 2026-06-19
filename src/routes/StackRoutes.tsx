@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function StackRoutes() {
     return (
-        <Stack.Navigator initialRouteName="welcome">
+        <Stack.Navigator initialRouteName="control">
             <Stack.Screen
                 name="welcome"
                 component={WelcomeScreen}
