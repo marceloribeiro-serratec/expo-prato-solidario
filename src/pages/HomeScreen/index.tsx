@@ -36,7 +36,7 @@ export function HomeScreen() {
                     onPressMenu={() => alert("Menu")}
                 />
             </View>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
                 {/* Conteúdo da HomeScreen */}
                 <View>
                     <Image

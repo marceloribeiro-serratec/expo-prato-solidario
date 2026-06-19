@@ -1,28 +1,15 @@
 import { COLORS } from "@/constants";
-import { homeScreen } from "@/pages/HomeScreen/style";
 import { View, Text, Image } from "react-native";
 import { Title } from "../Title";
+import { Subtitle } from "../Subtitle";
+import { Badge } from "../Badge";
+import { emphasisCard } from "./style";
+import { ButtonRounded } from "../ButtonRounded";
 
 export function EmphasisCard() {
     return (
         <View
-            style={{
-                width: "100%",
-                height: 386,
-                backgroundColor: COLORS.gray_100,
-                borderRadius: 12,
-                alignItems: "center",
-                borderColor: COLORS.gray_300,
-                borderWidth: 1,
-                shadowColor: COLORS.black,
-                shadowOffset: {
-                    width: 0,
-                    height: 4,
-                },
-                shadowOpacity: 0.1,
-                elevation: 3,
-                overflow: "hidden",
-            }}
+            style={emphasisCard.container}
         >
             <Image
                 source={require("../../../assets/strognoff.png")}
@@ -33,21 +20,48 @@ export function EmphasisCard() {
                 }}
                 resizeMode="cover"
             />
+            <View style={emphasisCard.badge}>
+                <Badge color={COLORS.green_dark}>
+                    <Text style={emphasisCard.badgeText}>Impacto Social</Text>
+                </Badge>
+            </View>
             <View
                 style={{
                     marginHorizontal: 20,
-                    marginVertical: 24,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center"
                 }}
             >
-                <Title color={COLORS.black} size={28}>
-                    Strogonoff{"\n"}Clássico
-                </Title>
-                <Title color={COLORS.red} size={24}>
-                    R$ {"\n"}34,90
-                </Title>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        gap: 130,
+                    }}
+                >
+                    <Title color={COLORS.black} size={28}>
+                        Strogonoff{"\n"}Clássico
+                    </Title>
+                    <Title color={COLORS.red} size={24}>
+                        R${"\n"}34,90
+                    </Title>
+                </View>
+                <Subtitle color={COLORS.black} fontSize={18} fontWeight="400">
+                    Carne selecionada, arroz e...
+                </Subtitle>
+                <View style={emphasisCard.footer}>
+                    <Subtitle
+                        color={COLORS.black}
+                        fontSize={14}
+                        fontWeight="400"
+                        style={emphasisCard.timeText}
+                    >
+                        25-35 min
+                    </Subtitle>
+                    <ButtonRounded color={COLORS.red} style={emphasisCard.addButton}>
+                        <Title color={COLORS.white} size={16} fontWeight="600">
+                            Adicionar
+                        </Title>
+                    </ButtonRounded>
+                </View>
             </View>
         </View>
     );
