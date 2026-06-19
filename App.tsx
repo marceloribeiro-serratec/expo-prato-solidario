@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { Routes } from "@/routes";
-import Toast from "react-native-toast-message";
 
 export default function App() {
     const [isSplashVisible, setIsSplashVisible] = useState(true);
@@ -18,20 +18,29 @@ export default function App() {
 
     if (isSplashVisible) {
         return (
-            <View style={styles.splashContainer}>
-                <Image
-                    source={require("./assets/splash.png")}
-                    style={styles.splashImage}
-                    contentFit="contain"
-                />
-            </View>
+            <GestureHandlerRootView style={styles.root}>
+                <View style={styles.splashContainer}>
+                    <Image
+                        source={require("./assets/splash.png")}
+                        style={styles.splashImage}
+                        contentFit="contain"
+                    />
+                </View>
+            </GestureHandlerRootView>
         );
     }
 
-    return <Routes />;
+    return (
+        <GestureHandlerRootView style={styles.root}>
+            <Routes />
+        </GestureHandlerRootView>
+    );
 }
 
 const styles = StyleSheet.create({
+    root: {
+        flex: 1,
+    },
     splashContainer: {
         flex: 1,
         alignItems: "center",

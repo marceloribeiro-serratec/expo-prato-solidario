@@ -4,6 +4,8 @@ import { StyleSheet } from 'react-native';
 export const pageContainer = StyleSheet.create({
     container: {
         flex: 1,
+        height: '100%',
+        width: '100%',
         backgroundColor: COLORS.white,
         paddingHorizontal: 12,
         paddingTop: 24,
