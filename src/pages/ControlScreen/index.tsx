@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { styles } from './styles';
-import { View, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import { ModalDinamico, CampoModal } from '../../components/ModalDinamico';
 import { produtoService, Produto } from '@/services/produtoService';
 import { categoriaService, Categoria } from '@/services/categoriaService';
@@ -8,6 +8,8 @@ import { ButtonFoto } from '@/components/ButtonFoto';
 import { Title } from '@/components/Title';
 import { Header } from '@/components/Header';
 import { COLORS } from "@/constants/colors";
+import { Button } from "@/components/Button";
+import { FontAwesome } from "@expo/vector-icons";
 
 export function ControlScreen() {
     const [modalVisibleProduto, setModalVisibleProduto] = useState(false);
@@ -147,11 +149,31 @@ export function ControlScreen() {
             <View style={styles.buttonFotoContainer}>
                 <ButtonFoto onPress={abrirCamera} style={{ width: '90%', paddingVertical: 65, alignSelf: 'center' }} />
             </View>
-            
-            {/*<Button title="Adicionar Produto" onPress={abrirModalCriar} />
-            <Button title="Deletar Produto" onPress={() => setModalVisibleDeletar(true)} />
-            <Button title="Adicionar Categoria" onPress={() => setModalVisibleCategoria(true)} />
-            <Button title="Editar Produto" onPress={abrirModalEditar} />*/}
+
+            <View style={styles.buttonContainer}>
+                <Button 
+                    color={COLORS.red}
+                    activeOpacity={0.8}
+                    style={{ width: "90%", height: 60, borderRadius: 12 }}
+                    onPress={() => setModalVisibleCategoria(true)}
+                >
+                    <FontAwesome name="save" size={20} color="#FFF" />
+                    <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: "500", marginLeft: 6 }}>
+                        Cadastrar Categoria
+                    </Text>
+                </Button>
+                <Button 
+                    color={COLORS.red}
+                    activeOpacity={0.8}
+                    style={{ width: "90%", height: 60, borderRadius: 12 }}
+                    onPress={abrirModalCriar}
+                >    
+                    <FontAwesome name="save" size={20} color="#FFF" />
+                    <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: "500", marginLeft: 6 }}>
+                        Cadastrar Produto
+                    </Text>
+                </Button>
+            </View>
 
             {/* Modal para inserir/alterar produto */}
             <ModalDinamico

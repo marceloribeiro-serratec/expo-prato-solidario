@@ -20,5 +20,11 @@ export const styles = StyleSheet.create({
     },
     buttonFotoContainer: {
         marginTop: 24,
+    },
+    buttonContainer: {
+        marginTop: 30,
+        gap: 15,
+        width: "100%",
+        alignItems: "center",
     }
 })
