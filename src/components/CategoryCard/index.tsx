@@ -10,7 +10,7 @@ export function CategoryCard() {
             <View style={categoryCard.iconContainer}>
                 <Hamburger color={COLORS.green_dark} size={24} />
             </View>
-            <Title color={COLORS.black} size={24} fontWeight={400}>
+            <Title color={COLORS.black} size={18} fontWeight={600}>
                 Hamburguer
             </Title>
         </View>
