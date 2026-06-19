@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
 import { styles } from './style';
 import { Header } from '@/components/Header';
 import { COLORS } from '@/constants/colors';
 import { SummaryCard } from '@/components/SummaryCard';
-import { Banknote, ShoppingCart, Percent, Heart } from 'lucide-react-native';
+import { Banknote, ShoppingCart, Percent, Heart, SlidersHorizontal } from 'lucide-react-native';
 import { Search } from 'lucide-react-native';
 import { SearchContainer } from '@/components/SearchContainer';
 import { SearchBar } from '@/components/SearchBar';
@@ -13,6 +13,8 @@ import { useState } from 'react';
 export function HistoryScreen() {
 
     const [search, setSearch] = useState('');
+    const [showToday, setShowToday] = useState(false);
+    const [isTodaySelected, setIsTodaySelected] = useState(false);
 
     return (
         <View style={styles.container}>
@@ -39,7 +41,28 @@ export function HistoryScreen() {
                     value={search}
                     onChangeText={setSearch} 
                 />
-            </SearchContainer>
+            </SearchContainer>            
+            <View style={styles.filterRow}>
+                <TouchableOpacity 
+                    style={styles.filterButton} 
+                    onPress={() => setShowToday(!showToday)}
+                >
+                    <SlidersHorizontal color={COLORS.white} size={16} />
+                    <Text style={styles.activeText}>Filtros</Text>
+                </TouchableOpacity>
+
+                {showToday && (
+                    <TouchableOpacity 
+                        style={[
+                            styles.option, 
+                            isTodaySelected ? styles.activeOption : null
+                        ]}
+                        onPress={() => setIsTodaySelected(!isTodaySelected)}
+                    >
+                        <Text style={isTodaySelected ? styles.activeText : styles.text}>Hoje</Text>
+                    </TouchableOpacity>
+                )}
+            </View>
         </View>
     );
 }
