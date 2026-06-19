@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 12,
         borderRadius: 24,
-        width:294
+        width:"100%",
+        marginTop: 24,
     },
 });
