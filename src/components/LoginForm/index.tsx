@@ -13,7 +13,9 @@ import { COLORS } from "@/constants/colors";
 import { loginForm } from "./style";
 import { Divisor } from "../Divisor";
 import { ButtonIcon } from "../ButtonIcon";
-import { Lock } from "lucide-react-native";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "@/routes/type";
 
 const loginFormSchema = z.object({
     email: z
@@ -33,6 +35,8 @@ const loginFormSchema = z.object({
 
 export function LoginForm() {
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const { signIn, signInWithGoogle, loading } = useAuth();
+    const navigation = useNavigation<NavigationProps>();
 
     const {
         register,
@@ -53,13 +57,19 @@ export function LoginForm() {
     }
 
     function onSubmit(data: z.infer<typeof loginFormSchema>) {
-        console.log(data);
-
+        signIn(data.email, data.senha);
         reset();
     }
 
-    function handleLoginWithGoogle() {
-       alert("Login com Google");
+    async function handleLoginWithGoogle() {
+        const logged = await signInWithGoogle();
+
+        if (logged) {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "home" }],
+            });
+        }
     }
 
     return (
@@ -140,13 +150,13 @@ export function LoginForm() {
                 )}
             </View>
             <View style={{ marginTop: 24 }}>
-                <Button color={COLORS.red} onPress={handleSubmit(onSubmit)}>
+                <Button color={COLORS.red} onPress={handleSubmit(onSubmit)} disabled={loading}>
                     <Title color={COLORS.white} size={14} fontWeight="bold">
-                        Entrar
+                        {loading ? "Entrando..." : "Entrar"}
                     </Title>
                 </Button>
                 <Divisor />
-                <ButtonIcon variant="google" onPress={handleLoginWithGoogle}/>
+                <ButtonIcon variant="google" onPress={handleLoginWithGoogle} disabled={loading}/>
             </View>
         </View>
     );
