@@ -12,7 +12,8 @@ import { welcomeScreen } from "./style";
 import { COLORS } from "@/constants";
 import { CardImpact } from "@/components/CardImpact";
 import { useNavigation } from "@react-navigation/native";
-import { NavigationProps } from "./type";
+import { NavigationProps } from "@/routes/type";
+
 
 export function WelcomeScreen() {
 

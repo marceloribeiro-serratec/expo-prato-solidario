@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 import { HomeScreen } from "@/pages/HomeScreen";
-import { HistoryScreen } from "@/pages/HistoryScreen"
+import { HistoryScreen } from "@/pages/HistoryScreen";
 import { COLORS } from "@/constants/colors";
 import { HistoryIcon, House } from "lucide-react-native";
 
@@ -19,14 +19,50 @@ export function BottomTabsRoutes() {
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarStyle: {
-                    backgroundColor: COLORS.black,
-                    borderTopColor: COLORS.gray_800,
+                    backgroundColor: COLORS.white,
+                    borderTopColor: COLORS.gray_600,
                 },
-                tabBarActiveTintColor: COLORS.white,
-                tabBarInactiveTintColor: COLORS.gray_500,
-                tabBarLabelStyle: {
-                    fontSize: 12,
-                    fontWeight: "600",
+                tabBarActiveTintColor: COLORS.red,
+                tabBarInactiveTintColor: COLORS.gray_600,
+                tabBarButton: ({
+                    accessibilityState,
+                    children,
+                    ref: _ref,
+                    style,
+                    ...props
+                }) => {
+                    const focused = accessibilityState?.selected;
+
+                    return (
+                        <Pressable
+                            {...props}
+                            accessibilityState={accessibilityState}
+                            style={[
+                                style,
+                                {
+                                    borderTopColor: focused
+                                        ? COLORS.red
+                                        : COLORS.transparent,
+                                    borderTopWidth: focused ? 4 : 1,
+                                },
+                            ]}
+                        >
+                            {children}
+                        </Pressable>
+                    );
+                },
+                tabBarLabel: ({ color, focused }) => {
+                    return (
+                        <Text
+                            style={{
+                                color: focused ? COLORS.red : COLORS.gray_400,
+                                fontSize: 12,
+                                fontWeight: focused ? "800" : "400",
+                            }}
+                        >
+                            {route.name}
+                        </Text>
+                    );
                 },
                 tabBarIcon: ({ focused }) => {
                     /* icones do tabs */
@@ -42,18 +78,20 @@ export function BottomTabsRoutes() {
                         <View
                             style={{
                                 width: 44,
-                                height: 24,
+                                height: 28,
                                 alignItems: "center",
                                 justifyContent: "center",
                                 borderRadius: 12,
                                 backgroundColor: focused
-                                    ? COLORS.info_dark
+                                    ? COLORS.red
                                     : "transparent",
                             }}
                         >
                             <Icon
                                 color={
-                                    focused ? COLORS.info_light : COLORS.gray_500
+                                    focused
+                                        ? COLORS.info_light
+                                        : COLORS.gray_400
                                 }
                                 size={21}
                             />
@@ -67,7 +105,7 @@ export function BottomTabsRoutes() {
                 component={HomeScreen}
                 options={{ headerShown: false }}
             />
-             <Tabs.Screen
+            <Tabs.Screen
                 name="History"
                 component={HistoryScreen}
                 options={{ headerShown: false }}
