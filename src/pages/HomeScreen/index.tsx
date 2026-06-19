@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextInput, View, Image, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Search } from "lucide-react-native";
+import { Hamburger, Salad, Search, Wheat } from "lucide-react-native";
 
 import { SearchContainer } from "@/components/SearchContainer";
 import { PageContainerStatic } from "@/components/PageContainerStatic";
@@ -100,8 +100,30 @@ export function HomeScreen() {
                     </Button>
                 </View>
 
-                <View>
-                    <CategoryCard />
+                <View
+                    style={{
+                        flexDirection: "row",
+                        gap: 22,
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                    }}
+                >
+                    <CategoryCard
+                        title="Hamburguer"
+                        icon={<Hamburger color={COLORS.red} size={30} />}
+                        background={COLORS.danger_light}
+                    />
+                    <CategoryCard
+                        title="saladas"
+                        icon={<Salad color={COLORS.green} size={30} />}
+                        background={COLORS.green_light}
+                    />
+                    <CategoryCard
+                        title="Massas Artesanais"
+                        icon={<Wheat color={COLORS.blue} size={30} />}
+                        background={COLORS.info_light}
+                    />
                 </View>
 
                 <View>
