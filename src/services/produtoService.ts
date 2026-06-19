@@ -1,4 +1,3 @@
-import { Float } from "react-native/Libraries/Types/CodegenTypes";
 import { api } from "./api";
 
 export interface Produto {
