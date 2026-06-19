@@ -18,10 +18,9 @@ export const homeScreen = StyleSheet.create({
         color: COLORS.gray_600,
     },
     badgeText: {
-        width: "auto",
-        paddingTop: 0,
         lineHeight: 18,
         fontSize: 13,
+        fontWeight: "600",
         color: COLORS.white,
         textAlign: "center",
     },

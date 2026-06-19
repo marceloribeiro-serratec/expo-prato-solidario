@@ -14,6 +14,7 @@ import { COLORS } from "@/constants";
 import { homeScreen } from "./style";
 import { Button } from "@/components/Button";
 import { CardImpact } from "@/components/CardImpact";
+import { CategoryCard } from "@/components/CategoryCard";
 
 export function HomeScreen() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -56,12 +57,7 @@ export function HomeScreen() {
                         }}
                     >
                         <Badge color={COLORS.green_dark}>
-                            <Text
-                                style={{
-                                    color: COLORS.white,
-                                    fontWeight: "seimibold",
-                                }}
-                            >
+                            <Text style={homeScreen.badgeText}>
                                 Impacto Real
                             </Text>
                         </Badge>
@@ -105,11 +101,27 @@ export function HomeScreen() {
                 </View>
 
                 <View>
+                    <CategoryCard />
+                </View>
+
+                <View>
                     <CardImpact
                         title="Sua comunidade agradece!"
                         subtitle="Você já ajudou a doar 12 refeições este mês."
                         variant="normal"
                     />
+                </View>
+                <View
+                    style={{
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        flexDirection: "row",
+                        marginVertical: 20,
+                    }}
+                >
+                    <Title color={COLORS.black} size={28} fontWeight="500">
+                        Destaques Solidários
+                    </Title>
                 </View>
             </ScrollView>
         </PageContainerStatic>
