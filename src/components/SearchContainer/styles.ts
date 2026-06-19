@@ -10,9 +10,9 @@ export const styles = StyleSheet.create({
         borderColor: COLORS.gray_300,
         height: 48,
         paddingHorizontal: 16,
-        paddingVertical: 12,
-        borderRadius: 24,
-        width:"100%",
-        marginTop: 24,
+        paddingVertical: 0,
+        borderRadius: 12,
+        marginHorizontal: 16,
+        marginTop: 2,
     },
 });
