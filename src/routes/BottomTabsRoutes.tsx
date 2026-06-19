@@ -2,11 +2,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View } from "react-native";
 
 import { HomeScreen } from "@/pages/HomeScreen";
+import { HistoryScreen } from "@/pages/HistoryScreen"
 import { COLORS } from "@/constants/colors";
-import { House } from "lucide-react-native";
+import { HistoryIcon, House } from "lucide-react-native";
 
 export type RootTabsParamList = {
     Home: undefined;
+    History: undefined;
 };
 
 const Tabs = createBottomTabNavigator<RootTabsParamList>();
@@ -30,6 +32,7 @@ export function BottomTabsRoutes() {
                     /* icones do tabs */
                     const icons = {
                         Home: House,
+                        History: HistoryIcon,
                     } as const;
 
                     const Icon =
@@ -62,6 +65,11 @@ export function BottomTabsRoutes() {
             <Tabs.Screen
                 name="Home"
                 component={HomeScreen}
+                options={{ headerShown: false }}
+            />
+             <Tabs.Screen
+                name="History"
+                component={HistoryScreen}
                 options={{ headerShown: false }}
             />
         </Tabs.Navigator>
