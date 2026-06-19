@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
 
 import { Routes } from "@/routes";
+import Toast from "react-native-toast-message";
 
 export default function App() {
     const [isSplashVisible, setIsSplashVisible] = useState(true);
