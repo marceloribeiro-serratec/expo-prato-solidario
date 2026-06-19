@@ -6,13 +6,23 @@ import { Badge } from "../Badge";
 import { emphasisCard } from "./style";
 import { ButtonRounded } from "../ButtonRounded";
 
+const DESTAQUES_solidarios = [
+    {
+        image: "../../../assets/strognoff.png",
+        title: "Strogonoff{"\n"}Clássico",
+        price: "R${"\n"}34,90",
+        time: "25-35 min"
+
+    }
+]
+
 export function EmphasisCard() {
     return (
         <View
             style={emphasisCard.container}
         >
             <Image
-                source={require("../../../assets/strognoff.png")}
+                source={require({image})}
                 style={{
                     width: "100%",
                     height: 200,
