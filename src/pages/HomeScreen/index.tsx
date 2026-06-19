@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { TextInput, View } from "react-native";
 
 import { Header } from "@/components/Header";
 import { PageContainer } from "@/components/PageContainer";
@@ -8,7 +8,6 @@ import { homeScreen } from "./style";
 import { ScrollView } from "react-native-gesture-handler";
 import { SearchContainer } from "@/components/SearchContainer";
 import { Search } from "lucide-react-native";
-import { Input } from "@/components/Input";
 import { PageContainerStatic } from "@/components/PageContainerStatic";
 
 export function HomeScreen() {
@@ -33,11 +32,14 @@ export function HomeScreen() {
                 {/* Conteúdo da HomeScreen */}
                 <SearchContainer>
                     <Search size={20} color={COLORS.gray_600} />
-                    <Input
+                    <TextInput
                         value={searchQuery}
                         onChangeText={setSearchQuery}
                         placeholder="O que vamos pedir hoje?"
-                        style={{ marginLeft: 10 }}
+                        placeholderTextColor={COLORS.gray_500}
+                        style={homeScreen.searchInput}
+                        autoCapitalize="none"
+                        autoCorrect={false}
                     />
                 </SearchContainer>
             </ScrollView>
