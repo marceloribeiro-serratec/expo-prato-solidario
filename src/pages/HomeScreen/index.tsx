@@ -15,27 +15,7 @@ import { homeScreen } from "./style";
 import { Button } from "@/components/Button";
 import { CardImpact } from "@/components/CardImpact";
 import { CategoryCard } from "@/components/CategoryCard";
-
-const categories = [
-    {
-        id: "1",
-        title: "Hamburguer",
-        icon: <Hamburger color={COLORS.red} size={30} />,
-        background: COLORS.danger_light,
-    },
-    {
-        id: "2",
-        title: "Saladas",
-        icon: <Salad color={COLORS.green} size={30} />,
-        background: COLORS.green_light,
-    },
-    {
-        id: "3",
-        title: "Massas Artesanais",
-        icon: <Wheat color={COLORS.blue} size={30} />,
-        background: COLORS.info_light,
-    },
-];
+import { CATEGORIES } from "@/constants/categories";
 
 export function HomeScreen() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -130,7 +110,7 @@ export function HomeScreen() {
                         flexWrap: "wrap",
                     }}
                 >
-                    {categories.map((category) => (
+                    {CATEGORIES.map((category) => (
                         <CategoryCard
                             key={category.id}
                             title={category.title}
@@ -138,16 +118,6 @@ export function HomeScreen() {
                             background={category.background}
                         />
                     ))}
-                </View>
-                        title="saladas"
-                        icon={<Salad color={COLORS.green} size={30} />}
-                        background={COLORS.green_light}
-                    />
-                    <CategoryCard
-                        title="Massas Artesanais"
-                        icon={<Wheat color={COLORS.blue} size={30} />}
-                        background={COLORS.info_light}
-                    />
                 </View>
 
                 <View>
