@@ -48,6 +48,12 @@ export default function ProdutosScreen() {
         carregarDados();
     }, []);
 
+    const produtosFiltrados = produtos.filter(
+        (produto) =>
+            produto.id_categoria === categoriaSelecionada &&
+            produto.nome.toLowerCase().includes(busca.toLowerCase()),
+    );
+
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -61,66 +67,72 @@ export default function ProdutosScreen() {
                 />
             </View>
 
-            <TextInput
-                placeholder="Buscar pratos..."
-                value={busca}
-                onChangeText={setBusca}
-                style={styles.input}
-            />
-
-            <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.categoriasContainer}
-            >
-                {categorias.map((categoria) => (
-                    <TouchableOpacity
-                        key={categoria.id}
-                        onPress={() => setCategoriaSelecionada(categoria.id)}
-                        style={[
-                            styles.categoria,
-
-                            categoriaSelecionada === categoria.id &&
-                                styles.categoriaSelecionada,
-                        ]}
-                    >
-                        <Text
-                            style={[
-                                styles.textoCategoria,
-
-                                categoriaSelecionada === categoria.id &&
-                                    styles.textoCategoriaSelecionada,
-                            ]}
-                        >
-                            {categoria.nome}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
-
-            <View style={styles.metaCard}>
-                <Text style={styles.metaTitulo}>Meta de Hoje</Text>
-
-                <Text style={styles.metaDescricao}>
-                    Cada pedido dos "Favoritos Sociais" nos ajuda a doar uma
-                    refeição.
-                </Text>
-
-                <View style={styles.metaRodape}>
-                    <Text style={styles.metaInfo}>362 refeições doadas</Text>
-
-                    <Text style={styles.metaInfo}>Meta: 500</Text>
-                </View>
-            </View>
-
             <FlatList
-                data={produtos}
+                data={produtosFiltrados}
                 renderItem={({ item }) => <ProdutoCard data={item} />}
                 keyExtractor={(item) => String(item.id)}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
                     paddingBottom: 100,
                 }}
+                ListHeaderComponent={
+                    <>
+                        <TextInput
+                            placeholder="Buscar por categoria selecionada..."
+                            value={busca}
+                            onChangeText={setBusca}
+                            style={styles.input}
+                        />
+
+                        <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={styles.categoriasContainer}
+                        >
+                            {categorias.map((categoria) => (
+                                <TouchableOpacity
+                                    key={categoria.id}
+                                    onPress={() =>
+                                        setCategoriaSelecionada(categoria.id)
+                                    }
+                                    style={[
+                                        styles.categoria,
+                                        categoriaSelecionada === categoria.id &&
+                                            styles.categoriaSelecionada,
+                                    ]}
+                                >
+                                    <Text
+                                        style={[
+                                            styles.textoCategoria,
+                                            categoriaSelecionada ===
+                                                categoria.id &&
+                                                styles.textoCategoriaSelecionada,
+                                        ]}
+                                    >
+                                        {categoria.nome}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+
+                        <View style={styles.metaCard}>
+                            <Text style={styles.metaTitulo}>Meta de Hoje</Text>
+
+                            <Text style={styles.metaDescricao}>
+                                Cada pedido dos "Favoritos Sociais" nos ajuda a
+                                doar uma refeição.
+                            </Text>
+
+                            <View style={styles.metaRodape}>
+                                <Text style={styles.metaInfo}>
+                                    362 refeições doadas
+                                </Text>
+
+                                <Text style={styles.metaInfo}>Meta: 500</Text>
+                            </View>
+                        </View>
+                    </>
+                }
             />
         </View>
     );
