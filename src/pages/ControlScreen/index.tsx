@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { styles } from './styles';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { ModalDinamico, CampoModal } from '../../components/ModalDinamico';
 import { produtoService, Produto } from '@/services/produtoService';
+import { refeicaoService } from '@/services/refeicaoService';
+import { pedidoService } from '@/services/pedidoService';
 import { categoriaService, Categoria } from '@/services/categoriaService';
 import { ButtonFoto } from '@/components/ButtonFoto';
 import { Title } from '@/components/Title';
 import { Header } from '@/components/Header';
 import { COLORS } from "@/constants/colors";
 import { Button } from "@/components/Button";
-import { FontAwesome } from "@expo/vector-icons";
+import { CardDados } from '@/components/CardDados';
+import { Feather, FontAwesome } from "@expo/vector-icons";
+
+type TelaDadosProps = {
+    totalBaixoEstoque: number;
+    totalRefeicoes: number;
+    totalVendasMes: number;
+};
 
 export function ControlScreen() {
     const [modalVisibleProduto, setModalVisibleProduto] = useState(false);
@@ -17,18 +26,29 @@ export function ControlScreen() {
     const [modalVisibleCategoria, setModalVisibleCategoria] = useState(false);
 
     const [modo, setModo] = useState<"criar" | "editar">("criar");
+
+    const [produtos, setProdutos] = useState<Produto[]>([]);
+    const [totalRefeicoes, setTotalRefeicoes] = useState<number>(0);
+    const [totalVendasMes, setTotalVendasMes] = useState<number>(0);
+
+    const totalBaixoEstoque = produtos.filter(produto => produto.quantidade < 8).length;
   
     // Salva temporariamente os dados digitados
     const [modalData, setModalData] = useState<Record<string, string>>({});
 
-    const [produtos, setProdutos] = useState<Produto[]>([]);
-
     const carregarDados = async () => {
         try {
-            const listaProdutos = await produtoService.listar();
+            const [listaProdutos, totalMeals, totalVendas] = await Promise.all([
+                produtoService.listar(),
+                refeicaoService.buscarTotal(),
+                pedidoService.buscarTotalMesAtual(),
+            ]);
+
             setProdutos(listaProdutos);
+            setTotalRefeicoes(totalMeals);
+            setTotalVendasMes(totalVendas);
         } catch (error) {
-            alert("Erro: Não foi possível carregar os produtos.");
+            alert("Erro: Não foi possível carregar as informações do painel.");
         }
     };
 
@@ -121,9 +141,36 @@ export function ControlScreen() {
         }
     };
 
-     const abrirCamera = () => {
+    const abrirCamera = () => {
         alert("Câmera Aberta");
-     }
+    }
+
+    const dadosCards = [
+        {
+            id: "1",
+            titulo: "Impacto Gerado",
+            subtitulo: `${totalRefeicoes} ${totalRefeicoes === 1 ? 'Refeição' : 'Refeições'}`,
+            corFundoCard: COLORS.green_light,
+            corFundoIcone: "#74DB9A",
+            icone: <Feather name="heart" size={24} color={COLORS.white} />
+        },
+        {
+            id: "2",
+            titulo: "Baixo Estoque",
+            subtitulo: `${totalBaixoEstoque} ${totalBaixoEstoque === 1 ? 'Item' : 'Itens'}`,
+            corFundoCard: COLORS.gray_300,
+            corFundoIcone: COLORS.gray_400,
+            icone: <FontAwesome name="archive" size={20} color={COLORS.white} />
+        },
+        {
+            id: "3",
+            titulo: "Vendas no mês",
+            subtitulo: `${totalVendasMes} ${totalVendasMes === 1 ? 'Venda' : 'Vendas'}`,
+            corFundoCard: "#E0B1B6",
+            corFundoIcone: "#FF3030",
+            icone: <Feather name="trending-up" size={22} color={COLORS.white} />
+        }
+    ];
 
     return (
         <View style={styles.pageContainer}>
@@ -150,6 +197,7 @@ export function ControlScreen() {
                 <ButtonFoto onPress={abrirCamera} style={{ width: '90%', paddingVertical: 65, alignSelf: 'center' }} />
             </View>
 
+            {/* Botões */}
             <View style={styles.buttonContainer}>
                 <Button 
                     color={COLORS.red}
@@ -173,6 +221,26 @@ export function ControlScreen() {
                         Cadastrar Produto
                     </Text>
                 </Button>
+            </View>
+
+            {/* Cards das Informações */}
+            <View style={styles.cardsContainer}>
+                <FlatList
+                    data={dadosCards}
+                    keyExtractor={(item) => item.id}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.lista}
+                    renderItem={({ item }) => (
+                        <CardDados
+                            titulo={item.titulo}
+                            subtitulo={item.subtitulo}
+                            corFundoCard={item.corFundoCard}
+                            corFundoIcone={item.corFundoIcone}
+                            icone={item.icone}
+                        />
+                    )}
+                />
             </View>
 
             {/* Modal para inserir/alterar produto */}
