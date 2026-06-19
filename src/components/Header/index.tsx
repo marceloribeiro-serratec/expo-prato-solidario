@@ -2,7 +2,7 @@ import { View, TouchableOpacity } from 'react-native'
 import { Title } from '../Title';
 
 import { COLORS } from '@/constants/colors';
-import { Menu, CirclePlus, CircleUserRound, RefreshCcw, Search, User } from 'lucide-react-native';
+import { Menu, CirclePlus, CircleUserRound, RefreshCcw, Search, ShoppingCart } from 'lucide-react-native';
 
 import { header } from './style';
 
@@ -41,6 +41,7 @@ export function Header({
                     {!hiddenIcons.includes('refresh') && <RefreshCcw color={iconColor} size={16} />}
                     {!hiddenIcons.includes('plus') && <CirclePlus color={iconColor} size={20} />}
                     {!hiddenIcons.includes('user') && <CircleUserRound color={iconColor} size={20} />}
+                    {!hiddenIcons.includes('shoppingCart') && <ShoppingCart color={iconColor} size={24} />}
                 </View>
         </View>
     )

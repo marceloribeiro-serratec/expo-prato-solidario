@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { HomeScreen } from "@/pages/HomeScreen";
 import { HistoryScreen } from "@/pages/HistoryScreen";
@@ -24,46 +24,7 @@ export function BottomTabsRoutes() {
                 },
                 tabBarActiveTintColor: COLORS.red,
                 tabBarInactiveTintColor: COLORS.gray_600,
-                tabBarButton: ({
-                    accessibilityState,
-                    children,
-                    ref: _ref,
-                    style,
-                    ...props
-                }) => {
-                    const focused = accessibilityState?.selected;
-
-                    return (
-                        <Pressable
-                            {...props}
-                            accessibilityState={accessibilityState}
-                            style={[
-                                style,
-                                {
-                                    borderTopColor: focused
-                                        ? COLORS.red
-                                        : COLORS.transparent,
-                                    borderTopWidth: focused ? 4 : 1,
-                                },
-                            ]}
-                        >
-                            {children}
-                        </Pressable>
-                    );
-                },
-                tabBarLabel: ({ color, focused }) => {
-                    return (
-                        <Text
-                            style={{
-                                color: focused ? COLORS.red : COLORS.gray_400,
-                                fontSize: 12,
-                                fontWeight: focused ? "800" : "400",
-                            }}
-                        >
-                            {route.name}
-                        </Text>
-                    );
-                },
+                tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => {
                     /* icones do tabs */
                     const icons = {
@@ -77,24 +38,37 @@ export function BottomTabsRoutes() {
                     return (
                         <View
                             style={{
-                                width: 44,
-                                height: 28,
+                                marginTop: 36,
+                                marginBottom: 18,
+                                width: 72,
+                                height: 46,
                                 alignItems: "center",
                                 justifyContent: "center",
-                                borderRadius: 12,
+                                borderRadius: 24,
                                 backgroundColor: focused
                                     ? COLORS.red
-                                    : "transparent",
+                                    : COLORS.transparent,
                             }}
                         >
                             <Icon
                                 color={
                                     focused
-                                        ? COLORS.info_light
+                                        ? COLORS.white
                                         : COLORS.gray_400
                                 }
                                 size={21}
                             />
+                            <Text
+                                style={{
+                                    color: focused
+                                        ? COLORS.white
+                                        : COLORS.gray_400,
+                                    fontSize: 12,
+                                    fontWeight: focused ? "800" : "400",
+                                }}
+                            >
+                                {route.name}
+                            </Text>
                         </View>
                     );
                 },
