@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styles } from './styles';
 import { View, Button } from 'react-native';
 import { ModalDinamico, CampoModal } from '../../components/ModalDinamico';
+import { produtoService, Produto } from '@/services/produtoService';
+import { categoriaService, Categoria } from '@/services/categoriaService';
 
 export function ControlScreen() {
     const [modalVisibleProduto, setModalVisibleProduto] = useState(false);
@@ -13,13 +15,29 @@ export function ControlScreen() {
     // Salva temporariamente os dados digitados
     const [modalData, setModalData] = useState<Record<string, string>>({});
 
+    const [produtos, setProdutos] = useState<Produto[]>([]);
+
+    const carregarDados = async () => {
+        try {
+            const listaProdutos = await produtoService.listar();
+            setProdutos(listaProdutos);
+            console.log("Produtos carregados do Supabase:", listaProdutos);
+        } catch (error) {
+            alert("Erro: Não foi possível carregar os produtos.");
+        }
+    };
+
+    useEffect(() => {
+        carregarDados();
+    }, []);
+
     // Campos do Modal Inserir/Alterar produto
     const novoProduto: CampoModal[] = [
         { key: 'nome', label: 'Nome', placeholder: 'Digite o nome do produto' },
         { key: 'descricao', label: 'Descrição', placeholder: 'Digite a descrição' },
-        { key: 'categoria', label: 'Categoria', placeholder: 'Digite o id de Categoria', keyboardType: 'numeric' },
+        { key: 'id_categoria', label: 'Categoria', placeholder: 'Digite o id de Categoria', keyboardType: 'numeric' },
         { key: 'preco', label: 'Preço', placeholder: '0.00', keyboardType: 'numeric' },
-        { key: 'imagem', label: 'Imagem (URL)', placeholder: 'http://...' },
+        { key: 'imagem_url', label: 'Imagem (URL)', placeholder: 'http://...' },
         { key: 'quantidade', label: 'Quantidade', placeholder: '0', keyboardType: 'numeric' },
     ];
 
@@ -52,10 +70,28 @@ export function ControlScreen() {
       setModalVisibleProduto(true);
     };
 
-    const criarProduto = () => {
-        console.log("Produto Inserido:", modalData);
+    const criarProduto = async() => {
+        if (!modalData.nome || !modalData.preco || !modalData.id_categoria) {
+            alert("Por favor, preencha pelo menos Nome, Preço e ID da Categoria para o teste.");
+            return;
+        }
+
+        const novoProduto: Produto = {
+            nome: modalData.nome,
+            descricao: modalData.descricao || "Sem descrição", // Evita nulos se o usuário não digitar
+            id_categoria: Number(modalData.id_categoria),
+            preco: Number(modalData.preco),
+            imagem_url: modalData.imagem_url || "https://via.placeholder.com/150", // URL padrão de teste
+            quantidade: modalData.quantidade ? Number(modalData.quantidade) : 0,
+            disponibilidade: true,
+            desconto: 0
+        };
+
+        await produtoService.inserir(novoProduto);
+        alert(`${novoProduto.nome} foi cadastrado.`);
         setModalData({});
         setModalVisibleProduto(false);
+        carregarDados();
     };
 
     const editarProduto = () => {
@@ -69,10 +105,15 @@ export function ControlScreen() {
         setModalVisibleDeletar(false);
     };
 
-    const criarCategoria = () => {
-        console.log("Categoria Inserida:", modalData);
-        setModalData({});
-        setModalVisibleCategoria(false);
+    const criarCategoria = async() => {
+        try {
+            await categoriaService.inserir({ nome: modalData.nome });
+            alert("Categoria cadastrada!");
+            setModalData({});
+            setModalVisibleCategoria(false);
+        } catch (error) {
+            alert("Erro: Falha ao cadastrar categoria.");
+        }
     };
 
     return (
