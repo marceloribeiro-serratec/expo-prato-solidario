@@ -17,4 +17,12 @@ export const homeScreen = StyleSheet.create({
         fontSize: 16,
         color: COLORS.gray_600,
     },
+    badgeText: {
+        width: "auto",
+        paddingTop: 0,
+        lineHeight: 18,
+        fontSize: 13,
+        color: COLORS.white,
+        textAlign: "center",
+    },
 });
