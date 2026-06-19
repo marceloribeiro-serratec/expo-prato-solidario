@@ -13,13 +13,13 @@ import { PageContainerStatic } from "@/components/PageContainerStatic";
 
 export function HomeScreen() {
     return (
-        <PageContainerStatic statusBarStyle="dark">
+        <PageContainerStatic statusBarStyle="dark" statusBarBackgroundColor={COLORS.gray_100}>
             <View style={homeScreen.headerContainer}>
                 <Header 
                     title="Prato Solidário" 
                     titleColor={COLORS.red}
-                    hiddenIcons={['search', 'refresh', 'plus']}
                     iconColor={COLORS.red}
+                    hiddenIcons={['search', 'refresh', 'plus', 'user']}
                     showMenu={true}
                     onPressMenu={() => alert('Menu')} 
                 />

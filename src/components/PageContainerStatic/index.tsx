@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import { COLORS } from "@/constants/colors";
-import { pageContainer } from "./style";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { PageContainerProps } from "./type";
+
+import { COLORS } from "@/constants/colors";
+import { pageContainerStatic } from "./style";
 
 export function PageContainerStatic({
     children,
@@ -16,7 +17,7 @@ export function PageContainerStatic({
         <SafeAreaView
             edges={edges}
             style={[
-                pageContainer.container,
+                pageContainerStatic.container,
                 backgroundColor && { backgroundColor },
                 paddingBottom !== undefined && { paddingBottom },
             ]}
