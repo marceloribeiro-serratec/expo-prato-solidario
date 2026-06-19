@@ -1,6 +1,5 @@
 import { ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground } from "expo-image";
 
 import { PageContainerProps } from "./type";
@@ -15,34 +14,30 @@ export function PageContainerScroll({
     statusBarStyle = "dark",
 }: PageContainerProps) {
     return (
-        <SafeAreaView
+        <ImageBackground
+            source={require("../../../assets/welcome.png")}
             style={[
-                pageContainer.container,
+                pageContainer.backgroundImage,
                 backgroundColor && { backgroundColor },
             ]}
+            contentFit="cover"
         >
-            <ImageBackground
-                source={require("../../../assets/welcome.png")}
-                style={pageContainer.backgroundImage}
-                contentFit="cover"
+            <StatusBar
+                backgroundColor={statusBarBackgroundColor ?? COLORS.black}
+                style={statusBarStyle}
+                translucent={false}
+            />
+            <ScrollView
+                style={pageContainer.scroll}
+                contentContainerStyle={[
+                    pageContainer.content,
+                    paddingBottom !== undefined && { paddingBottom },
+                ]}
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
             >
-                <StatusBar
-                    backgroundColor={statusBarBackgroundColor ?? COLORS.black}
-                    style={statusBarStyle}
-                    translucent={false}
-                />
-                <ScrollView
-                    style={pageContainer.scroll}
-                    contentContainerStyle={[
-                        pageContainer.content,
-                        paddingBottom !== undefined && { paddingBottom },
-                    ]}
-                    keyboardShouldPersistTaps="handled"
-                    showsVerticalScrollIndicator={false}
-                >
-                    {children}
-                </ScrollView>
-            </ImageBackground>
-        </SafeAreaView>
+                {children}
+            </ScrollView>
+        </ImageBackground>
     );
 }
