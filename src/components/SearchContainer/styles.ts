@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: COLORS.gray_200,
+        backgroundColor: COLORS.gray_100,
         borderWidth: 1,
         borderColor: COLORS.gray_300,
         height: 48,

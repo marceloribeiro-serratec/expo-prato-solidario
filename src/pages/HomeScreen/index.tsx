@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { View } from "react-native";
 
 import { Header } from "@/components/Header";
@@ -8,27 +9,36 @@ import { ScrollView } from "react-native-gesture-handler";
 import { SearchContainer } from "@/components/SearchContainer";
 import { Search } from "lucide-react-native";
 import { Input } from "@/components/Input";
-import React from "react";
 import { PageContainerStatic } from "@/components/PageContainerStatic";
 
 export function HomeScreen() {
+    const [searchQuery, setSearchQuery] = useState("");
+
     return (
-        <PageContainerStatic statusBarStyle="dark" statusBarBackgroundColor={COLORS.gray_100}>
+        <PageContainerStatic
+            statusBarStyle="dark"
+            statusBarBackgroundColor={COLORS.gray_100}
+        >
             <View style={homeScreen.headerContainer}>
-                <Header 
-                    title="Prato Solidário" 
+                <Header
+                    title="Prato Solidário"
                     titleColor={COLORS.red}
                     iconColor={COLORS.red}
-                    hiddenIcons={['search', 'refresh', 'plus', 'user']}
+                    hiddenIcons={["search", "refresh", "plus", "user"]}
                     showMenu={true}
-                    onPressMenu={() => alert('Menu')} 
+                    onPressMenu={() => alert("Menu")}
                 />
             </View>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 {/* Conteúdo da HomeScreen */}
                 <SearchContainer>
                     <Search size={20} color={COLORS.gray_600} />
-                    <Input placeholder="O que vamos pedir hoje?" style={{ marginLeft: 10 }} />
+                    <Input
+                        value={searchQuery}
+                        onChangeText={setSearchQuery}
+                        placeholder="O que vamos pedir hoje?"
+                        style={{ marginLeft: 10 }}
+                    />
                 </SearchContainer>
             </ScrollView>
         </PageContainerStatic>
