@@ -8,7 +8,7 @@ export const homeScreen = StyleSheet.create({
         paddingVertical: 0,
         borderBottomWidth: 1,
         borderBottomColor: COLORS.gray_200,
-        justifyContent: 'center', 
+        justifyContent: "center",
     },
     searchInput: {
         flex: 1,
@@ -23,5 +23,31 @@ export const homeScreen = StyleSheet.create({
         fontWeight: "600",
         color: COLORS.white,
         textAlign: "center",
+    },
+    image: {
+        width: 370,
+        height: 200,
+        borderRadius: 12,
+        alignSelf: "center",
+        marginTop: 20,
+    },
+    imageDescription: {
+        position: "absolute",
+        left: 30,
+        right: 40,
+        bottom: 20,
+    },
+    containercategorias: {
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexDirection: "row",
+        marginVertical: 20,
+    },
+    containerCardCategorias: {
+        flexDirection: "row",
+        gap: 22,
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexWrap: "wrap",
     },
 });

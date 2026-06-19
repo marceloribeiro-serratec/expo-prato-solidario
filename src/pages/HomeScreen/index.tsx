@@ -16,6 +16,7 @@ import { Button } from "@/components/Button";
 import { CardImpact } from "@/components/CardImpact";
 import { CategoryCard } from "@/components/CategoryCard";
 import { CATEGORIES } from "@/constants/categories";
+import { EmphasisCard } from "@/components/EmphasisCard";
 
 export function HomeScreen() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -40,23 +41,10 @@ export function HomeScreen() {
                 <View>
                     <Image
                         source={require("../../../assets/hero_home.png")}
-                        style={{
-                            width: 370,
-                            height: 200,
-                            borderRadius: 12,
-                            alignSelf: "center",
-                            marginTop: 20,
-                        }}
+                        style={homeScreen.image}
                         resizeMode="cover"
                     />
-                    <View
-                        style={{
-                            position: "absolute",
-                            left: 30,
-                            right: 40,
-                            bottom: 20,
-                        }}
-                    >
+                    <View style={homeScreen.imageDescription}>
                         <Badge color={COLORS.green_dark}>
                             <Text style={homeScreen.badgeText}>
                                 Impacto Real
@@ -83,14 +71,7 @@ export function HomeScreen() {
                     />
                 </SearchContainer>
 
-                <View
-                    style={{
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        flexDirection: "row",
-                        marginVertical: 20,
-                    }}
-                >
+                <View style={homeScreen.containercategorias}>
                     <Title color={COLORS.black} size={28} fontWeight="500">
                         Categorias
                     </Title>
@@ -102,13 +83,7 @@ export function HomeScreen() {
                 </View>
 
                 <View
-                    style={{
-                        flexDirection: "row",
-                        gap: 22,
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        flexWrap: "wrap",
-                    }}
+                    style={homeScreen.containerCardCategorias}
                 >
                     {CATEGORIES.map((category) => (
                         <CategoryCard
@@ -127,17 +102,13 @@ export function HomeScreen() {
                         variant="normal"
                     />
                 </View>
-                <View
-                    style={{
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        flexDirection: "row",
-                        marginVertical: 20,
-                    }}
-                >
+                <View style={homeScreen.containercategorias}>
                     <Title color={COLORS.black} size={28} fontWeight="500">
                         Destaques Solidários
                     </Title>
+                </View>
+                <View>
+                    <EmphasisCard />
                 </View>
             </ScrollView>
         </PageContainerStatic>
