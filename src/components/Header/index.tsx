@@ -46,27 +46,13 @@ export function Header({
                     {title}
                 </Title>
             </View>
-            <View style={header.containerIcons}>
-                {!hiddenIcons.includes("search") && (
-                    <Search color={iconColor} size={20} />
-                )}
-                {!hiddenIcons.includes("refresh") && (
-                    <RefreshCcw color={iconColor} size={16} />
-                )}
-                {!hiddenIcons.includes("plus") && (
-                    <CirclePlus color={iconColor} size={20} />
-                )}
-                {!hiddenIcons.includes("user") && (
-                    <CircleUserRound color={iconColor} size={20} />
-                )}
-                {!hiddenIcons.includes("shoppingCart") && (
-                    <ShoppingCart
-                        color={iconColor}
-                        size={24}
-                        onPress={() => alert("Carrinho")}
-                    />
-                )}
-            </View>
+                <View style={header.containerIcons}>
+                    {!hiddenIcons.includes('search') && <Search color={iconColor} size={20} />}
+                    {!hiddenIcons.includes('refresh') && <RefreshCcw color={iconColor} size={16} />}
+                    {!hiddenIcons.includes('plus') && <CirclePlus color={iconColor} size={20} />}
+                    {!hiddenIcons.includes('user') && <CircleUserRound color={iconColor} size={22} />}
+                    {!hiddenIcons.includes('shoppingCart') && <ShoppingCart color={iconColor} size={24} />}
+                </View>
         </View>
     );
 }

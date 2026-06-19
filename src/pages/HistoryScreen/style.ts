@@ -11,6 +11,16 @@ export const styles = StyleSheet.create({
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight! + 20 : 50,
         paddingHorizontal: 20,
         paddingBottom: 20,
-        // Isso garante que o header herde o comportamento de alinhamento
+    },
+    cardsContainer: {
+        flexDirection: 'row',
+        paddingHorizontal: 12,
+        marginTop: 20,
+        justifyContent: 'space-between',
+    },
+    scrollContainer: {
+    paddingHorizontal: 20,
+    gap: 16,
+    marginTop: 20,
     },
 });
