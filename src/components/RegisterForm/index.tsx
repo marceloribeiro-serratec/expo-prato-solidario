@@ -91,7 +91,7 @@ export function RegisterForm() {
                                 placeholderTextColor="#999"
                                 style={[
                                     registerForm.input,
-                                    { paddingLeft: 50, paddingRight: 10 },
+                                    { paddingLeft: 20, paddingRight: 10 },
                                 ]}
                                 keyboardType="default"
                                 autoCapitalize="none"
@@ -125,7 +125,7 @@ export function RegisterForm() {
                                 placeholderTextColor="#999"
                                 style={[
                                     registerForm.input,
-                                    { paddingLeft: 50, paddingRight: 10 },
+                                    { paddingLeft: 20, paddingRight: 10 },
                                 ]}
                                 keyboardType="default"
                                 autoCapitalize="none"
@@ -162,7 +162,7 @@ export function RegisterForm() {
                                 placeholderTextColor="#999"
                                 style={[
                                     registerForm.input,
-                                    { paddingLeft: 50, paddingRight: 10 },
+                                    { paddingLeft: 20, paddingRight: 10 },
                                 ]}
                                 keyboardType="default"
                                 autoCapitalize="none"
@@ -202,7 +202,7 @@ export function RegisterForm() {
                                 placeholderTextColor="#999"
                                 style={[
                                     registerForm.input,
-                                    { paddingLeft: 50, paddingRight: 10 },
+                                    { paddingLeft: 20, paddingRight: 10 },
                                 ]}
                                 keyboardType="default"
                                 autoCapitalize="none"
