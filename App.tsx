@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Toast from "react-native-toast-message";
 
 import { Routes } from "@/routes";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -36,6 +37,7 @@ export default function App() {
             <AuthProvider>
                 <Routes />
             </AuthProvider>
+            <Toast />
         </GestureHandlerRootView>
     );
 }

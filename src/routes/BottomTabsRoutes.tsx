@@ -4,11 +4,13 @@ import { Text, View } from "react-native";
 import { HomeScreen } from "@/pages/HomeScreen";
 import { HistoryScreen } from "@/pages/HistoryScreen";
 import { COLORS } from "@/constants/colors";
-import { HistoryIcon, House } from "lucide-react-native";
+import { BookOpenIcon, HistoryIcon, House } from "lucide-react-native";
+import { SobreNosScreen } from "@/pages/SobreNosScreen";
 
 export type RootTabsParamList = {
     Home: undefined;
     History: undefined;
+    Sobre: undefined;
 };
 
 const Tabs = createBottomTabNavigator<RootTabsParamList>();
@@ -16,6 +18,7 @@ const Tabs = createBottomTabNavigator<RootTabsParamList>();
 export function BottomTabsRoutes() {
     return (
         <Tabs.Navigator
+            initialRouteName="Sobre"
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarStyle: {
@@ -30,6 +33,7 @@ export function BottomTabsRoutes() {
                     const icons = {
                         Home: House,
                         History: HistoryIcon,
+                        Sobre: BookOpenIcon,
                     } as const;
 
                     const Icon =
@@ -82,6 +86,11 @@ export function BottomTabsRoutes() {
             <Tabs.Screen
                 name="History"
                 component={HistoryScreen}
+                options={{ headerShown: false }}
+            />
+            <Tabs.Screen
+                name="Sobre"
+                component={SobreNosScreen}
                 options={{ headerShown: false }}
             />
         </Tabs.Navigator>
