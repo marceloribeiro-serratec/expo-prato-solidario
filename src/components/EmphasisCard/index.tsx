@@ -15,6 +15,7 @@ export function EmphasisCard({
     price,
     description,
     time,
+    onAddToCart,
 }: EmphasisCardProps) {
     return (
         <View style={emphasisCard.container} key={id}>
@@ -72,6 +73,7 @@ export function EmphasisCard({
                     <ButtonRounded
                         color={COLORS.red}
                         style={emphasisCard.addButton}
+                        onPress={onAddToCart}
                     >
                         <Title color={COLORS.white} size={16} fontWeight="600">
                             Adicionar

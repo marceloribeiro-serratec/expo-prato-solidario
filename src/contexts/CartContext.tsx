@@ -1,11 +1,49 @@
-import React, { createContext, useState, useMemo } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { CartContextData, CartItem, Product } from '../types/cart';
 import { calculateSocialContribution } from '../utils/formatCurrency';
 
 export const CartContext = createContext<CartContextData>({} as CartContextData);
 
+const CART_STORAGE_KEY = '@prato-solidario:cart';
+
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCartLoaded, setIsCartLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadStoredCart() {
+      try {
+        const storedCart = await AsyncStorage.getItem(CART_STORAGE_KEY);
+
+        if (storedCart) {
+          setCart(JSON.parse(storedCart));
+        }
+      } catch (error) {
+        console.warn('Nao foi possivel carregar o carrinho salvo.', error);
+      } finally {
+        setIsCartLoaded(true);
+      }
+    }
+
+    loadStoredCart();
+  }, []);
+
+  useEffect(() => {
+    if (!isCartLoaded) {
+      return;
+    }
+
+    async function persistCart() {
+      try {
+        await AsyncStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+      } catch (error) {
+        console.warn('Nao foi possivel salvar o carrinho.', error);
+      }
+    }
+
+    persistCart();
+  }, [cart, isCartLoaded]);
 
   const addToCart = (product: Product) => {
     if (!product.id) {

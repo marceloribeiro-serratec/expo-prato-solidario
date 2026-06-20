@@ -18,9 +18,25 @@ import { CategoryCard } from "@/components/CategoryCard";
 import { CATEGORIES } from "@/constants/categories";
 import { EmphasisCard } from "@/components/EmphasisCard";
 import { DESTAQUES_SOLIDARIOS } from "@/constants/destaqueSolidario";
+import { useCart } from "@/hooks/useCart";
+import { toastProdutoAdicionado } from "@/utils/toast";
 
 export function HomeScreen() {
     const [searchQuery, setSearchQuery] = useState("");
+    const { addToCart } = useCart();
+
+    function handleAddDestaqueToCart(destaque: typeof DESTAQUES_SOLIDARIOS[number]) {
+        const productName = destaque.title.replace(/\s+/g, " ");
+
+        addToCart({
+            id: destaque.id,
+            name: productName,
+            price: destaque.priceValue,
+            image: destaque.image,
+            description: destaque.description,
+        });
+        toastProdutoAdicionado(productName);
+    }
 
     return (
         <PageContainerStatic
@@ -109,12 +125,15 @@ export function HomeScreen() {
                 <View>
                     {DESTAQUES_SOLIDARIOS.map((destaque) => (
                         <EmphasisCard
+                            key={destaque.id}
                             id={destaque.id}
                             image={destaque.image}
                             title={destaque.title}
                             price={destaque.price}
+                            priceValue={destaque.priceValue}
                             description={destaque.description}
                             time={destaque.time}
+                            onAddToCart={() => handleAddDestaqueToCart(destaque)}
                         />
                     ))}
                 </View>

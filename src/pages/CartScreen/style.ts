@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants';
+import { COLORS } from '../../constants';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background, // Lembre-se de ajustar para a propriedade de fundo do seu colors.ts
+    backgroundColor: COLORS.gray_100,
   },
   listContent: {
     padding: 16,
