@@ -18,7 +18,7 @@ const Tabs = createBottomTabNavigator<RootTabsParamList>();
 export function BottomTabsRoutes() {
     return (
         <Tabs.Navigator
-            initialRouteName="Sobre"
+            initialRouteName="Home"
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarStyle: {

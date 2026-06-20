@@ -26,7 +26,10 @@ const registerFormSchema = z
             .trim()
             .nonempty("Nome é obrigatório")
             .min(3, "Nome deve ter pelo menos 3 caracteres")
-            .regex(/^[A-Za-zÀ-ÿ\s]+$/, "Nome deve conter apenas letras e espaços"),
+            .regex(
+                /^[A-Za-zÀ-ÿ\s]+$/,
+                "Nome deve conter apenas letras e espaços",
+            ),
         email: z
             .string()
             .trim()
@@ -38,7 +41,7 @@ const registerFormSchema = z
             .nonempty("Telefone é obrigatório")
             .refine(
                 (value) => value.replace(/\D/g, "").length >= 10,
-                "Telefone deve ter DDD e número"
+                "Telefone deve ter DDD e número",
             ),
         cpf: z
             .string()
@@ -46,7 +49,7 @@ const registerFormSchema = z
             .nonempty("CPF é obrigatório")
             .refine(
                 (value) => value.replace(/\D/g, "").length === 11,
-                "CPF deve ter 11 dígitos"
+                "CPF deve ter 11 dígitos",
             ),
         senha: z
             .string()
@@ -181,7 +184,9 @@ export function RegisterForm() {
                     )}
                 />
                 {errors.nome && (
-                    <Text style={registerForm.errorText}>{errors.nome.message}</Text>
+                    <Text style={registerForm.errorText}>
+                        {errors.nome.message}
+                    </Text>
                 )}
             </View>
 
@@ -211,7 +216,9 @@ export function RegisterForm() {
                     )}
                 />
                 {errors.email && (
-                    <Text style={registerForm.errorText}>{errors.email.message}</Text>
+                    <Text style={registerForm.errorText}>
+                        {errors.email.message}
+                    </Text>
                 )}
             </View>
 
@@ -273,7 +280,9 @@ export function RegisterForm() {
                     )}
                 />
                 {errors.cpf && (
-                    <Text style={registerForm.errorText}>{errors.cpf.message}</Text>
+                    <Text style={registerForm.errorText}>
+                        {errors.cpf.message}
+                    </Text>
                 )}
             </View>
 
@@ -286,7 +295,9 @@ export function RegisterForm() {
                         <View style={registerForm.inputContainer}>
                             <IconInput
                                 iconName={hidePassword ? "eye" : "eye-off"}
-                                action={() => setHidePassword((current) => !current)}
+                                action={() =>
+                                    setHidePassword((current) => !current)
+                                }
                             />
                             <TextInput
                                 placeholder="Mínimo 8 caracteres"
@@ -307,7 +318,9 @@ export function RegisterForm() {
                     )}
                 />
                 {errors.senha && (
-                    <Text style={registerForm.errorText}>{errors.senha.message}</Text>
+                    <Text style={registerForm.errorText}>
+                        {errors.senha.message}
+                    </Text>
                 )}
             </View>
 
@@ -319,9 +332,13 @@ export function RegisterForm() {
                     render={({ field: { onChange, onBlur, value } }) => (
                         <View style={registerForm.inputContainer}>
                             <IconInput
-                                iconName={hideConfirmPassword ? "eye" : "eye-off"}
+                                iconName={
+                                    hideConfirmPassword ? "eye" : "eye-off"
+                                }
                                 action={() =>
-                                    setHideConfirmPassword((current) => !current)
+                                    setHideConfirmPassword(
+                                        (current) => !current,
+                                    )
                                 }
                             />
                             <TextInput
@@ -356,7 +373,11 @@ export function RegisterForm() {
                     disabled={isSubmitting}
                 >
                     <Title color={COLORS.white} size={14} fontWeight="bold">
-                        {isSubmitting ? <Loading size={14} color={COLORS.white} /> : "Criar minha conta"}
+                        {isSubmitting ? (
+                            <Loading size={18} color={COLORS.white} />
+                        ) : (
+                            "Criar minha conta"
+                        )}
                     </Title>
                 </Button>
             </View>

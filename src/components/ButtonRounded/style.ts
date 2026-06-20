@@ -1,16 +1,14 @@
-import { COLORS } from "@/constants";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        backgroundColor: COLORS.info_light,
-        borderRadius: 12,
-        paddingHorizontal: 16,
-        height: 32,
+        width:  'auto',
+        height: 48,
+        padding: 12,
+        borderRadius: 20,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        gap: 4,
-        width: 140
-    }
+        gap: 2,
+    },
 });

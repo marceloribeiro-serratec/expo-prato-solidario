@@ -51,7 +51,7 @@ export function LoginScreen() {
                     <View style={loginScreen.signupContainer}>
                         <Subtitle
                             color={COLORS.black}
-                            fontSize={16}
+                            fontSize={18}
                             style={loginScreen.signupText}
                         >
                             Não tem uma conta?
