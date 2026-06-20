@@ -21,12 +21,15 @@ export const categoryCard = StyleSheet.create({
         shadowOpacity: 0.1,
         elevation: 3,
     },
-    iconContainer: {
+    imageContainer: {
         width: 60,
         height: 60,
         borderRadius: 30,
         backgroundColor: COLORS.danger_light,
-        alignItems: "center",
-        justifyContent: "center",
+        overflow: "hidden",
+    },
+    image: {
+        width: "100%",
+        height: "100%",
     },
 });

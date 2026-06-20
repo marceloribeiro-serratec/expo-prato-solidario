@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextInput, View, Image, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Hamburger, Salad, Search, Wheat } from "lucide-react-native";
+import { Search } from "lucide-react-native";
 
 import { SearchContainer } from "@/components/SearchContainer";
 import { PageContainerStatic } from "@/components/PageContainerStatic";
@@ -38,7 +38,6 @@ export function HomeScreen() {
                 />
             </View>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-                {/* Conteúdo da HomeScreen */}
                 <View>
                     <Image
                         source={require("../../../assets/hero_home.png")}
@@ -88,10 +87,9 @@ export function HomeScreen() {
                 >
                     {CATEGORIES.map((category) => (
                         <CategoryCard
-                            key={category.id}
+                            id={category.id}
                             title={category.title}
-                            icon={category.icon}
-                            background={category.background}
+                            image={category.image}
                         />
                     ))}
                 </View>
