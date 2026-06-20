@@ -34,7 +34,7 @@ export function StackRoutes() {
             <Stack.Screen
                 name="cart"
                 component={CartScreen}
-                options={{ headerShown: false }}
+                options={{ headerShown: true, title: "Meu Carrinho" }}
             />
         </Stack.Navigator>
     );
