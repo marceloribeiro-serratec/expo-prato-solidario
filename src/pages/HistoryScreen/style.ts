@@ -19,10 +19,10 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     scrollContainer: {
-    paddingHorizontal: 20,
-    gap: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
+        paddingHorizontal: 20,
+        gap: 16,
+        paddingTop: 16,
+        paddingBottom: 16,
     },
     filterRow: {
         flexDirection: 'row',
@@ -66,4 +66,8 @@ export const styles = StyleSheet.create({
         color: COLORS.white, 
         fontWeight: '600' 
     },
+    listContainer: {
+        flex: 1,
+        width: '100%',
+    }
 });
