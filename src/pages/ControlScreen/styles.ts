@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
     },
     cardsContainer: {
         marginTop: 20,
+        marginBottom: 40,
         width: "100%",
     },
     lista: {
@@ -37,5 +38,8 @@ export const styles = StyleSheet.create({
         gap: 16,
         alignItems: "center",
         flexDirection: "row",
+    },
+    ordenacaoContainer: {
+        paddingVertical: 20,
     }
 })

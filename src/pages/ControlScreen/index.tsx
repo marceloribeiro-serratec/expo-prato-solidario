@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { styles } from './styles';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, ScrollView } from 'react-native';
 import { ModalDinamico, CampoModal } from '../../components/ModalDinamico';
 import { produtoService, Produto } from '@/services/produtoService';
 import { refeicaoService } from '@/services/refeicaoService';
@@ -13,6 +13,7 @@ import { COLORS } from "@/constants/colors";
 import { Button } from "@/components/Button";
 import { CardDados } from '@/components/CardDados';
 import { Feather, FontAwesome } from "@expo/vector-icons";
+import { TabelaProdutos } from '@/components/TabelaProduto';
 
 type TelaDadosProps = {
     totalBaixoEstoque: number;
@@ -31,6 +32,10 @@ export function ControlScreen() {
     const [totalRefeicoes, setTotalRefeicoes] = useState<number>(0);
     const [totalVendasMes, setTotalVendasMes] = useState<number>(0);
 
+    const [categorias, setCategorias] = useState<Categoria[]>([]);
+
+    const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
+
     const totalBaixoEstoque = produtos.filter(produto => produto.quantidade < 8).length;
   
     // Salva temporariamente os dados digitados
@@ -38,13 +43,15 @@ export function ControlScreen() {
 
     const carregarDados = async () => {
         try {
-            const [listaProdutos, totalMeals, totalVendas] = await Promise.all([
+            const [listaProdutos, listaCategorias, totalMeals, totalVendas] = await Promise.all([
                 produtoService.listar(),
+                categoriaService.listar(),
                 refeicaoService.buscarTotal(),
                 pedidoService.buscarTotalMesAtual(),
             ]);
 
             setProdutos(listaProdutos);
+            setCategorias(listaCategorias);
             setTotalRefeicoes(totalMeals);
             setTotalVendasMes(totalVendas);
         } catch (error) {
@@ -55,6 +62,13 @@ export function ControlScreen() {
     useEffect(() => {
         carregarDados();
     }, []);
+
+    const categoriasMap: Record<number, string> = Object.fromEntries(
+        categorias.map((cat) => [
+            cat.id!,
+            cat.nome,
+        ])
+    );
 
     // Campos do Modal Inserir/Alterar produto
     const novoProduto: CampoModal[] = [
@@ -82,17 +96,19 @@ export function ControlScreen() {
         setModalVisibleProduto(true);
     };
 
-    const abrirModalEditar = () => {
-      setModo("editar");
-      setModalData({
-          nome: "Pizza Calabresa",
-          descricao: "Pizza grande",
-          categoria: "1",
-          preco: "79.90",
-          imagem: "pizza.com.italia",
-          quantidade: "10",
-      });
-      setModalVisibleProduto(true);
+    const abrirModalEditar = (produto: Produto) => {
+        setProdutoSelecionado(produto);
+        setModo("editar");
+        setModalData({
+            nome: produto.nome,
+            descricao: produto.descricao,
+            id_categoria: produto.id_categoria.toString(),
+            preco: produto.preco.toString(),
+            imagem_url: produto.imagem_url,
+            quantidade: produto.quantidade.toString(),
+        });
+
+        setModalVisibleProduto(true);
     };
 
     const criarProduto = async() => {
@@ -103,10 +119,10 @@ export function ControlScreen() {
 
         const novoProduto: Produto = {
             nome: modalData.nome,
-            descricao: modalData.descricao || "Sem descrição", // Evita nulos se o usuário não digitar
+            descricao: modalData.descricao || "Sem descrição",
             id_categoria: Number(modalData.id_categoria),
             preco: Number(modalData.preco),
-            imagem_url: modalData.imagem_url || "https://via.placeholder.com/150", // URL padrão de teste
+            imagem_url: modalData.imagem_url || "https://via.placeholder.com/150",
             quantidade: modalData.quantidade ? Number(modalData.quantidade) : 0,
             disponibilidade: true,
             desconto: 0
@@ -119,15 +135,40 @@ export function ControlScreen() {
         carregarDados();
     };
 
-    const editarProduto = () => {
-        console.log("Produto Alterado:", modalData);
-        setModalData({});
+    const editarProduto = async () => {
+        if (!produtoSelecionado) return;
+        const dados: Partial<Produto> = {
+            nome: modalData.nome,
+            descricao: modalData.descricao,
+            preco: Number(modalData.preco),
+            id_categoria: Number(modalData.id_categoria),
+            imagem_url: modalData.imagem_url,
+            quantidade: Number(modalData.quantidade),
+        };
+
+        await produtoService.editar(produtoSelecionado.id!, dados);
+
         setModalVisibleProduto(false);
+        setProdutoSelecionado(null);
+        setModalData({});
+        carregarDados();
     };
 
-    const deletarProduto = () => {
-        console.log("Produto Removido:");
+    const deletarProduto = async () => {
+        if (!produtoSelecionado?.id) return;
+        await produtoService.deletar(produtoSelecionado.id);
+
         setModalVisibleDeletar(false);
+        setProdutoSelecionado(null);
+        carregarDados();
+    };
+
+    const alterarStatus = async (id: number, disponibilidade: boolean) => {
+        await produtoService.alterarDisponibilidade(
+            id,
+            !disponibilidade
+        );
+        carregarDados();
     };
 
     const criarCategoria = async() => {
@@ -174,74 +215,101 @@ export function ControlScreen() {
 
     return (
         <View style={styles.pageContainer}>
-            {/* Header */}
-            <View style={styles.headerContainer}>
-                <Header 
-                    title="Prato Solidário" 
-                    titleColor={COLORS.red}
-                    hiddenIcons={['search', 'refresh', 'plus','shoppingCart']}
-                    iconColor={COLORS.red}
-                    showMenu={true}
-                    onPressMenu={() => alert('Menu')} 
+            <ScrollView>
+                {/* Header */}
+                <View style={styles.headerContainer}>
+                    <Header 
+                        title="Prato Solidário" 
+                        titleColor={COLORS.red}
+                        hiddenIcons={['search', 'refresh', 'plus','shoppingCart']}
+                        iconColor={COLORS.red}
+                        showMenu={true}
+                        onPressMenu={() => alert('Menu')} 
+                    />
+                </View>
+
+                {/* Título */}
+                <View style={styles.titleContainer}>
+                    <Title color={COLORS.black} size={26} fontWeight="bold">Novo Prato</Title>
+                    <Title color={COLORS.brown} size={16} fontWeight="regular">
+                        Cadastre uma nova opção culinária e defina o impacto social positivo.
+                    </Title>
+                </View>
+                <View style={styles.buttonFotoContainer}>
+                    <ButtonFoto onPress={abrirCamera} style={{ width: '90%', paddingVertical: 65, alignSelf: 'center' }} />
+                </View>
+
+                {/* Botões */}
+                <View style={styles.buttonContainer}>
+                    <Button 
+                        color={COLORS.red}
+                        activeOpacity={0.8}
+                        style={{ width: "90%", height: 60, borderRadius: 12 }}
+                        onPress={() => setModalVisibleCategoria(true)}
+                    >
+                        <FontAwesome name="save" size={20} color={COLORS.white} />
+                        <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: "500", marginLeft: 6 }}>
+                            Cadastrar Categoria
+                        </Text>
+                    </Button>
+                    <Button 
+                        color={COLORS.red}
+                        activeOpacity={0.8}
+                        style={{ width: "90%", height: 60, borderRadius: 12 }}
+                        onPress={abrirModalCriar}
+                    >    
+                        <FontAwesome name="save" size={20} color={COLORS.white} />
+                        <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: "500", marginLeft: 6 }}>
+                            Cadastrar Produto
+                        </Text>
+                    </Button>
+                </View>
+
+                {/* Botões de Ordenação */}
+                <View style={styles.ordenacaoContainer}>
+                    <Title color={COLORS.black} size={26} fontWeight="bold">Ordenação</Title>
+                </View>
+
+                {/* Tabela */}
+                <TabelaProdutos
+                    produtos={produtos}
+                    categoriasMap={categoriasMap}
+                    onEditar={abrirModalEditar}
+                    onExcluir={(id) => {
+
+                        const produto = produtos.find(
+                            (p) => p.id === id
+                        );
+
+                        if (produto) {
+                            setProdutoSelecionado(produto);
+                            setModalVisibleDeletar(true);
+                        }
+                    }}
+                    onAlterarStatus={alterarStatus}
                 />
-            </View>
 
-            {/* Título */}
-            <View style={styles.titleContainer}>
-                <Title color={COLORS.black} size={26} fontWeight="bold">Novo Prato</Title>
-                <Title color={COLORS.brown} size={16} fontWeight="regular">
-                    Cadastre uma nova opção culinária e defina o impacto social positivo.
-                </Title>
-            </View>
-            <View style={styles.buttonFotoContainer}>
-                <ButtonFoto onPress={abrirCamera} style={{ width: '90%', paddingVertical: 65, alignSelf: 'center' }} />
-            </View>
 
-            {/* Botões */}
-            <View style={styles.buttonContainer}>
-                <Button 
-                    color={COLORS.red}
-                    activeOpacity={0.8}
-                    style={{ width: "90%", height: 60, borderRadius: 12 }}
-                    onPress={() => setModalVisibleCategoria(true)}
-                >
-                    <FontAwesome name="save" size={20} color="#FFF" />
-                    <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: "500", marginLeft: 6 }}>
-                        Cadastrar Categoria
-                    </Text>
-                </Button>
-                <Button 
-                    color={COLORS.red}
-                    activeOpacity={0.8}
-                    style={{ width: "90%", height: 60, borderRadius: 12 }}
-                    onPress={abrirModalCriar}
-                >    
-                    <FontAwesome name="save" size={20} color="#FFF" />
-                    <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: "500", marginLeft: 6 }}>
-                        Cadastrar Produto
-                    </Text>
-                </Button>
-            </View>
-
-            {/* Cards das Informações */}
-            <View style={styles.cardsContainer}>
-                <FlatList
-                    data={dadosCards}
-                    keyExtractor={(item) => item.id}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.lista}
-                    renderItem={({ item }) => (
-                        <CardDados
-                            titulo={item.titulo}
-                            subtitulo={item.subtitulo}
-                            corFundoCard={item.corFundoCard}
-                            corFundoIcone={item.corFundoIcone}
-                            icone={item.icone}
-                        />
-                    )}
-                />
-            </View>
+                {/* Cards das Informações */}
+                <View style={styles.cardsContainer}>
+                    <FlatList
+                        data={dadosCards}
+                        keyExtractor={(item) => item.id}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.lista}
+                        renderItem={({ item }) => (
+                            <CardDados
+                                titulo={item.titulo}
+                                subtitulo={item.subtitulo}
+                                corFundoCard={item.corFundoCard}
+                                corFundoIcone={item.corFundoIcone}
+                                icone={item.icone}
+                            />
+                        )}
+                    />
+                </View>
+            </ScrollView>
 
             {/* Modal para inserir/alterar produto */}
             <ModalDinamico
