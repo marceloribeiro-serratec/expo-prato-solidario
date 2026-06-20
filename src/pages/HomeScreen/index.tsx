@@ -50,7 +50,6 @@ export function HomeScreen() {
                     iconColor={COLORS.red}
                     hiddenIcons={["search", "refresh", "plus", "user"]}
                     showMenu={true}
-                    onPressMenu={() => alert("Menu")}
                 />
             </View>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>

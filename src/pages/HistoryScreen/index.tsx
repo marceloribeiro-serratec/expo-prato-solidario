@@ -25,7 +25,6 @@ export function HistoryScreen() {
                     hiddenIcons={['search', 'refresh', 'plus','shoppingCart']}
                     iconColor={COLORS.red}
                     showMenu={true}
-                    onPressMenu={() => alert('Menu')} 
                 />
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContainer} style={{ flexGrow: 0 }}>
