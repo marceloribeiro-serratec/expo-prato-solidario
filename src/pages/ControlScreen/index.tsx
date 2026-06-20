@@ -15,6 +15,9 @@ import { CardDados } from '@/components/CardDados';
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { TabelaProdutos } from '@/components/TabelaProduto';
 import { ButtonOrdenacao, SortDirection } from '@/components/ButtonOrdenacao';
+import { Search } from 'lucide-react-native';
+import { SearchContainer } from '@/components/SearchContainer';
+import { SearchBar } from '@/components/SearchBar';
 
 type TelaDadosProps = {
     totalBaixoEstoque: number;
@@ -30,6 +33,8 @@ interface OpcoesFiltro {
 }
 
 export function ControlScreen() {
+    const [search, setSearch] = useState('');
+
     const [modalVisibleProduto, setModalVisibleProduto] = useState(false);
     const [modalVisibleDeletar, setModalVisibleDeletar] = useState(false);
     const [modalVisibleCategoria, setModalVisibleCategoria] = useState(false);
@@ -82,7 +87,7 @@ export function ControlScreen() {
     );
 
     // Campos do Modal Inserir/Alterar produto
-    const novoProduto: CampoModal[] = [
+    const newProduto: CampoModal[] = [
         { key: 'nome', label: 'Nome', placeholder: 'Digite o nome do produto' },
         { key: 'descricao', label: 'Descrição', placeholder: 'Digite a descrição' },
         { key: 'id_categoria', label: 'Categoria', placeholder: 'Digite o id de Categoria', keyboardType: 'numeric' },
@@ -282,6 +287,10 @@ export function ControlScreen() {
 
     const produtosExibidos = getProdutosOrdenados();
 
+    const produtosFiltradosEExibidos = produtosExibidos.filter(produto => 
+        produto.nome.toLowerCase().includes(search.toLowerCase())
+    );
+
     return (
         <View style={styles.pageContainer}>
             <ScrollView>
@@ -332,6 +341,15 @@ export function ControlScreen() {
                             Cadastrar Produto
                         </Text>
                     </Button>
+
+                    <SearchContainer>
+                        <Search color={COLORS.gray_400} size={20} />
+                        <SearchBar 
+                            placeholder="Buscar por Produto..." 
+                            value={search}
+                            onChangeText={setSearch} 
+                        />
+                    </SearchContainer>
                 </View>
 
                 {/* Botões de Ordenação */}
@@ -356,7 +374,7 @@ export function ControlScreen() {
 
                 {/* Tabela */}
                 <TabelaProdutos
-                    produtos={produtosExibidos}
+                    produtos={produtosFiltradosEExibidos}
                     categoriasMap={categoriasMap}
                     onEditar={abrirModalEditar}
                     onExcluir={(id) => {
@@ -399,7 +417,7 @@ export function ControlScreen() {
             <ModalDinamico
                 visible={modalVisibleProduto}
                 title={modo === "criar" ? "Adicionar Produto" : "Alterar Produto"}
-                fields={novoProduto}
+                fields={newProduto}
                 formValues={modalData}
                 onValueChange={handleInputChange}
                 primaryButtonText={
