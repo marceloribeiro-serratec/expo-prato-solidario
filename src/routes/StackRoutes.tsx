@@ -5,6 +5,7 @@ import { RootStackParamList } from "./type";
 import { RegisterScreen } from "@/pages/RegisterScreen";
 import { CartScreen } from "@/pages/CartScreen";
 import { DrawerRoutes } from "./DrawerRoutes";
+import { DetalhesProdutoScreen } from "@/pages/DetalhesProdutoScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -35,6 +36,11 @@ export function StackRoutes() {
                 name="cart"
                 component={CartScreen}
                 options={{ headerShown: true, title: "Meu Carrinho" }}
+            />
+            <Stack.Screen
+                name="detalhesProduto"
+                component={DetalhesProdutoScreen}
+                options={{ headerShown: true, title: "Detalhes do Produto" }}
             />
         </Stack.Navigator>
     );
