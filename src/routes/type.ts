@@ -1,3 +1,4 @@
+import { Produto } from "@/pages/ProdutosScreen/type";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
@@ -8,4 +9,8 @@ export type RootStackParamList = {
     welcome: undefined;
     register: undefined;
     cart: undefined;
+
+    detalhesProduto: {
+        produto: Produto;
+    };
 };
