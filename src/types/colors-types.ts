@@ -5,6 +5,7 @@ export interface Colors {
 
     blue: string;
     green: string;
+    green_soft: string,
     green_light: string,
     green_dark: string;
     orange: string;
