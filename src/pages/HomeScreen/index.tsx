@@ -17,6 +17,7 @@ import { CardImpact } from "@/components/CardImpact";
 import { CategoryCard } from "@/components/CategoryCard";
 import { CATEGORIES } from "@/constants/categories";
 import { EmphasisCard } from "@/components/EmphasisCard";
+import { DESTAQUES_SOLIDARIOS } from "@/constants/destaqueSolidario";
 
 export function HomeScreen() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -108,7 +109,16 @@ export function HomeScreen() {
                     </Title>
                 </View>
                 <View>
-                    <EmphasisCard />
+                    {DESTAQUES_SOLIDARIOS.map((destaque) => (
+                        <EmphasisCard
+                            id={destaque.id}
+                            image={destaque.image}
+                            title={destaque.title}
+                            price={destaque.price}
+                            description={destaque.description}
+                            time={destaque.time}
+                        />
+                    ))}
                 </View>
             </ScrollView>
         </PageContainerStatic>

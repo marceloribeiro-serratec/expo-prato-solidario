@@ -1,28 +1,25 @@
-import { COLORS } from "@/constants";
-import { View, Text, Image } from "react-native";
+import { Image, Text, View } from "react-native";
 import { Title } from "../Title";
 import { Subtitle } from "../Subtitle";
 import { Badge } from "../Badge";
 import { emphasisCard } from "./style";
 import { ButtonRounded } from "../ButtonRounded";
 
-const DESTAQUES_solidarios = [
-    {
-        image: "../../../assets/strognoff.png",
-        title: "Strogonoff{"\n"}Clássico",
-        price: "R${"\n"}34,90",
-        time: "25-35 min"
+import { COLORS } from "@/constants";
+import { EmphasisCardProps } from "./type";
 
-    }
-]
-
-export function EmphasisCard() {
+export function EmphasisCard({
+    id,
+    image,
+    title,
+    price,
+    description,
+    time,
+}: EmphasisCardProps) {
     return (
-        <View
-            style={emphasisCard.container}
-        >
+        <View style={emphasisCard.container} key={id}>
             <Image
-                source={require({image})}
+                source={image}
                 style={{
                     width: "100%",
                     height: 200,
@@ -30,11 +27,13 @@ export function EmphasisCard() {
                 }}
                 resizeMode="cover"
             />
+
             <View style={emphasisCard.badge}>
                 <Badge color={COLORS.green_dark}>
                     <Text style={emphasisCard.badgeText}>Impacto Social</Text>
                 </Badge>
             </View>
+
             <View
                 style={{
                     marginHorizontal: 20,
@@ -48,15 +47,18 @@ export function EmphasisCard() {
                     }}
                 >
                     <Title color={COLORS.black} size={28}>
-                        Strogonoff{"\n"}Clássico
+                        {title}
                     </Title>
+
                     <Title color={COLORS.red} size={24}>
-                        R${"\n"}34,90
+                        {price}
                     </Title>
                 </View>
+
                 <Subtitle color={COLORS.black} fontSize={18} fontWeight="400">
-                    Carne selecionada, arroz e...
+                    {description}
                 </Subtitle>
+
                 <View style={emphasisCard.footer}>
                     <Subtitle
                         color={COLORS.black}
@@ -64,9 +66,13 @@ export function EmphasisCard() {
                         fontWeight="400"
                         style={emphasisCard.timeText}
                     >
-                        25-35 min
+                        {time}
                     </Subtitle>
-                    <ButtonRounded color={COLORS.red} style={emphasisCard.addButton}>
+
+                    <ButtonRounded
+                        color={COLORS.red}
+                        style={emphasisCard.addButton}
+                    >
                         <Title color={COLORS.white} size={16} fontWeight="600">
                             Adicionar
                         </Title>
