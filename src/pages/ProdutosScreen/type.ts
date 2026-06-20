@@ -4,7 +4,7 @@ export type Categoria = {
 };
 
 export type Produto = {
-    id: number;
+    id?: number | undefined;
     id_categoria: number;
     nome: string;
     descricao: string;

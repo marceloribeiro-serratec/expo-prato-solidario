@@ -39,6 +39,7 @@ export default function App() {
             </AuthProvider>
             <Toast />
         </GestureHandlerRootView>
+        
     );
 }
 

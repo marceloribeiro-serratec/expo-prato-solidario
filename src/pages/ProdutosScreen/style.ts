@@ -1,62 +1,79 @@
+import { COLORS } from "@/constants";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: COLORS.gray_100,
         paddingHorizontal: 16,
         paddingTop: 16,
-        backgroundColor: "#F5F5F5",
+    },
+
+    headerContainer: {
+        backgroundColor: COLORS.gray_100,
+        paddingHorizontal: 12,
+        paddingVertical: 14,
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.gray_200,
+        justifyContent: "center",
+        // Isso garante que o header herde o comportamento de alinhamento
     },
 
     input: {
-        backgroundColor: "#EAEAEA",
+        backgroundColor: "#ECECEC",
         borderRadius: 10,
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        marginBottom: 20,
+        paddingHorizontal: 14,
+        height: 50,
+        marginBottom: 16,
     },
 
     categoriasContainer: {
-        marginBottom: 20,
+        paddingBottom: 12,
     },
 
     categoria: {
-        backgroundColor: "#EAEAEA",
+        backgroundColor: "#E7E7E7",
         paddingHorizontal: 18,
         paddingVertical: 10,
         borderRadius: 20,
         marginRight: 10,
+        height: 40,
+        justifyContent: "center",
     },
 
     categoriaSelecionada: {
-        backgroundColor: "#C8102E",
+        backgroundColor: "#D90429",
     },
 
     textoCategoria: {
-        color: "#333",
+        color: "#555",
         fontWeight: "500",
     },
 
     textoCategoriaSelecionada: {
-        color: "#FFF",
+        color: "#fff",
+        fontWeight: "700",
     },
 
     metaCard: {
-        backgroundColor: "#2EAD62",
+        backgroundColor: "#35A853",
         borderRadius: 12,
         padding: 16,
+        marginBottom: 16,
     },
 
     metaTitulo: {
-        color: "#FFF",
-        fontSize: 20,
-        fontWeight: "bold",
+        color: "#fff",
+        fontSize: 22,
+        fontWeight: "700",
         marginBottom: 8,
     },
 
     metaDescricao: {
-        color: "#FFF",
-        marginBottom: 20,
+        color: "#fff",
+        fontSize: 14,
+        lineHeight: 20,
+        marginBottom: 12,
     },
 
     metaRodape: {
@@ -65,7 +82,7 @@ export const styles = StyleSheet.create({
     },
 
     metaInfo: {
-        color: "#FFF",
+        color: "#fff",
         fontWeight: "600",
     },
 });

@@ -63,6 +63,14 @@ export function toastCadastroDuplicado() {
     );
 }
 
+export function toastPerfilAtualizado() {
+    toastSucesso("Suas informações foram atualizadas.", "Perfil atualizado");
+}
+
+export function toastErroAtualizarPerfil() {
+    toastErro("Não foi possível atualizar seus dados.", "Erro ao atualizar");
+}
+
 export function toastProdutoAdicionado(nome: string) {
     toastSucesso(`"${nome}" adicionado ao carrinho!`);
 }
@@ -78,3 +86,16 @@ export function toastPedidoFinalizado() {
 export function toastErroBuscar(item: string = "dados") {
     toastErro(`Não foi possível carregar ${item}.`, "Erro");
 }
+
+export function toastCarrinhoVazio() {
+    toastAviso("Adicione itens antes de finalizar o pedido.", "Carrinho vazio");
+}
+
+export function toastQuantidadeIndisponivel(nome: string) {
+    toastErro(`Não há estoque suficiente de "${nome}".`, "Estoque insuficiente");
+}
+
+export function toastLogoutSucesso() {
+    toastSucesso("Você saiu da sua conta.", "Até logo!");
+}
+
