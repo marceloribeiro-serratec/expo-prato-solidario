@@ -49,5 +49,6 @@ export const emphasisCard = StyleSheet.create({
         shadowOpacity: 0.1,
         elevation: 3,
         overflow: "hidden",
+        marginBottom: 16,
     },
 });
