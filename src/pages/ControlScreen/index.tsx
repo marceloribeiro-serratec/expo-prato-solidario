@@ -14,12 +14,20 @@ import { Button } from "@/components/Button";
 import { CardDados } from '@/components/CardDados';
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { TabelaProdutos } from '@/components/TabelaProduto';
+import { ButtonOrdenacao, SortDirection } from '@/components/ButtonOrdenacao';
 
 type TelaDadosProps = {
     totalBaixoEstoque: number;
     totalRefeicoes: number;
     totalVendasMes: number;
 };
+
+type FiltrosId = 'original' | 'quantidade' | 'preco' | 'alfabetica';
+
+interface OpcoesFiltro {
+    id: FiltrosId;
+    title: string;
+}
 
 export function ControlScreen() {
     const [modalVisibleProduto, setModalVisibleProduto] = useState(false);
@@ -40,6 +48,9 @@ export function ControlScreen() {
   
     // Salva temporariamente os dados digitados
     const [modalData, setModalData] = useState<Record<string, string>>({});
+
+    const [filtroAtivo, setFiltroAtivo] = useState<FiltrosId>('original');
+    const [classificacao, setClassificacao] = useState<SortDirection>('crescente');
 
     const carregarDados = async () => {
         try {
@@ -213,6 +224,64 @@ export function ControlScreen() {
         }
     ];
 
+    const opcoesDeFiltragem: OpcoesFiltro[] = [
+        { id: 'original', title: 'Original' },
+        { id: 'quantidade', title: 'Quantidade' },
+        { id: 'preco', title: 'Preço' },
+        { id: 'alfabetica', title: 'Alfabética' },
+    ];
+
+    const controleBotaoAtivo = (fieldId: FiltrosId) => {
+        if (filtroAtivo === fieldId) {
+            setClassificacao(prev => prev === 'crescente' ? 'decrescente' : 'crescente');
+        } else {
+            setFiltroAtivo(fieldId);
+            setClassificacao('crescente');
+        }
+    };
+
+    const getProdutosOrdenados = (): Produto[] => {
+        const produtosCopiados = [...produtos];
+
+        return produtosCopiados.sort((a, b) => {
+            let valorA: string | number;
+            let valorB: string | number;
+
+            switch (filtroAtivo) {
+                case 'original':
+                    valorA = a.id ?? 0;
+                    valorB = b.id ?? 0;
+                    break;
+                case 'quantidade':
+                    valorA = a.quantidade;
+                    valorB = b.quantidade;
+                    break;
+                case 'preco':
+                    valorA = a.preco;
+                    valorB = b.preco;
+                    break;
+                case 'alfabetica':
+                    valorA = a.nome.toLowerCase();
+                    valorB = b.nome.toLowerCase();
+                    break;
+                default:
+                    return 0;
+            }
+
+            if (typeof valorA === 'string' && typeof valorB === 'string') {
+                return classificacao === 'crescente' 
+                    ? valorA.localeCompare(valorB) 
+                    : valorB.localeCompare(valorA);
+            }
+
+            return classificacao === 'crescente' 
+                ? (valorA as number) - (valorB as number) 
+                : (valorB as number) - (valorA as number);
+        });
+    };
+
+    const produtosExibidos = getProdutosOrdenados();
+
     return (
         <View style={styles.pageContainer}>
             <ScrollView>
@@ -268,11 +337,26 @@ export function ControlScreen() {
                 {/* Botões de Ordenação */}
                 <View style={styles.ordenacaoContainer}>
                     <Title color={COLORS.black} size={26} fontWeight="bold">Ordenação</Title>
+
+                    <View style={styles.ordenacaoButtons}>
+                        {opcoesDeFiltragem.map((item) => {
+                            const isActive = filtroAtivo === item.id;
+                            return (
+                                <ButtonOrdenacao
+                                    key={item.id}
+                                    titulo={item.title}
+                                    isActive={isActive}
+                                    direcao={isActive ? classificacao : 'desativado'}
+                                    onPress={() => controleBotaoAtivo(item.id)}
+                                />
+                            );
+                        })}
+                    </View>
                 </View>
 
                 {/* Tabela */}
                 <TabelaProdutos
-                    produtos={produtos}
+                    produtos={produtosExibidos}
                     categoriasMap={categoriasMap}
                     onEditar={abrirModalEditar}
                     onExcluir={(id) => {

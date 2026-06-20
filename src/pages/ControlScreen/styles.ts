@@ -41,5 +41,12 @@ export const styles = StyleSheet.create({
     },
     ordenacaoContainer: {
         paddingVertical: 20,
+        paddingHorizontal: 20,
+    },
+    ordenacaoButtons: {
+        flexDirection: 'row', 
+        flexWrap: 'wrap', 
+        marginTop: 15, 
+        gap: 8 ,
     }
 })
