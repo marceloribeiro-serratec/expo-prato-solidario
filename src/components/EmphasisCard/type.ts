@@ -5,6 +5,8 @@ export type EmphasisCardProps = {
     image: ImageSourcePropType;
     title: string;
     price: string;
+    priceValue: number;
     description: string;
     time: string;
+    onAddToCart?: () => void;
 };

@@ -5,7 +5,7 @@ export const homeScreen = StyleSheet.create({
     headerContainer: {
         backgroundColor: COLORS.gray_100,
         paddingHorizontal: 12,
-        paddingVertical: 0,
+        paddingVertical: 7,
         borderBottomWidth: 1,
         borderBottomColor: COLORS.gray_200,
         justifyContent: "center",

@@ -25,8 +25,8 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
       accessible={true}
       accessibilityLabel={`Item: ${item.name}. Preço unitário: ${formatCurrency(item.price)}. Quantidade: ${item.quantity}. Total do item: ${formatCurrency(itemTotal)}.`}
     >
-      {item.imageUrl && (
-        <Image source={{ uri: item.imageUrl }} style={styles.image} accessibilityIgnoreInvertColors />
+      {item.image && (
+        <Image source={item.image} style={styles.image} accessibilityIgnoresInvertColors />
       )}
       
       <View style={styles.content}>

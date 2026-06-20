@@ -8,7 +8,14 @@ import { CartSummary } from '../../components/CartSummary';
 import { EmptyCart } from '../../components/EmptyCart';
 
 export const CartScreen = () => {
-  const { cart, total, subtotal, socialContribution } = useCart();
+  const {
+    cart,
+    total,
+    subtotal,
+    socialContribution,
+    removeFromCart,
+    updateQuantity,
+  } = useCart();
 
   if (cart.length === 0) {
     return <EmptyCart />;
@@ -19,13 +26,21 @@ export const CartScreen = () => {
       <FlatList
         data={cart}
         keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <CartItemCard item={item} />}
+        renderItem={({ item }) => (
+          <CartItemCard
+            item={item}
+            onIncrement={(id) => updateQuantity(id, 'increment')}
+            onDecrement={(id) => updateQuantity(id, 'decrement')}
+            onRemove={removeFromCart}
+          />
+        )}
         contentContainerStyle={styles.listContent}
         ListFooterComponent={
           <CartSummary 
             subtotal={subtotal}
             socialContribution={socialContribution}
             total={total} 
+            onCheckout={() => undefined}
           />
         }
         ListFooterComponentStyle={styles.footer}
