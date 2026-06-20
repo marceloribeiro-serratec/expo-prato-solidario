@@ -1,36 +1,44 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ReactNode } from "react";
-import { Alert } from "react-native";
 import * as AuthSession from "expo-auth-session";
 import * as WebBrowser from "expo-web-browser";
 
 import { getData, storeData } from "../services/storage";
 import { authActions } from "../actions/auth.actions";
-import api from "../services/api";
 import { supabase } from "../services/supabase";
+import {
+    toastLoginErro,
+    toastLoginContaNaoMigrada,
+    toastLoginSucesso,
+    toastErro,
+} from "@/utils/toast";
 
 WebBrowser.maybeCompleteAuthSession();
 
 interface AuthContextData {
     user: User | null;
     profile: Profile | null;
-    signIn: (email: any, password: any) => void;
+    signIn: (email: string, password: string) => Promise<boolean>;
     signInWithGoogle: () => Promise<boolean>;
     signOut: () => void;
     loading: boolean;
 }
 
 type User = {
+    id?: string;
     email: string | null;
-    password?: string;
     token: string;
     name?: string | null;
     avatarUrl?: string | null;
+    role?: string | null;
 };
 
 type Profile = {
+    id?: string;
     name: string;
     profile: string;
+    email?: string | null;
+    role?: string | null;
 };
 
 interface AuthProviderProps {
@@ -69,6 +77,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 setUser(storagedUser);
                 setProfile(storagedProfile);
                 setToken(storagedToken);
+                return;
+            }
+
+            const { data } = await supabase.auth.getSession();
+
+            if (data.session) {
+                await persistSessionData(data.session, "email");
             }
         }
 
@@ -86,22 +101,101 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         await storeData("@token", authToken);
     }
 
-    function signIn(email: string, password: string) {
-        setLoading(true);
+    async function getClienteProfile(email: string | null) {
+        if (!email) {
+            return null;
+        }
 
-        api.post("/login", {
-            email: `${email}`,
-            password: `${password}`,
-        })
-            .then((response) => {
-                persistAuthData(response.data, response.data, response.data.token);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error(error);
-                alert("Erro ao fazer login");
-                setLoading(false);
+        const { data, error } = await supabase
+            .from("clientes")
+            .select("id,nome,email,role")
+            .eq("email", email)
+            .maybeSingle();
+
+        if (error) {
+            console.error("Erro ao buscar perfil do cliente:", error);
+            return null;
+        }
+
+        return data;
+    }
+
+    async function persistSessionData(
+        session: NonNullable<Awaited<ReturnType<typeof supabase.auth.getSession>>["data"]["session"]>,
+        authProvider: string
+    ) {
+        const cliente = await getClienteProfile(session.user.email ?? null);
+        const name =
+            cliente?.nome ??
+            session.user.user_metadata?.full_name ??
+            session.user.user_metadata?.name ??
+            session.user.email ??
+            "Usuario";
+        const role = cliente?.role ?? session.user.user_metadata?.role ?? "user";
+
+        const authUser: User = {
+            id: session.user.id,
+            email: session.user.email ?? null,
+            token: session.access_token,
+            name,
+            avatarUrl: session.user.user_metadata?.avatar_url ?? null,
+            role,
+        };
+
+        const authProfile: Profile = {
+            id: cliente?.id ?? session.user.id,
+            name,
+            email: session.user.email ?? null,
+            profile: authProvider,
+            role,
+        };
+
+        await persistAuthData(authUser, authProfile, session.access_token);
+
+        return authProfile;
+    }
+
+    async function signIn(email: string, password: string) {
+        setLoading(true);
+        const normalizedEmail = email.trim().toLowerCase();
+
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: normalizedEmail,
+                password,
             });
+
+            if (error) {
+                throw error;
+            }
+
+            if (!data.session) {
+                throw new Error("Sessao do Supabase nao retornada.");
+            }
+
+            const authProfile = await persistSessionData(data.session, "email");
+            toastLoginSucesso(authProfile.name);
+            return true;
+        } catch (error) {
+            console.error("Erro ao fazer login com email e senha:", error);
+
+            const cliente = await getClienteProfile(normalizedEmail);
+            const errorMessage =
+                error instanceof Error ? error.message.toLowerCase() : "";
+
+            if (
+                cliente &&
+                errorMessage.includes("invalid login credentials")
+            ) {
+                toastLoginContaNaoMigrada();
+                return false;
+            }
+
+            toastLoginErro();
+            return false;
+        } finally {
+            setLoading(false);
+        }
     }
 
     async function signInWithGoogle() {
@@ -157,24 +251,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     throw new Error("Sessao do Supabase nao retornada.");
                 }
 
-                const authUser: User = {
-                    email: session.user.email ?? null,
-                    token: session.access_token,
-                    name:
-                        session.user.user_metadata?.full_name ??
-                        session.user.user_metadata?.name ??
-                        null,
-                    avatarUrl: session.user.user_metadata?.avatar_url ?? null,
-                };
-
-                await persistAuthData(
-                    authUser,
-                    {
-                        name: authUser.name ?? authUser.email ?? "Usuario",
-                        profile: "google",
-                    },
-                    session.access_token
-                );
+                const authProfile = await persistSessionData(session, "google");
+                toastLoginSucesso(authProfile.name);
 
                 return true;
             }
@@ -201,40 +279,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 throw new Error("Sessao do Supabase nao retornada.");
             }
 
-            const authUser: User = {
-                email: session.user.email ?? null,
-                token: session.access_token,
-                name:
-                    session.user.user_metadata?.full_name ??
-                    session.user.user_metadata?.name ??
-                    null,
-                avatarUrl: session.user.user_metadata?.avatar_url ?? null,
-            };
-
-            await persistAuthData(
-                authUser,
-                {
-                    name: authUser.name ?? authUser.email ?? "Usuario",
-                    profile: "google",
-                },
-                session.access_token
-            );
+            const authProfile = await persistSessionData(session, "google");
+            toastLoginSucesso(authProfile.name);
 
             return true;
         } catch (error) {
             console.error(error);
-            Alert.alert(
-                "Erro ao fazer login com Google",
-                getErrorMessage(error)
-            );
+            toastErro(getErrorMessage(error), "Erro ao fazer login com Google");
             return false;
         } finally {
             setLoading(false);
         }
     }
 
-    function signOut() {
+    async function signOut() {
+        await supabase.auth.signOut();
         setUser(null);
+        setProfile(null);
+        setToken(null);
         storeData("@user", null);
         storeData("@profile", null);
         storeData("@token", null);
