@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomTabsRoutes } from "./BottomTabsRoutes";
 import { RootStackParamList } from "./type";
 import { RegisterScreen } from "@/pages/RegisterScreen";
+import { CartScreen } from "@/pages/CartScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -28,6 +29,11 @@ export function StackRoutes() {
             <Stack.Screen
                 name="register"
                 component={RegisterScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="cart"
+                component={CartScreen}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>

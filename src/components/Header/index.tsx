@@ -13,6 +13,8 @@ import {
 
 import { header } from "./style";
 import { useCart } from "@/hooks/useCart";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "@/routes/type";
 
 // Adicionamos uma interface para definir o que pode ser alterado
 interface HeaderProps {
@@ -32,6 +34,7 @@ export function Header({
     showMenu = false,
     onPressMenu,
 }: HeaderProps = {}) {
+    const navigation = useNavigation<NavigationProps>();
     const { cart } = useCart();
     const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
 
@@ -56,7 +59,12 @@ export function Header({
                     {!hiddenIcons.includes('plus') && <CirclePlus color={iconColor} size={20} />}
                     {!hiddenIcons.includes('user') && <CircleUserRound color={iconColor} size={22} />}
                     {!hiddenIcons.includes('shoppingCart') && (
-                        <View style={header.cartIconContainer}>
+                        <TouchableOpacity
+                            style={header.cartIconContainer}
+                            onPress={() => navigation.navigate("cart")}
+                            accessibilityRole="button"
+                            accessibilityLabel="Abrir carrinho"
+                        >
                             <ShoppingCart color={iconColor} size={24} />
                             {cartItemsCount > 0 && (
                                 <View style={header.cartBadge}>
@@ -65,7 +73,7 @@ export function Header({
                                     </Text>
                                 </View>
                             )}
-                        </View>
+                        </TouchableOpacity>
                     )}
                 </View>
         </View>
