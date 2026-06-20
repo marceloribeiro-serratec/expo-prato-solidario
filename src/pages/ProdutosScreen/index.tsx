@@ -38,7 +38,6 @@ export default function ProdutosScreen() {
         try {
             const listaProdutos = await produtoService.listar();
             setProdutos(listaProdutos);
-            console.log("Produtos carregados do Supabase:", listaProdutos);
         } catch (error) {
             alert("Erro: Não foi possível carregar os produtos.");
         }
@@ -47,6 +46,12 @@ export default function ProdutosScreen() {
     useEffect(() => {
         carregarDados();
     }, []);
+
+    const produtosFiltrados = produtos.filter(
+        (produto) =>
+            produto.id_categoria === categoriaSelecionada &&
+            produto.nome.toLowerCase().includes(busca.toLowerCase()),
+    );
 
     return (
         <View style={styles.container}>
@@ -57,70 +62,75 @@ export default function ProdutosScreen() {
                     iconColor={COLORS.red}
                     hiddenIcons={["search", "refresh", "plus", "user"]}
                     showMenu={true}
-                    onPressMenu={() => alert("Menu")}
                 />
             </View>
 
-            <TextInput
-                placeholder="Buscar pratos..."
-                value={busca}
-                onChangeText={setBusca}
-                style={styles.input}
-            />
-
-            <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.categoriasContainer}
-            >
-                {categorias.map((categoria) => (
-                    <TouchableOpacity
-                        key={categoria.id}
-                        onPress={() => setCategoriaSelecionada(categoria.id)}
-                        style={[
-                            styles.categoria,
-
-                            categoriaSelecionada === categoria.id &&
-                                styles.categoriaSelecionada,
-                        ]}
-                    >
-                        <Text
-                            style={[
-                                styles.textoCategoria,
-
-                                categoriaSelecionada === categoria.id &&
-                                    styles.textoCategoriaSelecionada,
-                            ]}
-                        >
-                            {categoria.nome}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
-
-            <View style={styles.metaCard}>
-                <Text style={styles.metaTitulo}>Meta de Hoje</Text>
-
-                <Text style={styles.metaDescricao}>
-                    Cada pedido dos "Favoritos Sociais" nos ajuda a doar uma
-                    refeição.
-                </Text>
-
-                <View style={styles.metaRodape}>
-                    <Text style={styles.metaInfo}>362 refeições doadas</Text>
-
-                    <Text style={styles.metaInfo}>Meta: 500</Text>
-                </View>
-            </View>
-
             <FlatList
-                data={produtos}
+                data={produtosFiltrados}
                 renderItem={({ item }) => <ProdutoCard data={item} />}
                 keyExtractor={(item) => String(item.id)}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
                     paddingBottom: 100,
                 }}
+                ListHeaderComponent={
+                    <>
+                        <TextInput
+                            placeholder="Buscar por categoria selecionada..."
+                            value={busca}
+                            onChangeText={setBusca}
+                            style={styles.input}
+                        />
+
+                        <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={styles.categoriasContainer}
+                        >
+                            {categorias.map((categoria) => (
+                                <TouchableOpacity
+                                    key={categoria.id}
+                                    onPress={() =>
+                                        setCategoriaSelecionada(categoria.id)
+                                    }
+                                    style={[
+                                        styles.categoria,
+                                        categoriaSelecionada === categoria.id &&
+                                            styles.categoriaSelecionada,
+                                    ]}
+                                >
+                                    <Text
+                                        style={[
+                                            styles.textoCategoria,
+                                            categoriaSelecionada ===
+                                                categoria.id &&
+                                                styles.textoCategoriaSelecionada,
+                                        ]}
+                                    >
+                                        {categoria.nome}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+
+                        <View style={styles.metaCard}>
+                            <Text style={styles.metaTitulo}>Meta de Hoje</Text>
+
+                            <Text style={styles.metaDescricao}>
+                                Cada pedido dos "Favoritos Sociais" nos ajuda a
+                                doar uma refeição.
+                            </Text>
+
+                            <View style={styles.metaRodape}>
+                                <Text style={styles.metaInfo}>
+                                    362 refeições doadas
+                                </Text>
+
+                                <Text style={styles.metaInfo}>Meta: 500</Text>
+                            </View>
+                        </View>
+                    </>
+                }
             />
         </View>
     );

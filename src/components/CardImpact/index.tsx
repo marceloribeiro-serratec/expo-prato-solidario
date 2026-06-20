@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { ReactNode } from "react";
 
 import { cardImpact } from "./style";
 import { COLORS } from "@/constants/colors";
@@ -10,6 +11,7 @@ interface CardImpactProps {
    title?: string;
    subtitle?: string;
    variant?: "opacity" | "normal";
+   icon?: ReactNode;
 }
 
 const cardImpactVariants = {
@@ -33,6 +35,7 @@ export function CardImpact({
     title = "+1.2k refeições",
     subtitle = "Doadas esta semana na sua região.",
     variant = "opacity",
+    icon,
 }: CardImpactProps) {
     const variantStyles = cardImpactVariants[variant];
     
@@ -49,7 +52,7 @@ export function CardImpact({
                     { backgroundColor: variantStyles.backgroundIcon },
                 ]}
             >
-                <HandHeart color={variantStyles.iconColor} size={30} />
+                {icon ? icon : <HandHeart color={variantStyles.iconColor} size={30} />}
             </View>
             <View style={cardImpact.content}>
                 <Title color={variantStyles.titleColor}>{title}</Title>

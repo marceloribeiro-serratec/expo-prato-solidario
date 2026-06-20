@@ -14,6 +14,7 @@ import { COLORS } from "@/constants/colors";
 import { useAuth } from "@/contexts/AuthContext";
 import { NavigationProps } from "@/routes/type";
 import { loginForm } from "./style";
+import Loading from "../Loading";
 
 const loginFormSchema = z.object({
     email: z
@@ -137,7 +138,9 @@ export function LoginForm() {
                             />
                             <IconInput
                                 iconName={showPassword ? "eye-off" : "eye"}
-                                action={() => setShowPassword((current) => !current)}
+                                action={() =>
+                                    setShowPassword((current) => !current)
+                                }
                             />
                         </View>
                     )}
@@ -156,7 +159,11 @@ export function LoginForm() {
                     disabled={loading}
                 >
                     <Title color={COLORS.white} size={14} fontWeight="bold">
-                        {loading ? "Entrando..." : "Entrar"}
+                        {loading ? (
+                            <Loading size={16} color={COLORS.white} />
+                        ) : (
+                            "Entrar"
+                        )}
                     </Title>
                 </Button>
                 <Divisor />

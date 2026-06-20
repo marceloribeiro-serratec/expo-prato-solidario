@@ -42,7 +42,6 @@ export function HistoryScreen() {
                     hiddenIcons={['search', 'refresh', 'plus','shoppingCart']}
                     iconColor={COLORS.red}
                     showMenu={true}
-                    onPressMenu={() => alert('Menu')} 
                 />
             </View>
 

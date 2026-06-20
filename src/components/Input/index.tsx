@@ -9,7 +9,7 @@ export function Input({ onBlur, onFocus, ...rest }: TextInputProps) {
     return (
         <TextInput
             style={[styles.container, isFocused && styles.focused]}
-            placeholderTextColor={COLORS.gray_500}
+            placeholderTextColor={COLORS.gray_800}
             onFocus={(event) => {
                 setIsFocused(true);
                 onFocus?.(event);
