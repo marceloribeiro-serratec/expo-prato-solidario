@@ -38,7 +38,6 @@ export default function ProdutosScreen() {
         try {
             const listaProdutos = await produtoService.listar();
             setProdutos(listaProdutos);
-            console.log("Produtos carregados do Supabase:", listaProdutos);
         } catch (error) {
             alert("Erro: Não foi possível carregar os produtos.");
         }
