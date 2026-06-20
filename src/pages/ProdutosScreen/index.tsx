@@ -62,7 +62,6 @@ export default function ProdutosScreen() {
                     iconColor={COLORS.red}
                     hiddenIcons={["search", "refresh", "plus", "user"]}
                     showMenu={true}
-                    onPressMenu={() => alert("Menu")}
                 />
             </View>
 

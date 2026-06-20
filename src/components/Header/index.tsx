@@ -13,7 +13,7 @@ import {
 
 import { header } from "./style";
 import { useCart } from "@/hooks/useCart";
-import { useNavigation } from "@react-navigation/native";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { NavigationProps } from "@/routes/type";
 
 // Adicionamos uma interface para definir o que pode ser alterado
@@ -23,7 +23,6 @@ interface HeaderProps {
     iconColor?: string; // Opcional
     hiddenIcons?: string[]; // Lista de icones para escolha
     showMenu?: boolean; // Menu hamburger
-    onPressMenu?: () => void;
 }
 
 export function Header({
@@ -32,11 +31,11 @@ export function Header({
     iconColor = COLORS.info_medium, // Se não passar nada, assume a cor original
     hiddenIcons = [], // Se não passar nada, mostra todos
     showMenu = false,
-    onPressMenu,
 }: HeaderProps = {}) {
     const navigation = useNavigation<NavigationProps>();
     const { cart } = useCart();
     const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const openDrawer = () => navigation.dispatch(DrawerActions.openDrawer());
 
     // = {} permite que o componente seja chamado sem props
     return (
@@ -45,7 +44,11 @@ export function Header({
                 style={{ flexDirection: "row", alignItems: "center", gap: 12 }}
             >
                 {showMenu && (
-                    <TouchableOpacity onPress={onPressMenu}>
+                    <TouchableOpacity
+                        onPress={openDrawer}
+                        accessibilityRole="button"
+                        accessibilityLabel="Abrir menu"
+                    >
                         <Menu color={iconColor} size={24} />
                     </TouchableOpacity>
                 )}

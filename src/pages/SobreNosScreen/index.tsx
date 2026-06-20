@@ -21,7 +21,6 @@ export function SobreNosScreen() {
                     iconColor={COLORS.red}
                     hiddenIcons={['search', 'refresh', 'plus', 'user']}
                     showMenu={true}
-                    onPressMenu={() => alert('Menu')} 
                 />
             </View>
             <ScrollView>
