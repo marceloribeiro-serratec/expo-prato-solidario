@@ -18,6 +18,8 @@ import { ButtonOrdenacao, SortDirection } from '@/components/ButtonOrdenacao';
 import { Search } from 'lucide-react-native';
 import { SearchContainer } from '@/components/SearchContainer';
 import { SearchBar } from '@/components/SearchBar';
+import { toastProcutoCriado, toastErroCriar, toastErroDeletar, toastProdutoDeletado,
+    toastProdutoAtualizado, toastErroAtualizar, toastErro, toastCategoriaCriada } from '@/utils/toast';
 
 type TelaDadosProps = {
     totalBaixoEstoque: number;
@@ -34,28 +36,21 @@ interface OpcoesFiltro {
 
 export function ControlScreen() {
     const [search, setSearch] = useState('');
-
     const [modalVisibleProduto, setModalVisibleProduto] = useState(false);
     const [modalVisibleDeletar, setModalVisibleDeletar] = useState(false);
     const [modalVisibleCategoria, setModalVisibleCategoria] = useState(false);
-
     const [modo, setModo] = useState<"criar" | "editar">("criar");
-
     const [produtos, setProdutos] = useState<Produto[]>([]);
     const [totalRefeicoes, setTotalRefeicoes] = useState<number>(0);
     const [totalVendasMes, setTotalVendasMes] = useState<number>(0);
-
     const [categorias, setCategorias] = useState<Categoria[]>([]);
-
     const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
-
     const totalBaixoEstoque = produtos.filter(produto => produto.quantidade < 8).length;
+    const [filtroAtivo, setFiltroAtivo] = useState<FiltrosId>('original');
+    const [classificacao, setClassificacao] = useState<SortDirection>('crescente');
   
     // Salva temporariamente os dados digitados
     const [modalData, setModalData] = useState<Record<string, string>>({});
-
-    const [filtroAtivo, setFiltroAtivo] = useState<FiltrosId>('original');
-    const [classificacao, setClassificacao] = useState<SortDirection>('crescente');
 
     const carregarDados = async () => {
         try {
@@ -71,7 +66,7 @@ export function ControlScreen() {
             setTotalRefeicoes(totalMeals);
             setTotalVendasMes(totalVendas);
         } catch (error) {
-            alert("Erro: Não foi possível carregar as informações do painel.");
+            toastErro("Não foi possível carregar as informações do painel.");
         }
     };
 
@@ -128,73 +123,92 @@ export function ControlScreen() {
     };
 
     const criarProduto = async() => {
-        if (!modalData.nome || !modalData.preco || !modalData.id_categoria) {
-            alert("Por favor, preencha pelo menos Nome, Preço e ID da Categoria para o teste.");
-            return;
+        try {
+            if (!modalData.nome || !modalData.preco || !modalData.id_categoria) {
+                alert("Por favor, preencha pelo menos Nome, Preço e ID da Categoria para o teste.");
+                return;
+            }
+
+            const novoProduto: Produto = {
+                nome: modalData.nome,
+                descricao: modalData.descricao || "Sem descrição",
+                id_categoria: Number(modalData.id_categoria),
+                preco: Number(modalData.preco),
+                imagem_url: modalData.imagem_url || "https://via.placeholder.com/150",
+                quantidade: modalData.quantidade ? Number(modalData.quantidade) : 0,
+                disponibilidade: true,
+                desconto: 0
+            };
+
+            await produtoService.inserir(novoProduto);
+            setModalData({});
+            setModalVisibleProduto(false);
+            carregarDados();
+            toastProcutoCriado(novoProduto.nome);
+        } catch(erro) {
+            toastErroCriar("produto");
         }
-
-        const novoProduto: Produto = {
-            nome: modalData.nome,
-            descricao: modalData.descricao || "Sem descrição",
-            id_categoria: Number(modalData.id_categoria),
-            preco: Number(modalData.preco),
-            imagem_url: modalData.imagem_url || "https://via.placeholder.com/150",
-            quantidade: modalData.quantidade ? Number(modalData.quantidade) : 0,
-            disponibilidade: true,
-            desconto: 0
-        };
-
-        await produtoService.inserir(novoProduto);
-        alert(`${novoProduto.nome} foi cadastrado.`);
-        setModalData({});
-        setModalVisibleProduto(false);
-        carregarDados();
     };
 
     const editarProduto = async () => {
-        if (!produtoSelecionado) return;
-        const dados: Partial<Produto> = {
-            nome: modalData.nome,
-            descricao: modalData.descricao,
-            preco: Number(modalData.preco),
-            id_categoria: Number(modalData.id_categoria),
-            imagem_url: modalData.imagem_url,
-            quantidade: Number(modalData.quantidade),
-        };
+        try {
+            if (!produtoSelecionado) return;
+            const dados: Partial<Produto> = {
+                nome: modalData.nome,
+                descricao: modalData.descricao,
+                preco: Number(modalData.preco),
+                id_categoria: Number(modalData.id_categoria),
+                imagem_url: modalData.imagem_url,
+                quantidade: Number(modalData.quantidade),
+            };
 
-        await produtoService.editar(produtoSelecionado.id!, dados);
+            await produtoService.editar(produtoSelecionado.id!, dados);
 
-        setModalVisibleProduto(false);
-        setProdutoSelecionado(null);
-        setModalData({});
-        carregarDados();
+            setModalVisibleProduto(false);
+            setProdutoSelecionado(null);
+            toastProdutoAtualizado(modalData.nome);
+            setModalData({});
+            carregarDados();
+        } catch (erro) {
+            toastErroAtualizar("produto");
+        }
     };
 
     const deletarProduto = async () => {
-        if (!produtoSelecionado?.id) return;
-        await produtoService.deletar(produtoSelecionado.id);
+        try {
+            if (!produtoSelecionado?.id) return;
+            await produtoService.deletar(produtoSelecionado.id);
 
-        setModalVisibleDeletar(false);
-        setProdutoSelecionado(null);
-        carregarDados();
+            const nomeDeletado = produtoSelecionado.nome;
+            setModalVisibleDeletar(false);
+            setProdutoSelecionado(null);
+            carregarDados(); 
+            toastProdutoDeletado(nomeDeletado);
+         } catch (erro) {
+            toastErroDeletar("produto");
+         }
     };
 
     const alterarStatus = async (id: number, disponibilidade: boolean) => {
-        await produtoService.alterarDisponibilidade(
-            id,
-            !disponibilidade
-        );
-        carregarDados();
+        try {
+            await produtoService.alterarDisponibilidade(
+                id,
+                !disponibilidade
+            );
+            carregarDados();
+        } catch(erro) {
+            toastErro("Erro ao alterar disponibilidade");
+        }
     };
 
     const criarCategoria = async() => {
         try {
             await categoriaService.inserir({ nome: modalData.nome });
-            alert("Categoria cadastrada!");
+            toastCategoriaCriada(modalData.nome);
             setModalData({});
             setModalVisibleCategoria(false);
         } catch (error) {
-            alert("Erro: Falha ao cadastrar categoria.");
+            toastErroCriar("categoria");
         }
     };
 
@@ -308,7 +322,7 @@ export function ControlScreen() {
 
                 {/* Título */}
                 <View style={styles.titleContainer}>
-                    <Title color={COLORS.black} size={26} fontWeight="bold">Novo Prato</Title>
+                    <Title color={COLORS.black} size={26} fontWeight="bold">Controle Produtos</Title>
                     <Title color={COLORS.brown} size={16} fontWeight="regular">
                         Cadastre uma nova opção culinária e defina o impacto social positivo.
                     </Title>
@@ -354,7 +368,7 @@ export function ControlScreen() {
 
                 {/* Botões de Ordenação */}
                 <View style={styles.ordenacaoContainer}>
-                    <Title color={COLORS.black} size={26} fontWeight="bold">Ordenação</Title>
+                    <Title color={COLORS.black} size={22} fontWeight="bold">Ordenação</Title>
 
                     <View style={styles.ordenacaoButtons}>
                         {opcoesDeFiltragem.map((item) => {

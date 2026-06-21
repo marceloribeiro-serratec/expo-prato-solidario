@@ -78,3 +78,31 @@ export function toastPedidoFinalizado() {
 export function toastErroBuscar(item: string = "dados") {
     toastErro(`Não foi possível carregar ${item}.`, "Erro");
 }
+
+export function toastProcutoCriado(nome: string) {
+    toastSucesso(`Produto ${nome} criado com sucesso!`);
+}
+
+export function toastProdutoAtualizado(nome: string) {
+    toastSucesso(`Produto ${nome} atualizado com sucesso!`);
+}
+
+export function toastProdutoDeletado(nome: string) {
+    toastSucesso(`Produto ${nome} deletado com sucesso!`);
+}
+
+export function toastCategoriaCriada(nome: string) {
+    toastSucesso(`Categoria ${nome} criada com sucesso!`);
+}
+
+export function toastErroCriar(item: string = "item") {
+    toastErro(`Não foi possível criar o(a) ${item}. Tente novamente.`, "Erro ao criar");
+}
+
+export function toastErroAtualizar(item: string = "item") {
+    toastErro(`Não foi possível atualizar o(a) ${item}. Verifique os dados.`, "Erro ao atualizar");
+}
+
+export function toastErroDeletar(item: string = "item") {
+    toastErro(`Não foi possível deletar o produto.`, "Erro ao deletar");
+}
