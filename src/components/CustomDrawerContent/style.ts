@@ -44,7 +44,7 @@ export const customDrawer = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 6,
         elevation: 3,
-        marginTop: 26,
+        marginTop: 20,
     },
     avatarImage: {
         width: "100%",
