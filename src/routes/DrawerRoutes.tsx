@@ -1,5 +1,6 @@
 import { CustomDrawerContent } from "@/components/CustomDrawerContent";
 import ProdutosScreen from "@/pages/ProdutosScreen";
+import { ProfileScreen } from "@/pages/ProfileScreen";
 import { SobreNosScreen } from "@/pages/SobreNosScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { BottomTabsRoutes } from "./BottomTabsRoutes";
@@ -8,6 +9,7 @@ const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 export type RootDrawerParamList = {
     AppTabs: undefined;
+    Perfil: undefined;
     Sobre: undefined;
     Menu: undefined;
 };
@@ -31,6 +33,7 @@ export function DrawerRoutes() {
                 component={BottomTabsRoutes}
                 options={{ drawerLabel: "Home" }}
             />
+            <Drawer.Screen name="Perfil" component={ProfileScreen} />
             <Drawer.Screen name="Sobre" component={SobreNosScreen} />
             <Drawer.Screen name="Menu" component={ProdutosScreen} />
         </Drawer.Navigator>

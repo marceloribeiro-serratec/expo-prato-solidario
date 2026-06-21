@@ -1,11 +1,10 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
-import { BarChart3, House, Info, Settings, Utensils } from "lucide-react-native";
+import { House, Info, UserRound, Utensils } from "lucide-react-native";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import { COLORS } from "@/constants";
 import { useAuth } from "@/contexts/AuthContext";
 import { customDrawer } from "./style";
-import { HouseHeart } from "lucide-react-native/icons";
 
 const fallbackAvatarUrl =
     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop&crop=face";
@@ -13,8 +12,13 @@ const fallbackAvatarUrl =
 const drawerItems = [
     {
         label: "Home",
-        routeName: "Home",
+        routeName: "AppTabs",
         Icon: House,
+    },
+    {
+        label: "Perfil",
+        routeName: "Perfil",
+        Icon: UserRound,
     },
     {
         label: "Sobre Nós",
