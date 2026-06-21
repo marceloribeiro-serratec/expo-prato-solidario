@@ -7,7 +7,7 @@ import { BottomTabsRoutes } from "./BottomTabsRoutes";
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 export type RootDrawerParamList = {
-    Home: undefined;
+    AppTabs: undefined;
     Sobre: undefined;
     Menu: undefined;
 };
@@ -26,7 +26,11 @@ export function DrawerRoutes() {
                 overlayColor: "rgba(0, 0, 0, 0.18)",
             }}
         >
-            <Drawer.Screen name="Home" component={BottomTabsRoutes} />
+            <Drawer.Screen
+                name="AppTabs"
+                component={BottomTabsRoutes}
+                options={{ drawerLabel: "Home" }}
+            />
             <Drawer.Screen name="Sobre" component={SobreNosScreen} />
             <Drawer.Screen name="Menu" component={ProdutosScreen} />
         </Drawer.Navigator>
