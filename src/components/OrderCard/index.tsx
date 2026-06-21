@@ -22,7 +22,7 @@ export function OrderCard({ id, customer, details, status, contribution, total }
                 <View style={styles.contributionBox}>
                     <Heart color={COLORS.green_dark} size={24} />
                     <View style={styles.contributionContent}>
-                        <Text style={styles.contributionText}>{contribution}</Text>
+                        <Text style={styles.contributionText}>CONTRIBUIÇÃO 3%</Text>
                         <Text style={styles.contributionValue}>{contribution}</Text>
                     </View>                    
                 </View>
