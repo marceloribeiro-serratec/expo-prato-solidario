@@ -11,6 +11,7 @@ export interface Colors {
     orange: string;
     red: string;
     yellow: string;
+    brown: string;
 
     white: string;
     
