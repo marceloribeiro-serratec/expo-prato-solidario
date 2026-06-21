@@ -7,9 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "@/routes/type";
+import { Produto } from "@/pages/ProdutosScreen/type";
 
 type ProdutoCardProps = {
-    data: any;
+    data: Produto;
 };
 
 export const ProdutoCard = ({ data }: ProdutoCardProps) => {

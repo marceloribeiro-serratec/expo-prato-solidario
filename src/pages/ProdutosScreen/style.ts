@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: COLORS.gray_100,
         paddingHorizontal: 16,
+        paddingTop: 32,
     },
 
     headerContainer: {
@@ -25,7 +26,7 @@ export const styles = StyleSheet.create({
         height: 50,
         marginBottom: 16,
     },
-    
+
     categoriasContainer: {
         paddingBottom: 12,
     },
