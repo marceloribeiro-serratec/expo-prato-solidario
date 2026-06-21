@@ -7,6 +7,7 @@ export const COLORS: Colors = {
 
     blue: "#2AA1D9",
     green: "#4BB84A",
+    green_soft: "#f6fff9",
     green_light: "#E8F8EA",
     green_dark: "#006D37",
     orange: "#F28C28",
@@ -32,7 +33,7 @@ export const COLORS: Colors = {
     info_base: "#2AA1D9",
     info_dark: "#1D7096",
 
-    success_light: "#7EFBA4",
+    success_light: "#7EFBA4",    
     success_base: "#4BB84A",
     success_dark: "#19793C",
 

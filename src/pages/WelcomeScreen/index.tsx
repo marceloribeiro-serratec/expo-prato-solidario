@@ -19,8 +19,8 @@ export function WelcomeScreen() {
 
     const navigation = useNavigation<NavigationProps>();
 
-     function handleNavigateToLogin() {
-        navigation.navigate("login");
+     function handleNavigateToHome() {
+        navigation.navigate("home");
     }
 
     return (
@@ -73,7 +73,7 @@ export function WelcomeScreen() {
                     <CardImpact />
                     
                     <View style={{ marginTop: 34 }}>
-                        <Button color={COLORS.red} onPress={handleNavigateToLogin}>
+                        <Button color={COLORS.red} onPress={handleNavigateToHome}>
                             <Title
                                 color={COLORS.white}
                                 size={14}

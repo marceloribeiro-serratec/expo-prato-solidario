@@ -316,7 +316,6 @@ export function ControlScreen() {
                         hiddenIcons={['search', 'refresh', 'plus','shoppingCart']}
                         iconColor={COLORS.red}
                         showMenu={true}
-                        onPressMenu={() => alert('Menu')} 
                     />
                 </View>
 

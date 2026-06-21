@@ -4,13 +4,20 @@ import { Text, View } from "react-native";
 import { HomeScreen } from "@/pages/HomeScreen";
 import { HistoryScreen } from "@/pages/HistoryScreen";
 import { COLORS } from "@/constants/colors";
-import { BookOpenIcon, HistoryIcon, House } from "lucide-react-native";
+import {
+    BookOpenIcon,
+    HistoryIcon,
+    House,
+    Utensils,
+} from "lucide-react-native";
 import { SobreNosScreen } from "@/pages/SobreNosScreen";
+import ProdutosScreen from "@/pages/ProdutosScreen";
 
 export type RootTabsParamList = {
     Home: undefined;
     History: undefined;
     Sobre: undefined;
+    Menu: undefined;
 };
 
 const Tabs = createBottomTabNavigator<RootTabsParamList>();
@@ -18,7 +25,7 @@ const Tabs = createBottomTabNavigator<RootTabsParamList>();
 export function BottomTabsRoutes() {
     return (
         <Tabs.Navigator
-            initialRouteName="Sobre"
+            initialRouteName="Home"
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarStyle: {
@@ -32,6 +39,7 @@ export function BottomTabsRoutes() {
                     /* icones do tabs */
                     const icons = {
                         Home: House,
+                        Menu: Utensils,
                         History: HistoryIcon,
                         Sobre: BookOpenIcon,
                     } as const;
@@ -55,11 +63,7 @@ export function BottomTabsRoutes() {
                             }}
                         >
                             <Icon
-                                color={
-                                    focused
-                                        ? COLORS.white
-                                        : COLORS.gray_400
-                                }
+                                color={focused ? COLORS.white : COLORS.gray_400}
                                 size={21}
                             />
                             <Text
@@ -91,6 +95,11 @@ export function BottomTabsRoutes() {
             <Tabs.Screen
                 name="Sobre"
                 component={SobreNosScreen}
+                options={{ headerShown: false }}
+            />
+            <Tabs.Screen
+                name="Menu"
+                component={ProdutosScreen}
                 options={{ headerShown: false }}
             />
         </Tabs.Navigator>

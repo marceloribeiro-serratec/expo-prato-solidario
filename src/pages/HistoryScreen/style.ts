@@ -19,9 +19,55 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     scrollContainer: {
-    paddingHorizontal: 20,
-    gap: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
+        paddingHorizontal: 20,
+        gap: 16,
+        paddingTop: 16,
+        paddingBottom: 16,
     },
+    filterRow: {
+        flexDirection: 'row',
+        paddingHorizontal: 16,
+        marginTop: 16,
+        alignItems: 'center',
+        gap: 8,
+    },
+    filterButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        borderRadius: 20,
+        backgroundColor: COLORS.red,
+    },
+    defaultFilterButton: {
+        backgroundColor: COLORS.gray_400,
+    },
+    activeFilterButton: {
+        backgroundColor: COLORS.red,
+    },
+    optionsRow: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+    option: {
+        backgroundColor: COLORS.gray_200,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 20,
+    },
+    activeOption: {
+        backgroundColor: COLORS.red,
+    },
+    text: { 
+        color: COLORS.gray_600 
+    },
+    activeText: { 
+        color: COLORS.white, 
+        fontWeight: '600' 
+    },
+    listContainer: {
+        flex: 1,
+        width: '100%',
+    }
 });

@@ -1,4 +1,4 @@
-import { View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { Title } from "../Title";
 
 import { COLORS } from "@/constants/colors";
@@ -12,6 +12,9 @@ import {
 } from "lucide-react-native";
 
 import { header } from "./style";
+import { useCart } from "@/hooks/useCart";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "@/routes/type";
 
 // Adicionamos uma interface para definir o que pode ser alterado
 interface HeaderProps {
@@ -20,7 +23,6 @@ interface HeaderProps {
     iconColor?: string; // Opcional
     hiddenIcons?: string[]; // Lista de icones para escolha
     showMenu?: boolean; // Menu hamburger
-    onPressMenu?: () => void;
 }
 
 export function Header({
@@ -29,8 +31,12 @@ export function Header({
     iconColor = COLORS.info_medium, // Se não passar nada, assume a cor original
     hiddenIcons = [], // Se não passar nada, mostra todos
     showMenu = false,
-    onPressMenu,
 }: HeaderProps = {}) {
+    const navigation = useNavigation<NavigationProps>();
+    const { cart } = useCart();
+    const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const openDrawer = () => navigation.dispatch(DrawerActions.openDrawer());
+
     // = {} permite que o componente seja chamado sem props
     return (
         <View style={header.container}>
@@ -38,7 +44,11 @@ export function Header({
                 style={{ flexDirection: "row", alignItems: "center", gap: 12 }}
             >
                 {showMenu && (
-                    <TouchableOpacity onPress={onPressMenu}>
+                    <TouchableOpacity
+                        onPress={openDrawer}
+                        accessibilityRole="button"
+                        accessibilityLabel="Abrir menu"
+                    >
                         <Menu color={iconColor} size={24} />
                     </TouchableOpacity>
                 )}
@@ -51,7 +61,23 @@ export function Header({
                     {!hiddenIcons.includes('refresh') && <RefreshCcw color={iconColor} size={16} />}
                     {!hiddenIcons.includes('plus') && <CirclePlus color={iconColor} size={20} />}
                     {!hiddenIcons.includes('user') && <CircleUserRound color={iconColor} size={22} />}
-                    {!hiddenIcons.includes('shoppingCart') && <ShoppingCart color={iconColor} size={24} />}
+                    {!hiddenIcons.includes('shoppingCart') && (
+                        <TouchableOpacity
+                            style={header.cartIconContainer}
+                            onPress={() => navigation.navigate("cart")}
+                            accessibilityRole="button"
+                            accessibilityLabel="Abrir carrinho"
+                        >
+                            <ShoppingCart color={iconColor} size={24} />
+                            {cartItemsCount > 0 && (
+                                <View style={header.cartBadge}>
+                                    <Text style={header.cartBadgeText}>
+                                        {cartItemsCount > 99 ? "99+" : cartItemsCount}
+                                    </Text>
+                                </View>
+                            )}
+                        </TouchableOpacity>
+                    )}
                 </View>
         </View>
     );
