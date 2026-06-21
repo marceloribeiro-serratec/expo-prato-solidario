@@ -7,6 +7,7 @@ import Toast from "react-native-toast-message";
 import { Routes } from "@/routes";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
+import { PedidoProvider } from "@/Providers/PedidoProvider";
 
 export default function App() {
     const [isSplashVisible, setIsSplashVisible] = useState(true);
@@ -37,7 +38,9 @@ export default function App() {
         <GestureHandlerRootView style={styles.root}>
             <AuthProvider>
                 <CartProvider>
-                    <Routes />
+                    <PedidoProvider>
+                        <Routes />
+                    </PedidoProvider>
                 </CartProvider>
             </AuthProvider>
             <Toast />
