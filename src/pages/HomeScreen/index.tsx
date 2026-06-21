@@ -102,6 +102,7 @@ export function HomeScreen() {
                 >
                     {CATEGORIES.map((category) => (
                         <CategoryCard
+                            key={category.id} //ajuste jose
                             id={category.id}
                             title={category.title}
                             image={category.image}

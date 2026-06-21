@@ -6,8 +6,8 @@ export const styles = StyleSheet.create({
         flex: 1,
         fontSize: 14,
         color: COLORS.gray_700,
-        height: '100%',
-        paddingLeft: 8,
+        height: 50,
+        paddingLeft: 10,
         textAlignVertical: 'center',
     }
 });
