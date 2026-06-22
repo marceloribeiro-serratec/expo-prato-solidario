@@ -14,10 +14,10 @@ import { supabase } from "@/services/supabase";
 import {
     toastCadastroDuplicado,
     toastCadastroErro,
-    toastCadastroSucesso,
 } from "@/utils/toast";
 import { registerForm } from "./style";
 import Loading from "../Loading";
+import { ModalDinamico } from "../ModalDinamico";
 
 const registerFormSchema = z
     .object({
@@ -70,6 +70,7 @@ type RegisterFormData = z.infer<typeof registerFormSchema>;
 export function RegisterForm() {
     const [hidePassword, setHidePassword] = useState(true);
     const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
+    const [showConfirmationAlert, setShowConfirmationAlert] = useState(false);
 
     const {
         handleSubmit,
@@ -122,8 +123,8 @@ export function RegisterForm() {
 
             await supabase.auth.signOut();
 
-            toastCadastroSucesso();
             reset();
+            setShowConfirmationAlert(true);
         } catch (error) {
             console.error("Erro ao cadastrar cliente:", error);
 
@@ -154,6 +155,16 @@ export function RegisterForm() {
 
     return (
         <View>
+            <ModalDinamico
+                visible={showConfirmationAlert}
+                title="Confirme seu cadastro"
+                message="Cadastro criado com sucesso. Acesse o e-mail cadastrado e confirme sua conta antes de fazer login."
+                secondaryButtonText="Cancelar"
+                primaryButtonText="OK"
+                onSecondaryPress={() => setShowConfirmationAlert(false)}
+                onPrimaryPress={() => setShowConfirmationAlert(false)}
+            />
+
             <Title color={COLORS.red} size={24} fontWeight="bold">
                 Criar Conta
             </Title>
