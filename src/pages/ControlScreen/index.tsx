@@ -341,7 +341,7 @@ export function ControlScreen() {
                     imagem_url: url,
                 }));
 
-                toastSucesso("Mensagem eviada!");
+                toastSucesso("Imagem enviada!");
             } catch (error) {
                 console.error(error);
                 toastErro("Erro ao enviar imagem");
