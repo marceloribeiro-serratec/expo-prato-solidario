@@ -8,6 +8,8 @@ import {
     FlatList,
 } from "react-native";
 
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import { styles } from "./style";
 import { Categoria, Produto } from "./type";
 import { produtoService } from "@/services/produtoService";
@@ -83,7 +85,7 @@ export default function ProdutosScreen() {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.headerContainer}>
                 <Header
                     title="Prato Solidário"
@@ -163,6 +165,6 @@ export default function ProdutosScreen() {
                     </>
                 }
             />
-        </View>
+        </SafeAreaView>
     );
 }

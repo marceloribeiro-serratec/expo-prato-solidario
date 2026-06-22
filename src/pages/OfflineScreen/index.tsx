@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import {  Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { WifiOff } from "lucide-react-native";
 
 import { useAuth } from "@/contexts/AuthContext";
@@ -18,7 +19,7 @@ export function OfflineScreen() {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView  style={styles.container}>
             <View style={styles.iconContainer}>
                 <WifiOff color={COLORS.orange} size={48} />
             </View>
@@ -40,6 +41,6 @@ export function OfflineScreen() {
                     <Text style={styles.buttonText}>Tentar novamente</Text>
                 )}
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 }
