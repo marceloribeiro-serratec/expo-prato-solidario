@@ -15,6 +15,7 @@ export const registerScreen = StyleSheet.create({
     logoContainer: {
         alignItems: "center",
         justifyContent: "center",
+        marginTop: 10,
         marginBottom: 24,
     },
     titleContainer: {

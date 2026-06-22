@@ -118,6 +118,7 @@ export function RegisterForm() {
                 email,
                 telefone,
                 cpf,
+                senha: data.senha,
                 role: "user",
             });
 
