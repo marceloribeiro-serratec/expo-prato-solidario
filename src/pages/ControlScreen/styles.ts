@@ -48,5 +48,11 @@ export const styles = StyleSheet.create({
         flexWrap: 'wrap', 
         marginTop: 15, 
         gap: 8 ,
+    },
+    image: {
+        width: 250, 
+        height: 180, 
+        borderRadius: 16, 
+        alignSelf: 'center'
     }
 })
