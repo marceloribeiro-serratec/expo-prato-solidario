@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getData } from "./storage";
 
 
 // Coloquei essas alterações, com export const e default, além dos dois valores na constante
@@ -14,6 +15,16 @@ export const api = axios.create({
         "apikey": anon_key!,
         "Authorization": `Bearer ${anon_key!}`
     }
+});
+
+api.interceptors.request.use(async (config) => {
+    const token = await getData("@token");
+    const bearerToken = typeof token === "string" && token ? token : anon_key;
+
+    config.headers.set("apikey", anon_key!);
+    config.headers.set("Authorization", `Bearer ${bearerToken}`);
+
+    return config;
 });
 
 export default api;

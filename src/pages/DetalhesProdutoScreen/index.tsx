@@ -1,15 +1,16 @@
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { useCart } from "@/hooks/useCart";
-import { RootStackParamList } from "@/routes/type";
+import { NavigationProps, RootStackParamList } from "@/routes/type";
 import { toastProdutoAdicionado } from "@/utils/toast";
 import { styles } from "./style";
 
 type DetalhesRouteProp = RouteProp<RootStackParamList, "detalhesProduto">;
 
 export function DetalhesProdutoScreen() {
+    const navigation = useNavigation<NavigationProps>();
     const route = useRoute<DetalhesRouteProp>();
     const { produto } = route.params;
 
@@ -43,8 +44,8 @@ export function DetalhesProdutoScreen() {
     }
 
     function handleAddToCart() {
-        aumentarQuantidade();
         toastProdutoAdicionado(produto.nome);
+        navigation.navigate("cart");
     }
 
     return (
