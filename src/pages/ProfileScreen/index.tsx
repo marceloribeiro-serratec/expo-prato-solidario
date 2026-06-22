@@ -14,8 +14,9 @@ import { Header } from "@/components/Header";
 import { Title } from "@/components/Title";
 import { COLORS } from "@/constants/colors";
 import { useAuth } from "@/contexts/AuthContext";
-import { ProfileActionItem } from "./components/ProfileActionItem";
+import { ProfileActionItem } from "@/components/ProfileActionItem";
 import { profileScreen } from "./style";
+import { SettingsOption } from "@/components/SettingsOption";
 
 const fallbackAvatarUrl =
     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=180&h=180&fit=crop&crop=face";
@@ -119,11 +120,12 @@ export function ProfileScreen() {
                 </View>
 
                 <View style={profileScreen.section}>
-                    <ProfileActionItem
+                    <SettingsOption
                         title="Sair da conta"
                         description="Encerrar a sessao neste dispositivo"
                         icon={<LogOut color={COLORS.red} size={22} />}
                         onPress={signOut}
+                        danger
                     />
                 </View>
             </ScrollView>
