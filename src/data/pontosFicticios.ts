@@ -1,0 +1,48 @@
+import { PontoColeta } from "@/types"
+
+export const pontosFicticios: PontoColeta[] = [
+    {
+        id: 1,
+        nome: "Ponto de Apoio - Centro",
+        tipo: "distribuicao",
+        endereco: "Praça Getúlio Vargas, Centro",
+        latitude: -22.2816,
+        longitude: -42.5311,
+        descricao: "Ponto principal de distribuição de quentinhas",
+        quentinhas_entregues: 320,
+        ativo: true,
+    },
+    {
+        id: 2,
+        nome: "Ponto de Apoio - Olaria",
+        tipo: "distribuicao",
+        endereco: "Rua Monsenhor Miranda, Olaria",
+        latitude: -22.2745,
+        longitude: -42.5398,
+        descricao: "Distribuição às terças e quintas",
+        quentinhas_entregues: 180,
+        ativo: true,
+    },
+    {
+        id: 3,
+        nome: "Ponto de Apoio - Várzea",
+        tipo: "distribuicao",
+        endereco: "Rua Dr. Lúcio Tavares, Várzea",
+        latitude: -22.2901,
+        longitude: -42.5350,
+        descricao: "Distribuição aos sábados pela manhã",
+        quentinhas_entregues: 95,
+        ativo: true,
+    },
+    {
+        id: 4,
+        nome: "Ponto de Apoio - Jardim Ouro Preto",
+        tipo: "distribuicao",
+        endereco: "Av. Gov. Roberto Silveira, Jardim Ouro Preto",
+        latitude: -22.2448, 
+        longitude: -42.5225,
+        descricao: "Distribuição aos dopmingos pela manhã",
+        quentinhas_entregues: 109,
+        ativo: true,
+    },
+]

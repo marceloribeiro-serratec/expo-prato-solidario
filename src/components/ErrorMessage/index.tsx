@@ -38,8 +38,6 @@ export function ErrorMessage({
                 {mensagem}
             </Subtitle>
 
-            {/*função tentar novamente*/}
-
             {onTentar && (
                 <TouchableOpacity
                     style={styles.botao}
