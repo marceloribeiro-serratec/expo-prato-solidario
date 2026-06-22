@@ -89,7 +89,7 @@ export function ProfileScreen() {
                     />
                     <CardDados
                         titulo="Impacto social"
-                        subtitulo="R$ 248,00"
+                        subtitulo="R$ 124.800,00"
                         corFundoCard={COLORS.info_light}
                         corFundoIcone={COLORS.info_base}
                         icone={<HeartHandshake color={COLORS.white} size={26} />}
