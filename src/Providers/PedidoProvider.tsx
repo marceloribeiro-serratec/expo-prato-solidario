@@ -19,10 +19,6 @@ export function PedidoProvider({ children }: { children: React.ReactNode }) {
         }
     }
 
-    useEffect(() => {
-        carregarPedidos();
-    }, []);
-
     return (
         <PedidoContext.Provider value={{ pedidos, loading, refresh: carregarPedidos }}>
             {children}

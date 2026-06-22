@@ -125,6 +125,15 @@ export function HistoryScreen() {
                 <FlatList 
                     data={filteredOrders}
                     keyExtractor={(item) => String(item.id)}
+
+                    refreshControl={
+                        <RefreshControl 
+                            refreshing={loading} 
+                            onRefresh={refresh} 
+                            colors={[COLORS.red]} 
+                        />
+                    }
+
                     renderItem={({ item }) => (
                         <OrderCard 
                             id={`#PS-${item.id}`}
