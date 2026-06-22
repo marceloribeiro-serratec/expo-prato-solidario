@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import { Pedido } from "@/services/pedidoService";
 
-// Definimos o formato que o hook vai retornar
 interface PedidoContextData {
     pedidos: Pedido[];
     loading: boolean;
