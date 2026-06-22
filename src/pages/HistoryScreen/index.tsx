@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, ScrollView, TouchableOpacity, Text, FlatList, ActivityIndicator } from 'react-native';
 import { Banknote, ShoppingCart, Percent, Heart, SlidersHorizontal, Search } from 'lucide-react-native';
 
@@ -60,7 +61,7 @@ export function HistoryScreen() {
     }
 
     return (
-        <View  style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {/* Bloco Superior (Fixo) */}
             <View>
                 <View style={styles.headerContainer}>
@@ -132,6 +133,6 @@ export function HistoryScreen() {
                     showsVerticalScrollIndicator={false}
                 />
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
