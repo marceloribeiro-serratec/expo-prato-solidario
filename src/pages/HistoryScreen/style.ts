@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     },
     headerContainer: {
         backgroundColor: COLORS.white,
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight! + 5 : 40,
+        /* paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight! + 5 : 40, */
         paddingHorizontal: 20,
         paddingBottom: 20,
     },

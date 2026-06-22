@@ -39,7 +39,7 @@ export function DrawerRoutes() {
             <Drawer.Screen
                 name="Configuracoes"
                 component={SettingsScreen}
-                options={{ drawerLabel: "Configuracoes" }}
+                options={{ drawerLabel: "Configurações" }}
             />
             <Drawer.Screen name="Sobre" component={SobreNosScreen} options={{ drawerLabel: "Sobre" }} />
             <Drawer.Screen name="Menu" component={ProdutosScreen} options={{ drawerLabel: "Menu" }} />

@@ -48,7 +48,7 @@ export function HomeScreen() {
                     title="Prato Solidário"
                     titleColor={COLORS.red}
                     iconColor={COLORS.red}
-                    hiddenIcons={["search", "refresh", "plus", "user"]}
+                    hiddenIcons={["search", "refresh", "plus"]}
                     showMenu={true}
                 />
             </View>
