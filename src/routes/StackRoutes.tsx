@@ -8,8 +8,39 @@ import ProdutosScreen from "@/pages/ProdutosScreen";
 import { CartScreen } from "@/pages/CartScreen";
 import { DrawerRoutes } from "./DrawerRoutes";
 import { DetalhesProdutoScreen } from "@/pages/DetalhesProdutoScreen";
+import { Text, TouchableOpacity, View } from "react-native";
+import { ShoppingCart } from "lucide-react-native";
+import { COLORS } from "@/constants/colors";
+import { header } from "@/components/Header/style";
+import { useCart } from "@/hooks/useCart";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+type StackNavigation = NativeStackNavigationProp<RootStackParamList>;
+
+function CartHeaderButton({ navigation }: { navigation: StackNavigation }) {
+    const { cart } = useCart();
+    const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
+
+    return (
+        <TouchableOpacity
+            style={header.cartIconContainer}
+            onPress={() => navigation.navigate("cart")}
+            accessibilityRole="button"
+            accessibilityLabel="Abrir carrinho"
+        >
+            <ShoppingCart color={COLORS.info_medium} size={24} />
+            {cartItemsCount > 0 && (
+                <View style={header.cartBadge}>
+                    <Text style={header.cartBadgeText}>
+                        {cartItemsCount > 99 ? "99+" : cartItemsCount}
+                    </Text>
+                </View>
+            )}
+        </TouchableOpacity>
+    );
+}
 
 export function StackRoutes() {
     return (
@@ -52,7 +83,11 @@ export function StackRoutes() {
             <Stack.Screen
                 name="detalhesProduto"
                 component={DetalhesProdutoScreen}
-                options={{ headerShown: true, title: "Detalhes do Produto" }}
+                options={({ navigation }) => ({
+                    headerShown: true,
+                    title: "Detalhes do Produto",
+                    headerRight: () => <CartHeaderButton navigation={navigation} />,
+                })}
             />
         </Stack.Navigator>
     );
