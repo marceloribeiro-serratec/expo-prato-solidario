@@ -6,15 +6,34 @@ export const header = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+    titleContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+    },
     containerIcons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: 24,
     },
+    welcomeContainer: {
+        maxWidth: 96,
+        alignItems: 'flex-end',
+    },
+    welcomeText: {
+        fontSize: 10,
+        fontWeight: '400',
+        lineHeight: 12,
+    },
+    userNameText: {
+        fontSize: 13,
+        fontWeight: '700',
+        lineHeight: 16,
+    },
     cartIconContainer: {
         position: 'relative',
-        padding: 1
+        padding: 1,
     },
     cartBadge: {
         position: 'absolute',
