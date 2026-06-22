@@ -14,13 +14,14 @@ export const header = StyleSheet.create({
     },
     cartIconContainer: {
         position: 'relative',
+        padding: 1
     },
     cartBadge: {
         position: 'absolute',
-        top: -8,
-        right: -10,
+        top: -1,
+        right: 6,
         minWidth: 18,
-        height: 18,
+        height: 15,
         borderRadius: 9,
         paddingHorizontal: 4,
         alignItems: 'center',
