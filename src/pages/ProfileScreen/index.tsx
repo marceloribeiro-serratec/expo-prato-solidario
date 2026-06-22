@@ -1,4 +1,5 @@
 import { Image, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
     HeartHandshake,
     LogOut,
@@ -28,7 +29,7 @@ export function ProfileScreen() {
     const authProvider = profile?.profile ?? "email";
 
     return (
-        <View style={profileScreen.container}>
+        <SafeAreaView style={profileScreen.container}>
             <View style={profileScreen.headerContainer}>
                 <Header
                     title="Perfil"
@@ -110,6 +111,6 @@ export function ProfileScreen() {
                     />
                 </View>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
 }
