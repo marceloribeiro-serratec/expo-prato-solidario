@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 
 import { HomeScreen } from "@/pages/HomeScreen";
 import { HistoryScreen } from "@/pages/HistoryScreen";
+import { ControlScreen } from "@/pages/ControlScreen";
 import { COLORS } from "@/constants/colors";
 import {
     BookOpenIcon,
@@ -17,6 +18,7 @@ import { UserRole } from "./type";
 export type RootTabsParamList = {
     Home: undefined;
     History: undefined;
+    Control: undefined;
     Sobre: undefined;
     Menu: undefined;
 };
@@ -98,6 +100,13 @@ export function BottomTabsRoutes({ role = "user" }: BottomTabsRoutesProps) {
                 <Tabs.Screen
                     name="History"
                     component={HistoryScreen}
+                    options={{ headerShown: false }}
+                />
+            )}
+            {isAdmin && (
+                <Tabs.Screen
+                    name="Control"
+                    component={ControlScreen}
                     options={{ headerShown: false }}
                 />
             )}
