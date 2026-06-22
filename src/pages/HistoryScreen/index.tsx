@@ -10,6 +10,7 @@ import { SummaryCard } from '@/components/SummaryCard';
 import { SearchContainer } from '@/components/SearchContainer';
 import { SearchBar } from '@/components/SearchBar';
 import { OrderCard } from '@/components/OrderCard';
+import { MessageNotFound } from '@/components/MessageNotFound';
 
 // IMPORTANTE: Importe o hook que criamos
 import { usePedidos } from '@/hooks/usePedidos'; 
@@ -130,6 +131,12 @@ export function HistoryScreen() {
                         />
                     )}
                     contentContainerStyle={{ padding: 20, paddingBottom: 40, paddingTop: 6 }}
+                    ListEmptyComponent={
+                        <MessageNotFound                            
+                            title="Nenhum pedido localizado"
+                            subtitle="Verifique o filtro de busca."
+                        />
+                    }
                     showsVerticalScrollIndicator={false}
                 />
             </View>

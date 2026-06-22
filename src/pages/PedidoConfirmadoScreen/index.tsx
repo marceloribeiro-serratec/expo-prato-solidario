@@ -67,7 +67,7 @@ export function PedidoConfirmadoScreen() {
                 accessibilityRole="button"
                 accessibilityLabel="Voltar para a home"
             >
-                <Text style={styles.buttonText}>Voltar para o início</Text>
+                <Text style={styles.buttonText}>Voltar para o início.</Text>
             </TouchableOpacity>
         </View>
     );
