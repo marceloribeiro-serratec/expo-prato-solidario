@@ -119,4 +119,10 @@ export const customDrawer = StyleSheet.create({
         lineHeight: 28,
         fontWeight: "700",
     },
+    logoutTexto: {
+        color: COLORS.black,
+        lineHeight: 28,
+        fontWeight: '700',
+        fontSize: 18 
+    }
 });
