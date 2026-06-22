@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { styles } from './styles';
-import { View, Text, FlatList, ScrollView } from 'react-native';
+import { View, Text, FlatList, ScrollView, Image } from 'react-native';
 import { ModalDinamico, CampoModal } from '../../components/ModalDinamico';
 import { produtoService, Produto } from '@/services/produtoService';
 import { refeicaoService } from '@/services/refeicaoService';
 import { pedidoService } from '@/services/pedidoService';
 import { categoriaService, Categoria } from '@/services/categoriaService';
+import { bucketProdutosService } from '@/services/bucketProdutosService';
 import { ButtonFoto } from '@/components/ButtonFoto';
 import { Title } from '@/components/Title';
 import { Header } from '@/components/Header';
@@ -19,7 +20,9 @@ import { Search } from 'lucide-react-native';
 import { SearchContainer } from '@/components/SearchContainer';
 import { SearchBar } from '@/components/SearchBar';
 import { toastProcutoCriado, toastErroCriar, toastErroDeletar, toastProdutoDeletado,
-    toastProdutoAtualizado, toastErroAtualizar, toastErro, toastCategoriaCriada } from '@/utils/toast';
+    toastProdutoAtualizado, toastErroAtualizar, toastErro, toastCategoriaCriada, 
+    toastSucesso} from '@/utils/toast';
+import * as ImagePicker from 'expo-image-picker';
 
 type TelaDadosProps = {
     totalBaixoEstoque: number;
@@ -103,7 +106,7 @@ export function ControlScreen() {
 
     const abrirModalCriar = () => {
         setModo("criar");
-        setModalData({});
+        setModalData({imagem_url: imagemProdutoUrl ?? "",});
         setModalVisibleProduto(true);
     };
 
@@ -141,6 +144,7 @@ export function ControlScreen() {
             };
 
             await produtoService.inserir(novoProduto);
+            limparImagem();
             setModalData({});
             setModalVisibleProduto(false);
             carregarDados();
@@ -211,10 +215,6 @@ export function ControlScreen() {
             toastErroCriar("categoria");
         }
     };
-
-    const abrirCamera = () => {
-        alert("Câmera Aberta");
-    }
 
     const dadosCards = [
         {
@@ -305,6 +305,60 @@ export function ControlScreen() {
         produto.nome.toLowerCase().includes(search.toLowerCase())
     );
 
+    // Câmera
+    const [imagemProduto, setImagemProduto] = useState<string | null>(null);
+    const [imagemProdutoUrl, setImagemProdutoUrl] = useState<string | null>(null);
+
+    const abrirCamera = async () => {
+        const permissao =
+            await ImagePicker.requestCameraPermissionsAsync();
+
+        if (!permissao.granted) {
+            toastErro("Sem permissão para acessar a câmera");
+            return;
+        }
+
+        const resultado =
+            await ImagePicker.launchCameraAsync({
+                mediaTypes: ['images'],
+                quality: 0.8,
+                allowsEditing: true,
+            });
+
+        if (!resultado.canceled) {
+            const uri = resultado.assets[0].uri;
+
+            setImagemProduto(uri);
+
+            try {
+                const url = await bucketProdutosService.uploadProdutoImagem(uri);
+
+                setImagemProdutoUrl(url);
+                console.log(url);
+
+                setModalData(prev => ({
+                    ...prev,
+                    imagem_url: url,
+                }));
+
+                toastSucesso("Imagem enviada!");
+            } catch (error) {
+                console.error(error);
+                toastErro("Erro ao enviar imagem");
+            }
+        }
+    };
+
+    const limparImagem = () => {
+        setImagemProduto(null);
+        setImagemProdutoUrl(null);
+
+        setModalData(prev => ({
+            ...prev,
+            imagem_url: '',
+        }));
+    };
+
     return (
         <View style={styles.pageContainer}>
             <ScrollView>
@@ -327,7 +381,25 @@ export function ControlScreen() {
                     </Title>
                 </View>
                 <View style={styles.buttonFotoContainer}>
-                    <ButtonFoto onPress={abrirCamera} style={{ width: '90%', paddingVertical: 65, alignSelf: 'center' }} />
+                    {
+                        imagemProduto ? (
+                            <>
+                                <Image source={{ uri: imagemProduto }}style={styles.image}/>
+                                <Button
+                                    color={COLORS.red}
+                                    activeOpacity={0.8}
+                                    style={{ width: "40%", height: 50, borderRadius: 12, alignSelf: 'center', marginTop: 10 }}
+                                    onPress={limparImagem}
+                                >
+                                    <Text style={{ color: COLORS.white, fontSize: 13, fontWeight: "500"}}>
+                                        Remover Foto
+                                    </Text>
+                                </Button>
+                            </>
+                        ) : (
+                            <ButtonFoto onPress={abrirCamera} style={{ width: '90%', paddingVertical: 65, alignSelf: 'center' }} />
+                        )
+                    }          
                 </View>
 
                 {/* Botões */}
