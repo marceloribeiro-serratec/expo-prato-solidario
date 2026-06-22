@@ -4,6 +4,7 @@ import { Modal, View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView }
 import { styles } from "./styles";
 import { Label } from '../Label';
 import { Input } from '../Input';
+import { SelectCategorias } from '../SelectCategorias';
 
 // Estrutura de cada campo que utiliza labels/inputs
 export interface CampoModal {
@@ -12,6 +13,7 @@ export interface CampoModal {
     placeholder?: string;
     keyboardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad'; // Tipo de teclado utilizado pelo Input
     secureTextEntry?: boolean;
+    type?: 'text' | 'select';   
 }
 
 interface ModalProps {
@@ -25,6 +27,7 @@ interface ModalProps {
     secondaryButtonText: string;
     onPrimaryPress: () => void;
     onSecondaryPress: () => void;
+    categoriasMap?: Record<string, string>;
 }
 
 export const ModalDinamico: React.FC<ModalProps> = ({
@@ -38,6 +41,7 @@ export const ModalDinamico: React.FC<ModalProps> = ({
     secondaryButtonText,
     onPrimaryPress,
     onSecondaryPress,
+    categoriasMap,
 }) => {
     return(
         <Modal visible={visible} transparent animationType="fade">
@@ -58,23 +62,34 @@ export const ModalDinamico: React.FC<ModalProps> = ({
                             style={styles.formContainer}
                             showsVerticalScrollIndicator={false}
                         >
-                            {fields.map((field) => (
-                                <View key={field.key} style={styles.inputGroup}>
-                                    <Label color={COLORS.gray_600}>
-                                        {field.label}
-                                    </Label>
+                            {fields.map((field) => {
+                                if (field.type === 'select') {
+                                    return (
+                                        <SelectCategorias
+                                            key={field.key}
+                                            label={field.label}
+                                            placeholder={field.placeholder}
+                                            categorias={categoriasMap || {}}
+                                            selectedValue={formValues[field.key] || ""}
+                                            onValueChange={(value) => onValueChange?.(field.key, value)}
+                                        />
+                                    );
+                                }
 
-                                    <Input
-                                        placeholder={field.placeholder}
-                                        keyboardType={field.keyboardType || "default"}
-                                        secureTextEntry={field.secureTextEntry}
-                                        value={formValues[field.key] || ""}
-                                        onChangeText={(text) =>
-                                            onValueChange?.(field.key, text)
-                                        }
-                                    />
-                                </View>
-                            ))}
+                                // Código padrão para Inputs de texto comum:
+                                return (
+                                    <View key={field.key} style={styles.inputGroup}>
+                                        <Label color={COLORS.gray_600}>{field.label}</Label>
+                                        <Input
+                                            placeholder={field.placeholder}
+                                            keyboardType={field.keyboardType || "default"}
+                                            secureTextEntry={field.secureTextEntry}
+                                            value={formValues[field.key] || ""}
+                                            onChangeText={(text) => onValueChange?.(field.key, text)}
+                                        />
+                                    </View>
+                                );
+                            })}
                         </ScrollView>
                     )}
 

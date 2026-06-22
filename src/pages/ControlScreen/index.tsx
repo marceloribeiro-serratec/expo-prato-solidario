@@ -25,7 +25,7 @@ import { SearchBar } from '@/components/SearchBar';
 const newProduto: CampoModal[] = [
     { key: 'nome', label: 'Nome', placeholder: 'Digite o nome do produto' },
     { key: 'descricao', label: 'Descrição', placeholder: 'Digite a descrição' },
-    { key: 'id_categoria', label: 'Categoria', placeholder: 'Digite o id de Categoria', keyboardType: 'numeric' },
+    { key: 'id_categoria', label: 'Categoria', placeholder: 'Selecione uma categoria', type: 'select' },
     { key: 'preco', label: 'Preço', placeholder: '0.00', keyboardType: 'numeric' },
     { key: 'imagem_url', label: 'Imagem (URL)', placeholder: 'http://...' },
     { key: 'quantidade', label: 'Quantidade', placeholder: '0', keyboardType: 'numeric' },
@@ -191,6 +191,7 @@ export function ControlScreen() {
                 title={ctrl.modo === 'criar' ? 'Adicionar Produto' : 'Alterar Produto'}
                 fields={newProduto}
                 formValues={ctrl.modalData}
+                categoriasMap={ctrl.categoriasMap}
                 onValueChange={ctrl.handleInputChange}
                 primaryButtonText={ctrl.modo === 'criar' ? 'Adicionar Produto' : 'Salvar Alterações'}
                 secondaryButtonText="Cancelar"
