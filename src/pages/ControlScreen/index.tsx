@@ -365,11 +365,14 @@ export function ControlScreen() {
                 {/* Header */}
                 <View style={styles.headerContainer}>
                     <Header 
-                        title="Prato Solidário" 
-                        titleColor={COLORS.red}
-                        hiddenIcons={['search', 'refresh', 'plus','shoppingCart']}
-                        iconColor={COLORS.red}
-                        showMenu={true}
+                         title="Painel Administrativo"
+                            showMenu
+                            hiddenIcons={[
+                                "search",
+                                "refresh",
+                                "shoppingCart",
+                                "user"
+                            ]}
                     />
                 </View>
 

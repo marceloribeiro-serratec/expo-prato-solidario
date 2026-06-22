@@ -18,7 +18,7 @@ WebBrowser.maybeCompleteAuthSession();
 interface AuthContextData {
     user: User | null;
     profile: Profile | null;
-    signIn: (email: string, password: string) => Promise<boolean>;
+    signIn: (email: string, password: string) => Promise<Profile | null>;
     signInWithGoogle: () => Promise<boolean>;
     signOut: () => void;
     loading: boolean;
@@ -175,7 +175,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
             const authProfile = await persistSessionData(data.session, "email");
             toastLoginSucesso(authProfile.name);
-            return true;
+            return authProfile;
         } catch (error) {
             console.error("Erro ao fazer login com email e senha:", error);
 
@@ -188,11 +188,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 errorMessage.includes("invalid login credentials")
             ) {
                 toastLoginContaNaoMigrada();
-                return false;
+                return null;
             }
 
             toastLoginErro();
-            return false;
+            return null;
         } finally {
             setLoading(false);
         }

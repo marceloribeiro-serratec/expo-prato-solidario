@@ -53,13 +53,13 @@ export function LoginForm() {
     });
 
     async function onSubmit(data: LoginFormData) {
-        const logged = await signIn(data.email, data.senha);
+        const profile = await signIn(data.email, data.senha);
 
-        if (logged) {
+        if (profile) {
             reset();
             navigation.reset({
                 index: 0,
-                routes: [{ name: "home" }],
+                routes: [{ name: profile.role === "admin" ? "admin" : "home", }],
             });
         }
     }

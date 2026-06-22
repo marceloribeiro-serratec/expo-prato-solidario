@@ -3,7 +3,7 @@ import { WelcomeScreen } from "@/pages/WelcomeScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./type";
 import { RegisterScreen } from "@/pages/RegisterScreen";
-import { ControlScreen } from "@/pages/ControlScreen";
+import { AdminDrawerRoutes } from "./AdminDrowerRoutes"; 
 import ProdutosScreen from "@/pages/ProdutosScreen";
 import { CartScreen } from "@/pages/CartScreen";
 import { DrawerRoutes } from "./DrawerRoutes";
@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function StackRoutes() {
     return (
-        <Stack.Navigator initialRouteName="welcome">
+        <Stack.Navigator initialRouteName="login">
             <Stack.Screen
                 name="welcome"
                 component={WelcomeScreen}
@@ -35,11 +35,6 @@ export function StackRoutes() {
                 options={{ headerShown: false }}
             />
             <Stack.Screen
-                name="control"
-                component={ControlScreen}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
                 name="product"
                 component={ProdutosScreen}
                 options={{ headerShown: false }}
@@ -53,6 +48,11 @@ export function StackRoutes() {
                 name="detalhesProduto"
                 component={DetalhesProdutoScreen}
                 options={{ headerShown: true, title: "Detalhes do Produto" }}
+            />
+            <Stack.Screen
+                name="admin"
+                component={AdminDrawerRoutes}
+                options={{ headerShown: false }}
             />
         </Stack.Navigator>
     );
