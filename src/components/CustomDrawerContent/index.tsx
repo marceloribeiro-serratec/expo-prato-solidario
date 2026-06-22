@@ -1,5 +1,5 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
-import { House, Info, UserRound, Utensils } from "lucide-react-native";
+import { House, Info, Settings, UserRound, Utensils } from "lucide-react-native";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import { COLORS } from "@/constants";
@@ -19,6 +19,11 @@ const drawerItems = [
         label: "Perfil",
         routeName: "Perfil",
         Icon: UserRound,
+    },
+    {
+        label: "Configuracoes",
+        routeName: "Configuracoes",
+        Icon: Settings,
     },
     {
         label: "Sobre Nós",

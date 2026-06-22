@@ -32,7 +32,7 @@ export function ProfileScreen() {
         <SafeAreaView style={profileScreen.container}>
             <View style={profileScreen.headerContainer}>
                 <Header
-                    title="Prato Solidário"
+                    title="Perfil"
                     titleColor={COLORS.red}
                     iconColor={COLORS.red}
                     hiddenIcons={["search", "refresh", "plus", "user"]}
