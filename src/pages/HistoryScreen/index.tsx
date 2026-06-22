@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, ScrollView, TouchableOpacity, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Text, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
 import { Banknote, ShoppingCart, Percent, Heart, SlidersHorizontal, Search } from 'lucide-react-native';
 
 import { styles } from './style';
@@ -12,18 +13,23 @@ import { SearchBar } from '@/components/SearchBar';
 import { OrderCard } from '@/components/OrderCard';
 import { MessageNotFound } from '@/components/MessageNotFound';
 
-// IMPORTANTE: Importe o hook que criamos
 import { usePedidos } from '@/hooks/usePedidos'; 
 import { calculateSocialContribution } from '@/utils/formatCurrency';
 import { formatDate } from '@/utils/formatDate';
 
 export function HistoryScreen() {
-    const { pedidos, loading } = usePedidos(); // Consumindo os dados da API
+    const { pedidos, loading, refresh } = usePedidos();
     const [search, setSearch] = useState('');
     const [showToday, setShowToday] = useState(false);
     const [isTodaySelected, setIsTodaySelected] = useState(false);
 
     const todayFormatted = new Date().toISOString().split('T')[0];
+
+    useFocusEffect(
+        useCallback(() => {
+            refresh();
+        }, [])
+    );
 
     const ordersCalc = React.useMemo(() => {
         return pedidos.map(pedido => ({
@@ -63,7 +69,6 @@ export function HistoryScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* Bloco Superior (Fixo) */}
             <View>
                 <View style={styles.headerContainer}>
                     <Header 
