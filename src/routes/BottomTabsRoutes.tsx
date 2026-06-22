@@ -4,19 +4,23 @@ import { MapPin } from "lucide-react-native"
 import { MapaScreen } from "@/pages/MapaScreen"
 import { HomeScreen } from "@/pages/HomeScreen";
 import { HistoryScreen } from "@/pages/HistoryScreen";
+import { ControlScreen } from "@/pages/ControlScreen";
 import { COLORS } from "@/constants/colors";
 import {
     BookOpenIcon,
     HistoryIcon,
     House,
+    ScanBarcodeIcon,
     Utensils,
 } from "lucide-react-native";
 import { SobreNosScreen } from "@/pages/SobreNosScreen";
 import ProdutosScreen from "@/pages/ProdutosScreen";
+import { UserRole } from "./type";
 
 export type RootTabsParamList = {
     Home: undefined;
     History: undefined;
+    Control: undefined;
     Sobre: undefined;
     Menu: undefined;
     mapa: undefined;
@@ -24,7 +28,13 @@ export type RootTabsParamList = {
 
 const Tabs = createBottomTabNavigator<RootTabsParamList>();
 
-export function BottomTabsRoutes() {
+interface BottomTabsRoutesProps {
+    role?: UserRole;
+}
+
+export function BottomTabsRoutes({ role = "user" }: BottomTabsRoutesProps) {
+    const isAdmin = role === "admin";
+
     return (
         <Tabs.Navigator
             initialRouteName="Home"
@@ -38,6 +48,14 @@ export function BottomTabsRoutes() {
                 tabBarInactiveTintColor: COLORS.gray_600,
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => {
+                    /* icones do tabs */
+                    const icons = {
+                        Home: House,
+                        Menu: Utensils,
+                        History: HistoryIcon,
+                        Sobre: BookOpenIcon,
+                        Control: ScanBarcodeIcon,
+                    } as const;
 
                     const tabConfig = {
                         Home: { label: "Home", Icon: House },
@@ -95,11 +113,20 @@ export function BottomTabsRoutes() {
                 component={HomeScreen}
                 options={{ headerShown: false }}
             />
-            <Tabs.Screen
-                name="History"
-                component={HistoryScreen}
-                options={{ headerShown: false }}
-            />
+            {isAdmin && (
+                <Tabs.Screen
+                    name="History"
+                    component={HistoryScreen}
+                    options={{ headerShown: false }}
+                />
+            )}
+            {isAdmin && (
+                <Tabs.Screen
+                    name="Control"
+                    component={ControlScreen}
+                    options={{ headerShown: false }}
+                />
+            )}
             <Tabs.Screen
                 name="Sobre"
                 component={SobreNosScreen}

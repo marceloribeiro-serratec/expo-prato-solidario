@@ -6,13 +6,17 @@ export const COLORS: Colors = {
     purple: "#6A46EB",
 
     blue: "#2AA1D9",
+
     green: "#4BB84A",
     green_soft: "#f6fff9",
     green_light: "#E8F8EA",
     green_dark: "#006D37",
+
+    yellow: "#D9A441",
     orange: "#F28C28",
     red: "#BB001B",
-    yellow: "#D9A441",
+    
+    brown: '#5C4033',
 
     white: "#fff",
     
@@ -41,4 +45,6 @@ export const COLORS: Colors = {
     danger_dark: "#9E4949",
 
     transparent: "transparent",
+
+    border_top: "#E7BCB9",
 };

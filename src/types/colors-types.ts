@@ -4,16 +4,20 @@ export interface Colors {
     purple: string;
 
     blue: string;
+
     green: string;
-    green_soft: string,
-    green_light: string,
+    green_soft: string;
+    green_light: string;
     green_dark: string;
+
     orange: string;
     red: string;
     yellow: string;
 
+    brown: string;
+
     white: string;
-    
+
     gray_100: string;
     gray_200: string;
     gray_300: string;
@@ -39,4 +43,6 @@ export interface Colors {
     danger_dark: string;
 
     transparent: string;
+
+    border_top: string;
 }

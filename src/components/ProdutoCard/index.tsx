@@ -1,14 +1,33 @@
 import { Image, Text, View } from "react-native";
 import { Button } from "../Button";
 import { styles } from "./style";
+import { TouchableOpacity } from "react-native";
+
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+import { RootStackParamList } from "@/routes/type";
+import { Produto } from "@/pages/ProdutosScreen/type";
 
 type ProdutoCardProps = {
-    data: any;
+    data: Produto;
+    onAddToCart: (produto: Produto) => void;
 };
 
-export const ProdutoCard = ({ data }: ProdutoCardProps) => {
+export const ProdutoCard = ({ data, onAddToCart }: ProdutoCardProps) => {
+    const navigation =
+        useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
     return (
-        <View style={styles.card}>
+        <TouchableOpacity
+            style={styles.card}
+            activeOpacity={0.8}
+            onPress={() =>
+                navigation.navigate("detalhesProduto", {
+                    produto: data,
+                })
+            }
+        >
             <Image
                 source={{ uri: data.imagem_url }}
                 style={styles.imagem}
@@ -28,10 +47,10 @@ export const ProdutoCard = ({ data }: ProdutoCardProps) => {
                     {data.descricao}
                 </Text>
 
-                <Button color="red">
+                <Button color="red" onPress={() => onAddToCart(data)}>
                     <Text style={styles.botaoTexto}>Adicionar</Text>
                 </Button>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };

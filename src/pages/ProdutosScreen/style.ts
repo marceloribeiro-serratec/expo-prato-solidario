@@ -10,8 +10,8 @@ export const styles = StyleSheet.create({
 
     headerContainer: {
         backgroundColor: COLORS.gray_100,
-        paddingHorizontal: 12,
-        paddingVertical: 14,
+        paddingHorizontal: 8,
+        paddingVertical: 12,
         borderBottomWidth: 1,
         borderBottomColor: COLORS.gray_200,
         justifyContent: "center",
@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
         height: 50,
         marginBottom: 16,
     },
-    
+
     categoriasContainer: {
         paddingBottom: 12,
     },

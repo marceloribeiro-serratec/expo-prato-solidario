@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        height: "100%",
+        minHeight: 48,
         fontSize: 14,
         backgroundColor: "transparent",
         borderWidth: 1,
@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 12,
         color: COLORS.gray_700,
-        marginTop: 6,    
+        marginTop: 6, 
     },
     focused: {
         borderColor: COLORS.red,

@@ -8,7 +8,7 @@ export const customDrawer = StyleSheet.create({
         width: 280,
         padding: 16,
         justifyContent: "space-between",
-        backgroundColor: "#FBF9F8",
+        backgroundColor: COLORS.gray_100,
         borderTopRightRadius: 12,
         borderBottomRightRadius: 12,
         shadowColor: COLORS.black,
@@ -24,6 +24,8 @@ export const customDrawer = StyleSheet.create({
         width: "100%",
         padding: 16,
         paddingBottom: 24,
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.border_top,
     },
     avatar: {
         width: 64,
@@ -35,7 +37,7 @@ export const customDrawer = StyleSheet.create({
         borderWidth: 2,
         borderColor: "rgba(187, 0, 27, 0.1)",
         borderRadius: 32,
-        backgroundColor: "#E6182A",
+        backgroundColor: COLORS.red,
         shadowColor: COLORS.black,
         shadowOffset: {
             width: 0,
@@ -44,6 +46,7 @@ export const customDrawer = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 6,
         elevation: 3,
+        marginTop: 20,
     },
     avatarImage: {
         width: "100%",
@@ -68,7 +71,7 @@ export const customDrawer = StyleSheet.create({
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: 999,
-        backgroundColor: "#7BF8A1",
+        backgroundColor: COLORS.success_light,
     },
     levelText: {
         color: COLORS.green_dark,
@@ -80,6 +83,7 @@ export const customDrawer = StyleSheet.create({
         flex: 1,
         width: "100%",
         gap: 8,
+        paddingTop: 24,
     },
     navItem: {
         width: "100%",
@@ -91,7 +95,7 @@ export const customDrawer = StyleSheet.create({
         borderRadius: 8,
     },
     navItemActive: {
-        backgroundColor: "#7BF8A1",
+        backgroundColor: COLORS.success_light,
     },
     navText: {
         color: "#5D3F3D",
@@ -111,7 +115,7 @@ export const customDrawer = StyleSheet.create({
         paddingTop: 17,
         paddingHorizontal: 16,
         borderTopWidth: 1,
-        borderTopColor: "#E7BCB9",
+        borderTopColor: COLORS.border_top,
     },
     footerText: {
         color: COLORS.red,

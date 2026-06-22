@@ -1,10 +1,41 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { StackRoutes } from "./StackRoutes";
+import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
+import { OfflineScreen } from "@/pages/OfflineScreen";
+
+import { PrivateRoutes } from "./PrivateRoutes";
+import { PublicRoutes } from "./PublicRoutes";
 
 export function Routes() {
+    const { isConnected, profile, user } = useAuth();
+    const { colors, isDarkMode } = useTheme();
+    const role = profile?.role === "admin" || user?.role === "admin" ? "admin" : "user";
+
+    const navigationTheme = {
+        dark: isDarkMode,
+        colors: {
+            primary: colors.text,
+            background: colors.background,
+            card: colors.surface,
+            text: colors.text,
+            border: colors.border,
+            notification: colors.text,
+        },
+        fonts: {
+            regular: { fontFamily: "System", fontWeight: "400" as const },
+            medium: { fontFamily: "System", fontWeight: "500" as const },
+            bold: { fontFamily: "System", fontWeight: "700" as const },
+            heavy: { fontFamily: "System", fontWeight: "800" as const },
+        },
+    };
+
+    if (!isConnected) {
+        return <OfflineScreen />;
+    }
+
     return (
-        <NavigationContainer>
-            <StackRoutes />
+        <NavigationContainer theme={navigationTheme}>
+            {user ? <PrivateRoutes role={role} /> : <PublicRoutes />}
         </NavigationContainer>
     );
 }

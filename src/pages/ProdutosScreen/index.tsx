@@ -8,17 +8,37 @@ import {
     FlatList,
 } from "react-native";
 
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import { styles } from "./style";
 import { Categoria, Produto } from "./type";
 import { produtoService } from "@/services/produtoService";
 import { ProdutoCard } from "@/components/ProdutoCard";
 import { Header } from "@/components/Header";
 import { COLORS } from "@/constants";
+import { toastProdutoAdicionado } from "@/utils/toast";
+import { useCart } from "@/hooks/useCart";
+import { LoadingPage } from "@/components/Loading";
 
 export default function ProdutosScreen() {
     const [busca, setBusca] = useState("");
     const [categoriaSelecionada, setCategoriaSelecionada] = useState(1);
     const [produtos, setProdutos] = useState<Produto[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const { addToCart } = useCart();
+
+    function handleAddToCart(produto: Produto) {
+        addToCart({
+            id: String(produto.id),
+            name: produto.nome,
+            price: Number(produto.preco),
+            image: produto.imagem_url ? { uri: produto.imagem_url } : undefined,
+            description: produto.descricao,
+        });
+
+        toastProdutoAdicionado(produto.nome);
+    }
 
     const categorias: Categoria[] = [
         { id: 1, nome: "Pizzas Salgadas" },
@@ -36,10 +56,13 @@ export default function ProdutosScreen() {
 
     const carregarDados = async () => {
         try {
+            setLoading(true);
             const listaProdutos = await produtoService.listar();
             setProdutos(listaProdutos);
         } catch (error) {
             alert("Erro: Não foi possível carregar os produtos.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -53,8 +76,16 @@ export default function ProdutosScreen() {
             produto.nome.toLowerCase().includes(busca.toLowerCase()),
     );
 
+    if (loading) {
+        return (
+            <View style={styles.container}>
+                <LoadingPage />
+            </View>
+        );
+    }
+
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.headerContainer}>
                 <Header
                     title="Prato Solidário"
@@ -67,7 +98,9 @@ export default function ProdutosScreen() {
 
             <FlatList
                 data={produtosFiltrados}
-                renderItem={({ item }) => <ProdutoCard data={item} />}
+                renderItem={({ item }) => (
+                    <ProdutoCard data={item} onAddToCart={handleAddToCart} />
+                )}
                 keyExtractor={(item) => String(item.id)}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
@@ -132,6 +165,6 @@ export default function ProdutosScreen() {
                     </>
                 }
             />
-        </View>
+        </SafeAreaView>
     );
 }
