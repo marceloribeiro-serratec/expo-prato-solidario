@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ReactNode } from "react";
+import NetInfo from "@react-native-community/netinfo";
 import * as AuthSession from "expo-auth-session";
 import * as WebBrowser from "expo-web-browser";
 
@@ -21,6 +22,8 @@ interface AuthContextData {
     signIn: (email: string, password: string) => Promise<boolean>;
     signInWithGoogle: () => Promise<boolean>;
     signOut: () => void;
+    isConnected: boolean;
+    checkConnection: () => Promise<boolean>;
     loading: boolean;
 }
 
@@ -63,6 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [profile, setProfile] = useState<Profile | null>(null);
     const [token, setToken] = useState<string | null>(null);
+    const [isConnected, setIsConnected] = useState(true);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -90,7 +94,29 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         loadStorageData();
     }, []);
 
-    useEffect(() => {}, [user]);
+    useEffect(() => {
+        checkConnection();
+
+        const unsubscribe = NetInfo.addEventListener((state) => {
+            setIsConnected(hasInternet(state.isConnected, state.isInternetReachable));
+        });
+
+        return unsubscribe;
+    }, []);
+
+    function hasInternet(
+        connected: boolean | null,
+        internetReachable: boolean | null
+    ) {
+        return connected === true && internetReachable !== false;
+    }
+
+    async function checkConnection() {
+        const state = await NetInfo.fetch();
+        const connected = hasInternet(state.isConnected, state.isInternetReachable);
+        setIsConnected(connected);
+        return connected;
+    }
 
     async function persistAuthData(authUser: User, authProfile: Profile, authToken: string) {
         setUser(authUser);
@@ -306,7 +332,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     return (
         <AuthContext.Provider
-            value={{ user, profile, signIn, signInWithGoogle, signOut, loading }}
+            value={{
+                user,
+                profile,
+                signIn,
+                signInWithGoogle,
+                signOut,
+                isConnected,
+                checkConnection,
+                loading,
+            }}
         >
             {children}
         </AuthContext.Provider>
