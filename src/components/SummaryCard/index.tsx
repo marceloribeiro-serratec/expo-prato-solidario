@@ -21,20 +21,16 @@ export function SummaryCard({ title, value, type = 'sold', meta, Icon }: Summary
             )}
             
             <View style={[styles.content, type === 'social' && { paddingLeft: 20 }]}>
-                {/* TOPO: Ícone e Meta */}
                 <View style={styles.topRow}>
                     {Icon && <Icon color={current.border} size={24} />}
                     {meta && <Text style={styles.meta}>{meta}</Text>}
                 </View>
 
-                {/* MEIO: Título e Linha de destaque */}
                 <View style={styles.infoRow}>
                     <Text style={styles.title}>{title}</Text>                    
                 </View>
                 
-                {/* VALOR */}
                 <Text style={[styles.value, { color: current.text }]}>{value}</Text>
-
             </View>
         </View>
     );
