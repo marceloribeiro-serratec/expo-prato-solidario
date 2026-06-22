@@ -11,9 +11,10 @@ import { Produto } from "@/pages/ProdutosScreen/type";
 
 type ProdutoCardProps = {
     data: Produto;
+    onAddToCart: (produto: Produto) => void;
 };
 
-export const ProdutoCard = ({ data }: ProdutoCardProps) => {
+export const ProdutoCard = ({ data, onAddToCart }: ProdutoCardProps) => {
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -46,7 +47,7 @@ export const ProdutoCard = ({ data }: ProdutoCardProps) => {
                     {data.descricao}
                 </Text>
 
-                <Button color="red">
+                <Button color="red" onPress={() => onAddToCart(data)}>
                     <Text style={styles.botaoTexto}>Adicionar</Text>
                 </Button>
             </View>

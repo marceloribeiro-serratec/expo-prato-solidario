@@ -4,12 +4,28 @@ import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { RootStackParamList } from "@/routes/type";
 import { styles } from "./style";
+import { toastProdutoAdicionado } from "@/utils/toast";
+import { useCart } from "@/hooks/useCart";
 
 type DetalhesRouteProp = RouteProp<RootStackParamList, "detalhesProduto">;
 
 export function DetalhesProdutoScreen() {
     const route = useRoute<DetalhesRouteProp>();
     const { produto } = route.params;
+
+    const { addToCart } = useCart();
+
+    function handleAddToCart() {
+        addToCart({
+            id: String(produto.id),
+            name: produto.nome,
+            price: Number(produto.preco),
+            image: produto.imagem_url ? { uri: produto.imagem_url } : undefined,
+            description: produto.descricao,
+        });
+
+        toastProdutoAdicionado(produto.nome);
+    }
 
     const [quantidade, setQuantidade] = useState(1);
 
@@ -29,7 +45,7 @@ export function DetalhesProdutoScreen() {
                 <Image
                     source={{ uri: produto.imagem_url }}
                     style={styles.imagem}
-                    resizeMode="cover"
+                    resizeMode="cover" // preenche todo o espaço disponível, mas mantendo proporção
                 />
 
                 <View style={styles.conteudo}>
@@ -85,7 +101,10 @@ export function DetalhesProdutoScreen() {
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity style={styles.botaoCarrinho}>
+                <TouchableOpacity
+                    style={styles.botaoCarrinho}
+                    onPress={handleAddToCart}
+                >
                     <Text style={styles.textoBotaoCarrinho}>
                         Adicionar ao Carrinho
                     </Text>
