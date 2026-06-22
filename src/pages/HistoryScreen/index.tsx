@@ -1,66 +1,136 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, ScrollView, TouchableOpacity, Text, FlatList, ActivityIndicator } from 'react-native';
+import { Banknote, ShoppingCart, Percent, Heart, SlidersHorizontal, Search } from 'lucide-react-native';
+
 import { styles } from './style';
-import { Header } from '@/components/Header';
 import { COLORS } from '@/constants/colors';
+import { Header } from '@/components/Header';
 import { SummaryCard } from '@/components/SummaryCard';
-import { Banknote, ShoppingCart, Percent, Heart, SlidersHorizontal } from 'lucide-react-native';
-import { Search } from 'lucide-react-native';
 import { SearchContainer } from '@/components/SearchContainer';
 import { SearchBar } from '@/components/SearchBar';
-import { useState } from 'react';
+import { OrderCard } from '@/components/OrderCard';
+
+// IMPORTANTE: Importe o hook que criamos
+import { usePedidos } from '@/hooks/usePedidos'; 
+import { calculateSocialContribution } from '@/utils/formatCurrency';
+import { formatDate } from '@/utils/formatDate';
 
 export function HistoryScreen() {
-
+    const { pedidos, loading } = usePedidos(); // Consumindo os dados da API
     const [search, setSearch] = useState('');
     const [showToday, setShowToday] = useState(false);
     const [isTodaySelected, setIsTodaySelected] = useState(false);
 
+    const todayFormatted = new Date().toISOString().split('T')[0];
+
+    const ordersCalc = React.useMemo(() => {
+        return pedidos.map(pedido => ({
+            ...pedido,
+            valorImpacto: calculateSocialContribution(pedido.valor_total || 0)
+        }));
+    }, [pedidos]);
+
+    // Filtra os dados vindos da API
+    const filteredOrders = React.useMemo(() => {
+        return [...ordersCalc]
+            .filter(item => {
+                const nomeCliente = item.clientes?.nome || "";
+                const matchesSearch = nomeCliente.toLowerCase().includes(search.toLowerCase());
+                const matchesDate = !isTodaySelected || item.data === todayFormatted;
+                return matchesSearch && matchesDate;
+        })
+        .sort((a, b) => {
+            const idA = a.id ?? 0;
+            const idB = b.id ?? 0;
+            return idB - idA;
+        });    
+    }, [ordersCalc, search, isTodaySelected, todayFormatted]);
+
+    const totalVendido = ordersCalc.reduce((acc, curr) => acc + (curr.valor_total || 0), 0);
+    const totalPedidos = ordersCalc.length;
+    const ticketMedio = totalPedidos > 0 ? (totalVendido / totalPedidos) : 0;
+    const totalImpacto = ordersCalc.reduce((acc, curr) => acc + curr.valorImpacto, 0);
+
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.gray_100 }}>
+                <ActivityIndicator size="large" color={COLORS.red} />
+            </View>
+        );
+    }
+
     return (
         <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <Header 
-                    title="Prato Solidário" 
-                    titleColor={COLORS.red}
-                    hiddenIcons={['search', 'refresh', 'plus','shoppingCart']}
-                    iconColor={COLORS.red}
-                    showMenu={true}
-                />
-            </View>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContainer} style={{ flexGrow: 0 }}>
-                <SummaryCard type="sold" title="Total Vendido" value="R$ 1.250,00" Icon={Banknote} />
-                <SummaryCard type="orders" title="Pedidos Realizados" value="24" Icon={ShoppingCart}/>
-                <SummaryCard type="average" title="Ticket Médio" value="R$ 52,00" Icon={Percent}/>
-                <SummaryCard type="social" title="Impacto Social" value="R$ 428,21" meta="Meta: 85%" Icon={Heart} />
-            </ScrollView>
-            <SearchContainer>
-                <Search color={COLORS.gray_400} size={20} />
-                <SearchBar 
-                    placeholder="Buscar por Cliente ou Pedido..." 
-                    value={search}
-                    onChangeText={setSearch} 
-                />
-            </SearchContainer>            
-            <View style={styles.filterRow}>
-                <TouchableOpacity 
-                    style={styles.filterButton} 
-                    onPress={() => setShowToday(!showToday)}
-                >
-                    <SlidersHorizontal color={COLORS.white} size={16} />
-                    <Text style={styles.activeText}>Filtros</Text>
-                </TouchableOpacity>
+            {/* Bloco Superior (Fixo) */}
+            <View>
+                <View style={styles.headerContainer}>
+                    <Header 
+                        title="Prato Solidário" 
+                        titleColor={COLORS.red}
+                        hiddenIcons={['search', 'refresh', 'plus','shoppingCart']}
+                        iconColor={COLORS.red}
+                        showMenu={true}
+                    />
+                </View>
 
-                {showToday && (
-                    <TouchableOpacity 
-                        style={[
-                            styles.option, 
-                            isTodaySelected ? styles.activeOption : null
-                        ]}
-                        onPress={() => setIsTodaySelected(!isTodaySelected)}
-                    >
-                        <Text style={isTodaySelected ? styles.activeText : styles.text}>Hoje</Text>
+                <ScrollView 
+                    horizontal 
+                    showsHorizontalScrollIndicator={false} 
+                    contentContainerStyle={styles.scrollContainer} 
+                    style={{ flexGrow: 0 }}
+                >
+                    <SummaryCard type="sold" title="Total Vendido" value={`R$ ${totalVendido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} Icon={Banknote} />
+                    <SummaryCard type="orders" title="Pedidos Realizados" value={totalPedidos.toString()} Icon={ShoppingCart}/>
+                    <SummaryCard type="average" title="Ticket Médio" value={`R$ ${ticketMedio.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} Icon={Percent}/>
+                    <SummaryCard type="social" title="Impacto Social" value={`R$ ${totalImpacto.toFixed(2).replace('.', ',')}`} Icon={Heart} />
+                </ScrollView>
+
+                <View style={{ paddingHorizontal: 20 }}>
+                    <SearchContainer>
+                        <Search color={COLORS.gray_400} size={20} />
+                        <SearchBar 
+                            placeholder="Buscar por Cliente..." 
+                            value={search}
+                            onChangeText={setSearch} 
+                        />
+                    </SearchContainer>
+                </View>
+                
+                <View style={styles.filterRow}>
+                    <TouchableOpacity style={styles.filterButton} onPress={() => setShowToday(!showToday)}>
+                        <SlidersHorizontal color={COLORS.white} size={16} />
+                        <Text style={styles.activeText}>Filtros</Text>
                     </TouchableOpacity>
-                )}
+
+                    {showToday && (
+                        <TouchableOpacity 
+                            style={[styles.option, isTodaySelected ? styles.activeOption : null]}
+                            onPress={() => setIsTodaySelected(!isTodaySelected)}
+                        >
+                            <Text style={isTodaySelected ? styles.activeText : styles.text}>Hoje</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
+            </View>
+
+            {/* Lista de Pedidos vinda da API */}
+            <View style={{ flex: 1, width: '100%' }}>
+                <FlatList 
+                    data={filteredOrders}
+                    keyExtractor={(item) => String(item.id)}
+                    renderItem={({ item }) => (
+                        <OrderCard 
+                            id={`#PS-${item.id}`}
+                            customer={item.clientes?.nome || 'Cliente não informado'}
+                            details={formatDate(item.data)}
+                            status="Entregue" 
+                            contribution={`R$ ${item.valorImpacto.toFixed(2).replace('.', ',')}`}
+                            total={`R$ ${item.valor_total.toFixed(2).replace('.', ',')}`}
+                        />
+                    )}
+                    contentContainerStyle={{ padding: 20, paddingBottom: 40, paddingTop: 6 }}
+                    showsVerticalScrollIndicator={false}
+                />
             </View>
         </View>
     );

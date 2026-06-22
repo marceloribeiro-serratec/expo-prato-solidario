@@ -3,8 +3,11 @@ import { WelcomeScreen } from "@/pages/WelcomeScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./type";
 import { RegisterScreen } from "@/pages/RegisterScreen";
+import { ControlScreen } from "@/pages/ControlScreen";
+import ProdutosScreen from "@/pages/ProdutosScreen";
 import { CartScreen } from "@/pages/CartScreen";
 import { DrawerRoutes } from "./DrawerRoutes";
+import { DetalhesProdutoScreen } from "@/pages/DetalhesProdutoScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -32,9 +35,24 @@ export function StackRoutes() {
                 options={{ headerShown: false }}
             />
             <Stack.Screen
+                name="control"
+                component={ControlScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="product"
+                component={ProdutosScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
                 name="cart"
                 component={CartScreen}
                 options={{ headerShown: true, title: "Meu Carrinho" }}
+            />
+            <Stack.Screen
+                name="detalhesProduto"
+                component={DetalhesProdutoScreen}
+                options={{ headerShown: true, title: "Detalhes do Produto" }}
             />
         </Stack.Navigator>
     );
