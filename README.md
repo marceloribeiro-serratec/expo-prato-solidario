@@ -19,28 +19,28 @@ Abaixo estão as telas que compõem o app.
 
 <table>
   <tr>
-    <td align="center"><strong>WelcomeScreen</strong><br><img src="" width="140" /></td>
-    <td align="center"><strong>LoginScreen</strong><br><img src="" width="140" /></td>
-    <td align="center"><strong>RegisterScreen</strong><br><img src="" width="140" /></td>
-    <td align="center"><strong>HomeScreen</strong><br><img src="" width="140" /></td>
+    <td align="center"><strong>WelcomeScreen</strong><br><img src="assets/ImagensReadme/WelcomeScreen.jpeg" width="200" /></td>
+    <td align="center"><strong>LoginScreen</strong><br><img src="assets/ImagensReadme/LoginScreen.jpeg" width="200" /></td>
+    <td align="center"><strong>RegisterScreen</strong><br><img src="assets/ImagensReadme/CadastroScreen.jpeg" width="200" /></td>
+    <td align="center"><strong>HomeScreen</strong><br><img src="assets/ImagensReadme/HomeScreen.jpeg" width="200" /></td>
   </tr>
   <tr>
-    <td align="center"><strong>ProdutosScreen</strong><br><img src="" width="140" /></td>
-    <td align="center"><strong>DetalhesProdutoScreen</strong><br><img src="" width="140" /></td>
-    <td align="center"><strong>CartScreen</strong><br><img src="" width="140" /></td>
-    <td align="center"><strong>PedidoConfirmadoScreen</strong><br><img src="" width="140" /></td>
+    <td align="center"><strong>ProdutosScreen</strong><br><img src="assets/ImagensReadme/ProdutosScreen.jpeg" width="200" /></td>
+    <td align="center"><strong>DetalhesProdutoScreen</strong><br><img src="assets/ImagensReadme/DetalhesProdutoScreen.jpeg" width="200" /></td>
+    <td align="center"><strong>CartScreen</strong><br><img src="assets/ImagensReadme/CartScreen.jpeg" width="200" /></td>
+    <td align="center"><strong>PedidoConfirmadoScreen</strong><br><img src="assets/ImagensReadme/PedidoConfirmadoScreen.jpeg" width="200" /></td>
   </tr>
   <tr>
-    <td align="center"><strong>ProfileScreen</strong><br><img src="" width="140" /></td>
-    <td align="center"><strong>HistoryScreen</strong><br><img src="" width="140" /></td>
-    <td align="center"><strong>SettingsScreen</strong><br><img src="" width="140" /></td>
-    <td align="center"><strong>SobreNosScreen</strong><br><img src="" width="140" /></td>
+    <td align="center"><strong>ProfileScreen</strong><br><img src="assets/ImagensReadme/PerfilScreen.jpeg" width="200" /></td>
+    <td align="center"><strong>HistoryScreen</strong><br><img src="assets/ImagensReadme/HistoryScreen.jpeg" width="200" /></td>
+    <td align="center"><strong>SettingsScreen</strong><br><img src="assets/ImagensReadme/ConfiguracoesScreen.jpeg" width="200" /></td>
+    <td align="center"><strong>SobreNosScreen</strong><br><img src="assets/ImagensReadme/SobreNosScreen.jpeg" width="200" /></td>
   </tr>
   <tr>
-    <td align="center"><strong>ControlScreen</strong><br><img src="" width="140" /></td>
-    <td align="center"><strong>OfflineScreen</strong><br><img src="" width="140" /></td>
-    <td></td>
-    <td></td>
+    <td align="center"><strong>ControlScreen I</strong><br><img src="assets/ImagensReadme/ControlScreen1.jpeg" width="200" /></td>
+    <td align="center"><strong>ControlScreen II</strong><br><img src="assets/ImagensReadme/ControlScreen2.jpeg" width="200" /></td>
+    <td align="center"><strong>OfflineScreen</strong><br><img src="assets/ImagensReadme/NoInternetScreen.jpeg" width="200" /></td>
+    <td align="center"><strong>SplashScreen</strong><br><img src="assets/ImagensReadme/SplashScreen.jpeg" width="200" /></td>
   </tr>
 </table>
 
@@ -62,6 +62,7 @@ Abaixo estão as telas que compõem o app.
 | SobreNosScreen | Sobre o projeto e as instituições parceiras |
 | ControlScreen | Tela de controle/gestão |
 | OfflineScreen | Tela exibida quando o app está sem conexão |
+| SplashScreen | Tela de abertura |
 
 ---
 
