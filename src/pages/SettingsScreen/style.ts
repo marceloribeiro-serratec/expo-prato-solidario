@@ -39,6 +39,13 @@ export const settingsScreen = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: COLORS.red,
     },
+    accountAvatar: {
+        width: 54,
+        height: 54,
+        borderRadius: 27,
+        borderWidth: 2,
+        borderColor: COLORS.red,
+    },
     accountInfo: {
         flex: 1,
         gap: 2,

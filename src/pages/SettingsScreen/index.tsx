@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
     Bell,
@@ -16,21 +16,38 @@ import { Header } from "@/components/Header";
 import { Title } from "@/components/Title";
 import { COLORS } from "@/constants/colors";
 import { useAuth } from "@/contexts/AuthContext";
-import { SettingsOption } from "./components/SettingsOption";
+import { useTheme } from "@/contexts/ThemeContext";
+import { SettingsOption } from "../../components/SettingsOption";
 import { settingsScreen } from "./style";
 
 export function SettingsScreen() {
     const { user, profile, signOut, isConnected } = useAuth();
+    const { colors, isDarkMode, setDarkMode } = useTheme();
     const [notificationsEnabled, setNotificationsEnabled] = useState(true);
     const [emailEnabled, setEmailEnabled] = useState(false);
-    const [darkModeEnabled, setDarkModeEnabled] = useState(false);
 
-    const userName = profile?.name ?? user?.name ?? "Usuario";
-    const userEmail = profile?.email ?? user?.email ?? "email nao informado";
+    const isLoggedIn = Boolean(user);
+    const avatarUrl = user?.avatarUrl;
+    const userName = profile?.name ?? user?.name ?? "Usuario nao conectado";
+    const userEmail = profile?.email ?? user?.email ?? "Entre para ver seus dados";
+    const isUserOnline = isLoggedIn && isConnected;
 
     return (
-        <SafeAreaView style={settingsScreen.container}>
-            <View style={settingsScreen.headerContainer}>
+        <SafeAreaView
+            style={[
+                settingsScreen.container,
+                { backgroundColor: colors.background },
+            ]}
+        >
+            <View
+                style={[
+                    settingsScreen.headerContainer,
+                    {
+                        backgroundColor: colors.background,
+                        borderBottomColor: colors.border,
+                    },
+                ]}
+            >
                 <Header
                     title="Configuracoes"
                     titleColor={COLORS.red}
@@ -44,35 +61,65 @@ export function SettingsScreen() {
                 contentContainerStyle={settingsScreen.content}
                 showsVerticalScrollIndicator={false}
             >
-                <View style={settingsScreen.accountCard}>
-                    <View style={settingsScreen.accountIcon}>
-                        <UserRoundCog color={COLORS.white} size={28} />
-                    </View>
+                <View
+                    style={[
+                        settingsScreen.accountCard,
+                        {
+                            backgroundColor: colors.surface,
+                            borderColor: colors.border,
+                        },
+                    ]}
+                >
+                    {avatarUrl ? (
+                        <Image
+                            source={{ uri: avatarUrl }}
+                            style={settingsScreen.accountAvatar}
+                            resizeMode="cover"
+                        />
+                    ) : (
+                        <View style={settingsScreen.accountIcon}>
+                            <UserRoundCog color={COLORS.white} size={28} />
+                        </View>
+                    )}
 
                     <View style={settingsScreen.accountInfo}>
-                        <Text style={settingsScreen.accountName}>{userName}</Text>
-                        <Text style={settingsScreen.accountEmail}>{userEmail}</Text>
+                        <Text
+                            style={[
+                                settingsScreen.accountName,
+                                { color: colors.text },
+                            ]}
+                        >
+                            {userName}
+                        </Text>
+                        <Text
+                            style={[
+                                settingsScreen.accountEmail,
+                                { color: colors.mutedText },
+                            ]}
+                        >
+                            {userEmail}
+                        </Text>
                     </View>
 
                     <View
                         style={[
                             settingsScreen.statusBadge,
-                            !isConnected && settingsScreen.offlineBadge,
+                            !isUserOnline && settingsScreen.offlineBadge,
                         ]}
                     >
                         <Text
                             style={[
                                 settingsScreen.statusText,
-                                !isConnected && settingsScreen.offlineText,
+                                !isUserOnline && settingsScreen.offlineText,
                             ]}
                         >
-                            {isConnected ? "Online" : "Offline"}
+                            {isUserOnline ? "Online" : "Offline"}
                         </Text>
                     </View>
                 </View>
 
                 <View style={settingsScreen.section}>
-                    <Title color={COLORS.gray_700} size={20} fontWeight="700">
+                    <Title color={colors.text} size={20} fontWeight="700">
                         Preferencias
                     </Title>
 
@@ -96,13 +143,13 @@ export function SettingsScreen() {
                         title="Modo escuro"
                         description="Usar visual com menos brilho"
                         icon={<Moon color={COLORS.green_dark} size={22} />}
-                        value={darkModeEnabled}
-                        onValueChange={setDarkModeEnabled}
+                        value={isDarkMode}
+                        onValueChange={setDarkMode}
                     />
                 </View>
 
                 <View style={settingsScreen.section}>
-                    <Title color={COLORS.gray_700} size={20} fontWeight="700">
+                    <Title color={colors.text} size={20} fontWeight="700">
                         Conta e seguranca
                     </Title>
 
@@ -126,7 +173,7 @@ export function SettingsScreen() {
                 </View>
 
                 <View style={settingsScreen.section}>
-                    <Title color={COLORS.gray_700} size={20} fontWeight="700">
+                    <Title color={colors.text} size={20} fontWeight="700">
                         Suporte
                     </Title>
 

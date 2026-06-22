@@ -67,6 +67,24 @@ export const profileScreen = StyleSheet.create({
         fontSize: 13,
         fontWeight: "700",
     },
+    statusBadge: {
+        marginTop: 10,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 999,
+        backgroundColor: COLORS.green_light,
+    },
+    offlineBadge: {
+        backgroundColor: COLORS.gray_200,
+    },
+    statusText: {
+        color: COLORS.green_dark,
+        fontSize: 13,
+        fontWeight: "700",
+    },
+    offlineText: {
+        color: COLORS.gray_500,
+    },
     stats: {
         alignItems: "center",
         gap: 12,
