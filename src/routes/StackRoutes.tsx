@@ -9,6 +9,7 @@ import { CartScreen } from "@/pages/CartScreen";
 import { DrawerRoutes } from "./DrawerRoutes";
 import { DetalhesProdutoScreen } from "@/pages/DetalhesProdutoScreen";
 import { CartHeaderButton } from "@/components/CartHeaderButton";
+import { COLORS } from "@/constants/colors";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -48,7 +49,14 @@ export function StackRoutes() {
             <Stack.Screen
                 name="cart"
                 component={CartScreen}
-                options={{ headerShown: true, title: "Meu Carrinho" }}
+                options={{
+                    headerShown: true,
+                    title: "Meu Carrinho",
+                    headerTintColor: COLORS.red,
+                    headerTitleStyle: {
+                        color: COLORS.red,
+                    },
+                }}
             />
             <Stack.Screen
                 name="detalhesProduto"
@@ -56,6 +64,10 @@ export function StackRoutes() {
                 options={({ navigation }) => ({
                     headerShown: true,
                     title: "Detalhes do Produto",
+                     headerTintColor: COLORS.red,
+                    headerTitleStyle: {
+                        color: COLORS.red,
+                    },
                     headerRight: () => <CartHeaderButton navigation={navigation} />,
                 })}
             />
