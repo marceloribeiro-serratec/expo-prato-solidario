@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
     },
     headerContainer: {
-        marginTop: -10,
+        marginTop: -40,
         backgroundColor: COLORS.white,
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight! + 20 : 50,
         paddingHorizontal: 20,
