@@ -1,4 +1,5 @@
 import { api } from "./api";
+import { supabase } from "./supabase";
 
 export interface Pedido {
     id?: number;
@@ -13,6 +14,12 @@ export interface Pedido {
 export const pedidoService = {
     criarPedido: async (pedido: Pedido): Promise<Pedido> => {
         try {
+            const { data, error } = await supabase.auth.getSession();
+
+            if (error || !data.session) {
+                throw new Error("Usuario nao autenticado para criar pedido.");
+            }
+
             const response = await api.post<Pedido>("/pedidos", pedido);
             return response.data;
         } catch (error) {
