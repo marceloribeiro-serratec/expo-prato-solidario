@@ -3,11 +3,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { OfflineScreen } from "@/pages/OfflineScreen";
 
-import { StackRoutes } from "./StackRoutes";
+import { PrivateRoutes } from "./PrivateRoutes";
+import { PublicRoutes } from "./PublicRoutes";
 
 export function Routes() {
-    const { isConnected } = useAuth();
+    const { isConnected, profile, user } = useAuth();
     const { colors, isDarkMode } = useTheme();
+    const role = profile?.role === "admin" || user?.role === "admin" ? "admin" : "user";
 
     const navigationTheme = {
         dark: isDarkMode,
@@ -33,7 +35,7 @@ export function Routes() {
 
     return (
         <NavigationContainer theme={navigationTheme}>
-            <StackRoutes />
+            {user ? <PrivateRoutes role={role} /> : <PublicRoutes />}
         </NavigationContainer>
     );
 }

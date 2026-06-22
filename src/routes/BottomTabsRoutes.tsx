@@ -12,6 +12,7 @@ import {
 } from "lucide-react-native";
 import { SobreNosScreen } from "@/pages/SobreNosScreen";
 import ProdutosScreen from "@/pages/ProdutosScreen";
+import { UserRole } from "./type";
 
 export type RootTabsParamList = {
     Home: undefined;
@@ -22,7 +23,13 @@ export type RootTabsParamList = {
 
 const Tabs = createBottomTabNavigator<RootTabsParamList>();
 
-export function BottomTabsRoutes() {
+interface BottomTabsRoutesProps {
+    role?: UserRole;
+}
+
+export function BottomTabsRoutes({ role = "user" }: BottomTabsRoutesProps) {
+    const isAdmin = role === "admin";
+
     return (
         <Tabs.Navigator
             initialRouteName="Home"
@@ -87,11 +94,13 @@ export function BottomTabsRoutes() {
                 component={HomeScreen}
                 options={{ headerShown: false }}
             />
-            <Tabs.Screen
-                name="History"
-                component={HistoryScreen}
-                options={{ headerShown: false }}
-            />
+            {isAdmin && (
+                <Tabs.Screen
+                    name="History"
+                    component={HistoryScreen}
+                    options={{ headerShown: false }}
+                />
+            )}
             <Tabs.Screen
                 name="Sobre"
                 component={SobreNosScreen}

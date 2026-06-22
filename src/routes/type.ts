@@ -3,6 +3,8 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
+export type UserRole = "public" | "user" | "admin";
+
 export type RootStackParamList = {
     login: undefined;
     home: undefined;
@@ -11,6 +13,12 @@ export type RootStackParamList = {
     control: undefined;
     product: undefined;
     cart: undefined;
+    pedidoConfirmado: {
+        codigoPedido: string;
+        total: number;
+        impactoSocial: number;
+        data: string;
+    };
     
     detalhesProduto: {
         produto: Produto;

@@ -1,19 +1,20 @@
-import { LoginScreen } from "@/pages/LoginScreen";
-import { WelcomeScreen } from "@/pages/WelcomeScreen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { RootStackParamList } from "./type";
-import { RegisterScreen } from "@/pages/RegisterScreen";
-import { ControlScreen } from "@/pages/ControlScreen";
-import ProdutosScreen from "@/pages/ProdutosScreen";
-import { CartScreen } from "@/pages/CartScreen";
-import { DrawerRoutes } from "./DrawerRoutes";
-import { DetalhesProdutoScreen } from "@/pages/DetalhesProdutoScreen";
 import { CartHeaderButton } from "@/components/CartHeaderButton";
 import { COLORS } from "@/constants/colors";
+import { CartScreen } from "@/pages/CartScreen";
+import { DetalhesProdutoScreen } from "@/pages/DetalhesProdutoScreen";
+import { LoginScreen } from "@/pages/LoginScreen";
+import { PedidoConfirmadoScreen } from "@/pages/PedidoConfirmadoScreen";
+import ProdutosScreen from "@/pages/ProdutosScreen";
+import { RegisterScreen } from "@/pages/RegisterScreen";
+import { WelcomeScreen } from "@/pages/WelcomeScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import { DrawerRoutes } from "./DrawerRoutes";
+import { RootStackParamList } from "./type";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export function StackRoutes() {
+export function PublicRoutes() {
     return (
         <Stack.Navigator initialRouteName="welcome">
             <Stack.Screen
@@ -22,23 +23,19 @@ export function StackRoutes() {
                 options={{ headerShown: false }}
             />
             <Stack.Screen
+                name="home"
+                options={{ headerShown: false }}
+            >
+                {() => <DrawerRoutes role="public" />}
+            </Stack.Screen>
+            <Stack.Screen
                 name="login"
                 component={LoginScreen}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
-                name="home"
-                component={DrawerRoutes}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
                 name="register"
                 component={RegisterScreen}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="control"
-                component={ControlScreen}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
@@ -53,9 +50,7 @@ export function StackRoutes() {
                     headerShown: true,
                     title: "Meu Carrinho",
                     headerTintColor: COLORS.red,
-                    headerTitleStyle: {
-                        color: COLORS.red,
-                    },
+                    headerTitleStyle: { color: COLORS.red },
                 }}
             />
             <Stack.Screen
@@ -64,12 +59,20 @@ export function StackRoutes() {
                 options={({ navigation }) => ({
                     headerShown: true,
                     title: "Detalhes do Produto",
-                     headerTintColor: COLORS.red,
-                    headerTitleStyle: {
-                        color: COLORS.red,
-                    },
+                    headerTintColor: COLORS.red,
+                    headerTitleStyle: { color: COLORS.red },
                     headerRight: () => <CartHeaderButton navigation={navigation} />,
                 })}
+            />
+            <Stack.Screen
+                name="pedidoConfirmado"
+                component={PedidoConfirmadoScreen}
+                options={{
+                    headerShown: true,
+                    title: "Pedido confirmado",
+                    headerTintColor: COLORS.red,
+                    headerTitleStyle: { color: COLORS.red },
+                }}
             />
         </Stack.Navigator>
     );
