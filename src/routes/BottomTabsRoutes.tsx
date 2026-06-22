@@ -9,6 +9,7 @@ import {
     BookOpenIcon,
     HistoryIcon,
     House,
+    ScanBarcodeIcon,
     Utensils,
 } from "lucide-react-native";
 import { SobreNosScreen } from "@/pages/SobreNosScreen";
@@ -51,6 +52,7 @@ export function BottomTabsRoutes({ role = "user" }: BottomTabsRoutesProps) {
                         Menu: Utensils,
                         History: HistoryIcon,
                         Sobre: BookOpenIcon,
+                        Control: ScanBarcodeIcon,
                     } as const;
 
                     const Icon =
