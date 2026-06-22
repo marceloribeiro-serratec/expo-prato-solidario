@@ -13,6 +13,12 @@ export type RootStackParamList = {
     control: undefined;
     product: undefined;
     cart: undefined;
+    pedidoConfirmado: {
+        codigoPedido: string;
+        total: number;
+        impactoSocial: number;
+        data: string;
+    };
     
     detalhesProduto: {
         produto: Produto;

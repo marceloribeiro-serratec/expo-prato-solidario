@@ -3,6 +3,7 @@ import { COLORS } from "@/constants/colors";
 import { CartScreen } from "@/pages/CartScreen";
 import { ControlScreen } from "@/pages/ControlScreen";
 import { DetalhesProdutoScreen } from "@/pages/DetalhesProdutoScreen";
+import { PedidoConfirmadoScreen } from "@/pages/PedidoConfirmadoScreen";
 import ProdutosScreen from "@/pages/ProdutosScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -58,6 +59,16 @@ export function PrivateRoutes({ role }: PrivateRoutesProps) {
                     headerTitleStyle: { color: COLORS.red },
                     headerRight: () => <CartHeaderButton navigation={navigation} />,
                 })}
+            />
+            <Stack.Screen
+                name="pedidoConfirmado"
+                component={PedidoConfirmadoScreen}
+                options={{
+                    headerShown: true,
+                    title: "Pedido confirmado",
+                    headerTintColor: COLORS.red,
+                    headerTitleStyle: { color: COLORS.red },
+                }}
             />
         </Stack.Navigator>
     );

@@ -3,6 +3,7 @@ import { COLORS } from "@/constants/colors";
 import { CartScreen } from "@/pages/CartScreen";
 import { DetalhesProdutoScreen } from "@/pages/DetalhesProdutoScreen";
 import { LoginScreen } from "@/pages/LoginScreen";
+import { PedidoConfirmadoScreen } from "@/pages/PedidoConfirmadoScreen";
 import ProdutosScreen from "@/pages/ProdutosScreen";
 import { RegisterScreen } from "@/pages/RegisterScreen";
 import { WelcomeScreen } from "@/pages/WelcomeScreen";
@@ -62,6 +63,16 @@ export function PublicRoutes() {
                     headerTitleStyle: { color: COLORS.red },
                     headerRight: () => <CartHeaderButton navigation={navigation} />,
                 })}
+            />
+            <Stack.Screen
+                name="pedidoConfirmado"
+                component={PedidoConfirmadoScreen}
+                options={{
+                    headerShown: true,
+                    title: "Pedido confirmado",
+                    headerTintColor: COLORS.red,
+                    headerTitleStyle: { color: COLORS.red },
+                }}
             />
         </Stack.Navigator>
     );
