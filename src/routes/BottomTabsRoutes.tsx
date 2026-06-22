@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text, View } from "react-native";
-
+import { MapPin } from "lucide-react-native"
+import { MapaScreen } from "@/pages/MapaScreen"
 import { HomeScreen } from "@/pages/HomeScreen";
 import { HistoryScreen } from "@/pages/HistoryScreen";
 import { COLORS } from "@/constants/colors";
@@ -18,6 +19,7 @@ export type RootTabsParamList = {
     History: undefined;
     Sobre: undefined;
     Menu: undefined;
+    mapa: undefined;
 };
 
 const Tabs = createBottomTabNavigator<RootTabsParamList>();
@@ -36,16 +38,20 @@ export function BottomTabsRoutes() {
                 tabBarInactiveTintColor: COLORS.gray_600,
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => {
-                    /* icones do tabs */
-                    const icons = {
-                        Home: House,
-                        Menu: Utensils,
-                        History: HistoryIcon,
-                        Sobre: BookOpenIcon,
-                    } as const;
 
-                    const Icon =
-                        icons[route.name as keyof typeof icons] ?? House;
+                    const tabConfig = {
+                        Home: { label: "Home", Icon: House },
+                        Menu: { label: "Menu", Icon: Utensils },
+                        History: { label: "Histórico", Icon: HistoryIcon },
+                        Sobre: { label: "Sobre", Icon: BookOpenIcon },
+                        mapa: { label: "Coleta", Icon: MapPin },
+                    };
+
+                    const { label, Icon } =
+                        tabConfig[route.name as keyof typeof tabConfig] ?? {
+                            label: route.name,
+                            Icon: House,
+                        };
 
                     return (
                         <View
@@ -68,20 +74,22 @@ export function BottomTabsRoutes() {
                             />
                             <Text
                                 style={{
-                                    color: focused
-                                        ? COLORS.white
-                                        : COLORS.gray_400,
+                                    color: focused ? COLORS.white : COLORS.gray_400,
                                     fontSize: 12,
                                     fontWeight: focused ? "800" : "400",
                                 }}
                             >
-                                {route.name}
+                                {label}
                             </Text>
                         </View>
                     );
                 },
             })}
         >
+            <Tabs.Screen
+                name="mapa"
+                component={MapaScreen}
+            />
             <Tabs.Screen
                 name="Home"
                 component={HomeScreen}
