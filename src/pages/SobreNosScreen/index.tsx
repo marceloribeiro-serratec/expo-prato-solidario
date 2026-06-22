@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-import { aboutScreen } from './style';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Utensils, CircleDollarSign, Users } from "lucide-react-native";
+import { ScrollView } from 'react-native-gesture-handler';
 
 import { Title } from '../../components/Title';
 import { CardImpact } from '../../components/CardImpact'; 
 import { Header } from '../../components/Header'; 
 import { COLORS } from '../../constants/colors';
-import { Utensils, CircleDollarSign, Users } from "lucide-react-native";
-import { ScrollView } from 'react-native-gesture-handler';
 
+import { aboutScreen } from './style';
 const topImg = require('../../../assets/team-banner.png');
 
 export function SobreNosScreen() {
     return (
-        <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
             <View style={aboutScreen.headerContainer}>
                 <Header 
                     title="Prato Solidário" 
@@ -98,6 +99,6 @@ export function SobreNosScreen() {
                     </Text>
                 </View>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
 }
