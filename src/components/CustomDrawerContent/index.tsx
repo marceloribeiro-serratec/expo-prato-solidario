@@ -45,6 +45,7 @@ export function CustomDrawerContent({
     const { user, profile } = useAuth();
     const { colors } = useTheme();
     const activeRouteName = state.routeNames[state.index];
+    const availableRouteNames = new Set(state.routeNames);
     const userName = profile?.name ?? user?.name ?? user?.email ?? "Usuário";
     const avatarSource = {
         uri: user?.avatarUrl ?? fallbackAvatarUrl,
@@ -92,42 +93,44 @@ export function CustomDrawerContent({
             </View>
 
             <View style={customDrawer.nav}>
-                {drawerItems.map(({ label, routeName, Icon }) => {
-                    const isActive = activeRouteName === routeName;
+                {drawerItems
+                    .filter(({ routeName }) => availableRouteNames.has(routeName))
+                    .map(({ label, routeName, Icon }) => {
+                        const isActive = activeRouteName === routeName;
 
-                    return (
-                        <TouchableOpacity
-                            key={routeName}
-                            style={[
-                                customDrawer.navItem,
-                                isActive && {
-                                    backgroundColor: colors.activeBackground,
-                                },
-                            ]}
-                            onPress={() => navigation.navigate(routeName)}
-                            accessibilityRole="button"
-                            accessibilityLabel={label}
-                        >
-                            <Icon
-                                size={21}
-                                color={
-                                    isActive
-                                        ? COLORS.green_dark
-                                        : colors.drawerText
-                                }
-                            />
-                            <Text
+                        return (
+                            <TouchableOpacity
+                                key={routeName}
                                 style={[
-                                    customDrawer.navText,
-                                    { color: colors.drawerText },
-                                    isActive && customDrawer.navTextActive,
+                                    customDrawer.navItem,
+                                    isActive && {
+                                        backgroundColor: colors.activeBackground,
+                                    },
                                 ]}
+                                onPress={() => navigation.navigate(routeName)}
+                                accessibilityRole="button"
+                                accessibilityLabel={label}
                             >
-                                {label}
-                            </Text>
-                        </TouchableOpacity>
-                    );
-                })}
+                                <Icon
+                                    size={21}
+                                    color={
+                                        isActive
+                                            ? COLORS.green_dark
+                                            : colors.drawerText
+                                    }
+                                />
+                                <Text
+                                    style={[
+                                        customDrawer.navText,
+                                        { color: colors.drawerText },
+                                        isActive && customDrawer.navTextActive,
+                                    ]}
+                                >
+                                    {label}
+                                </Text>
+                            </TouchableOpacity>
+                        );
+                    })}
             </View>
 
             <View
