@@ -3,13 +3,8 @@ import { ChevronRight } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { profileActionItemStyles as styles } from "./style";
+import { ProfileActionItemProps } from "./type";
 
-type ProfileActionItemProps = {
-    icon: React.ReactNode;
-    title: string;
-    description: string;
-    onPress?: () => void;
-};
 
 export function ProfileActionItem({
     icon,

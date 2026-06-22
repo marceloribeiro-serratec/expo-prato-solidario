@@ -1,11 +1,11 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
-import React, { useState } from "react";
+import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
-import { RootStackParamList } from "@/routes/type";
-import { styles } from "./style";
-import { toastProdutoAdicionado } from "@/utils/toast";
 import { useCart } from "@/hooks/useCart";
+import { RootStackParamList } from "@/routes/type";
+import { toastProdutoAdicionado } from "@/utils/toast";
+import { styles } from "./style";
 
 type DetalhesRouteProp = RouteProp<RootStackParamList, "detalhesProduto">;
 
@@ -13,31 +13,39 @@ export function DetalhesProdutoScreen() {
     const route = useRoute<DetalhesRouteProp>();
     const { produto } = route.params;
 
-    const { addToCart } = useCart();
+    const { addToCart, cart, updateQuantity } = useCart();
+    const productId = String(produto.id);
+    const cartItem = cart.find((item) => String(item.id) === productId);
+    const quantidade = cartItem?.quantity ?? 0;
 
-    function handleAddToCart() {
-        addToCart({
-            id: String(produto.id),
-            name: produto.nome,
-            price: Number(produto.preco),
-            image: produto.imagem_url ? { uri: produto.imagem_url } : undefined,
-            description: produto.descricao,
-        });
-
-        toastProdutoAdicionado(produto.nome);
-    }
-
-    const [quantidade, setQuantidade] = useState(1);
-
-    const aumentarQuantidade = () => setQuantidade(quantidade + 1);
-    const diminuirQuantidade = () => {
-        if (quantidade > 1) setQuantidade(quantidade - 1);
-    };
-
-    // Cálculos
     const precoUnitario = Number(produto.preco);
     const subtotal = precoUnitario * quantidade;
     const contribuicaoSocial = subtotal * 0.03;
+
+    function getProductCartData() {
+        return {
+            id: productId,
+            name: produto.nome,
+            price: precoUnitario,
+            image: produto.imagem_url ? { uri: produto.imagem_url } : undefined,
+            description: produto.descricao,
+        };
+    }
+
+    function aumentarQuantidade() {
+        addToCart(getProductCartData());
+    }
+
+    function diminuirQuantidade() {
+        if (quantidade > 0) {
+            updateQuantity(productId, "decrement");
+        }
+    }
+
+    function handleAddToCart() {
+        aumentarQuantidade();
+        toastProdutoAdicionado(produto.nome);
+    }
 
     return (
         <View style={styles.container}>
@@ -45,7 +53,7 @@ export function DetalhesProdutoScreen() {
                 <Image
                     source={{ uri: produto.imagem_url }}
                     style={styles.imagem}
-                    resizeMode="cover" // preenche todo o espaço disponível, mas mantendo proporção
+                    resizeMode="cover"
                 />
 
                 <View style={styles.conteudo}>
