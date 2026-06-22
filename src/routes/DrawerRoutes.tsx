@@ -33,9 +33,9 @@ export function DrawerRoutes() {
                 component={BottomTabsRoutes}
                 options={{ drawerLabel: "Home" }}
             />
-            <Drawer.Screen name="Perfil" component={ProfileScreen} />
-            <Drawer.Screen name="Sobre" component={SobreNosScreen} />
-            <Drawer.Screen name="Menu" component={ProdutosScreen} />
+            <Drawer.Screen name="Perfil" component={ProfileScreen} options={{ drawerLabel: "Perfil" }} />
+            <Drawer.Screen name="Sobre" component={SobreNosScreen} options={{ drawerLabel: "Sobre" }} />
+            <Drawer.Screen name="Menu" component={ProdutosScreen} options={{ drawerLabel: "Menu" }} />
         </Drawer.Navigator>
     );
 }

@@ -32,14 +32,13 @@ export function ProfileScreen() {
         <SafeAreaView style={profileScreen.container}>
             <View style={profileScreen.headerContainer}>
                 <Header
-                    title="Perfil"
+                    title="Prato Solidário"
                     titleColor={COLORS.red}
                     iconColor={COLORS.red}
                     hiddenIcons={["search", "refresh", "plus", "user"]}
                     showMenu={true}
                 />
             </View>
-
             <ScrollView
                 contentContainerStyle={profileScreen.content}
                 showsVerticalScrollIndicator={false}
