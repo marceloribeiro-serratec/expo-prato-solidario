@@ -4,7 +4,9 @@ import { ProfileScreen } from "@/pages/ProfileScreen";
 import { SettingsScreen } from "@/pages/SettingsScreen";
 import { SobreNosScreen } from "@/pages/SobreNosScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+
 import { BottomTabsRoutes } from "./BottomTabsRoutes";
+import { UserRole } from "./type";
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
@@ -16,7 +18,13 @@ export type RootDrawerParamList = {
     Menu: undefined;
 };
 
-export function DrawerRoutes() {
+interface DrawerRoutesProps {
+    role?: UserRole;
+}
+
+export function DrawerRoutes({ role = "user" }: DrawerRoutesProps) {
+    const isPublic = role === "public";
+
     return (
         <Drawer.Navigator
             drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -32,17 +40,36 @@ export function DrawerRoutes() {
         >
             <Drawer.Screen
                 name="AppTabs"
-                component={BottomTabsRoutes}
                 options={{ drawerLabel: "Home" }}
-            />
-            <Drawer.Screen name="Perfil" component={ProfileScreen} options={{ drawerLabel: "Perfil" }} />
+            >
+                {() => <BottomTabsRoutes role={role} />}
+            </Drawer.Screen>
+
+            {!isPublic && (
+                <>
+                    <Drawer.Screen
+                        name="Perfil"
+                        component={ProfileScreen}
+                        options={{ drawerLabel: "Perfil" }}
+                    />
+                    <Drawer.Screen
+                        name="Configuracoes"
+                        component={SettingsScreen}
+                        options={{ drawerLabel: "Configuracoes" }}
+                    />
+                </>
+            )}
+
             <Drawer.Screen
-                name="Configuracoes"
-                component={SettingsScreen}
-                options={{ drawerLabel: "Configurações" }}
+                name="Sobre"
+                component={SobreNosScreen}
+                options={{ drawerLabel: "Sobre" }}
             />
-            <Drawer.Screen name="Sobre" component={SobreNosScreen} options={{ drawerLabel: "Sobre" }} />
-            <Drawer.Screen name="Menu" component={ProdutosScreen} options={{ drawerLabel: "Menu" }} />
+            <Drawer.Screen
+                name="Menu"
+                component={ProdutosScreen}
+                options={{ drawerLabel: "Menu" }}
+            />
         </Drawer.Navigator>
     );
 }
