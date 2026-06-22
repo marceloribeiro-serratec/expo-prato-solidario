@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './styles';
 import { View, Text, FlatList, ScrollView, Image } from 'react-native';
 import { ModalDinamico, CampoModal } from '../../components/ModalDinamico';
@@ -360,7 +361,7 @@ export function ControlScreen() {
     };
 
     return (
-        <View style={styles.pageContainer}>
+        <SafeAreaView style={styles.pageContainer}>
             <ScrollView>
                 {/* Header */}
                 <View style={styles.headerContainer}>
@@ -548,6 +549,6 @@ export function ControlScreen() {
                 onPrimaryPress={deletarProduto}
                 onSecondaryPress={() => setModalVisibleDeletar(false)}
             />
-        </View>
+        </SafeAreaView>
     );
 }

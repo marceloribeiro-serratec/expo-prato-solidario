@@ -30,6 +30,7 @@ export const homeScreen = StyleSheet.create({
         borderRadius: 12,
         alignSelf: "center",
         marginTop: 20,
+        marginBottom: 20,
     },
     imageDescription: {
         position: "absolute",
