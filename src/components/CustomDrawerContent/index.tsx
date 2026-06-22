@@ -1,9 +1,10 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
-import { House, Info, UserRound, Utensils } from "lucide-react-native";
+import { House, Info, Settings, UserRound, Utensils } from "lucide-react-native";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import { COLORS } from "@/constants";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { customDrawer } from "./style";
 
 const fallbackAvatarUrl =
@@ -19,6 +20,11 @@ const drawerItems = [
         label: "Perfil",
         routeName: "Perfil",
         Icon: UserRound,
+    },
+    {
+        label: "Configuracoes",
+        routeName: "Configuracoes",
+        Icon: Settings,
     },
     {
         label: "Sobre Nós",
@@ -37,6 +43,7 @@ export function CustomDrawerContent({
     state,
 }: DrawerContentComponentProps) {
     const { user, profile } = useAuth();
+    const { colors } = useTheme();
     const activeRouteName = state.routeNames[state.index];
     const userName = profile?.name ?? user?.name ?? user?.email ?? "Usuário";
     const avatarSource = {
@@ -44,8 +51,18 @@ export function CustomDrawerContent({
     };
 
     return (
-        <View style={customDrawer.container}>
-            <View style={customDrawer.profile}>
+        <View
+            style={[
+                customDrawer.container,
+                { backgroundColor: colors.background },
+            ]}
+        >
+            <View
+                style={[
+                    customDrawer.profile,
+                    { borderBottomColor: colors.border },
+                ]}
+            >
                 <View style={customDrawer.avatar}>
                     <Image
                         source={avatarSource}
@@ -55,11 +72,21 @@ export function CustomDrawerContent({
                 </View>
 
                 <Text style={customDrawer.profileTitle}>{userName}</Text>
-                <Text style={customDrawer.profileSubtitle}>
+                <Text
+                    style={[
+                        customDrawer.profileSubtitle,
+                        { color: colors.drawerText },
+                    ]}
+                >
                     124 Refeições Doadas
                 </Text>
 
-                <View style={customDrawer.levelBadge}>
+                <View
+                    style={[
+                        customDrawer.levelBadge,
+                        { backgroundColor: colors.activeBackground },
+                    ]}
+                >
                     <Text style={customDrawer.levelText}>Nível 5</Text>
                 </View>
             </View>
@@ -73,7 +100,9 @@ export function CustomDrawerContent({
                             key={routeName}
                             style={[
                                 customDrawer.navItem,
-                                isActive && customDrawer.navItemActive,
+                                isActive && {
+                                    backgroundColor: colors.activeBackground,
+                                },
                             ]}
                             onPress={() => navigation.navigate(routeName)}
                             accessibilityRole="button"
@@ -84,12 +113,13 @@ export function CustomDrawerContent({
                                 color={
                                     isActive
                                         ? COLORS.green_dark
-                                        : customDrawer.inactiveIcon.color
+                                        : colors.drawerText
                                 }
                             />
                             <Text
                                 style={[
                                     customDrawer.navText,
+                                    { color: colors.drawerText },
                                     isActive && customDrawer.navTextActive,
                                 ]}
                             >
@@ -100,7 +130,12 @@ export function CustomDrawerContent({
                 })}
             </View>
 
-            <View style={customDrawer.footer}>
+            <View
+                style={[
+                    customDrawer.footer,
+                    { borderTopColor: colors.border },
+                ]}
+            >
                 <Text style={customDrawer.footerText}>Prato Solidário</Text>
             </View>
         </View>
