@@ -7,6 +7,7 @@ import Toast from "react-native-toast-message";
 import { Routes } from "@/routes";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { PedidoProvider } from "@/Providers/PedidoProvider";
 
 export default function App() {
@@ -36,13 +37,15 @@ export default function App() {
 
     return (
         <GestureHandlerRootView style={styles.root}>
-            <AuthProvider>
-                <CartProvider>
-                    <PedidoProvider>
-                        <Routes />
-                    </PedidoProvider>
-                </CartProvider>
-            </AuthProvider>
+            <ThemeProvider>
+                <AuthProvider>
+                    <CartProvider>
+                        <PedidoProvider>
+                            <Routes />
+                        </PedidoProvider>
+                    </CartProvider>
+                </AuthProvider>
+            </ThemeProvider>
             <Toast />
         </GestureHandlerRootView>
         

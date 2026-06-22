@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/colors";
 
-export const profileScreen = StyleSheet.create({
+export const settingsScreen = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.gray_100,
@@ -18,59 +18,52 @@ export const profileScreen = StyleSheet.create({
     content: {
         padding: 20,
         paddingBottom: 32,
-        gap: 20,
+        gap: 22,
     },
-    profileCard: {
-        alignItems: "center",
-        padding: 24,
+    accountCard: {
+        width: "100%",
+        padding: 18,
         borderRadius: 16,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 14,
         backgroundColor: COLORS.white,
         borderWidth: 1,
         borderColor: COLORS.gray_200,
     },
-    avatarContainer: {
-        width: 104,
-        height: 104,
-        padding: 3,
-        borderRadius: 52,
-        marginBottom: 16,
+    accountIcon: {
+        width: 54,
+        height: 54,
+        borderRadius: 27,
+        alignItems: "center",
+        justifyContent: "center",
         backgroundColor: COLORS.red,
     },
-    avatar: {
-        width: "100%",
-        height: "100%",
-        borderRadius: 50,
+    accountAvatar: {
+        width: 54,
+        height: 54,
+        borderRadius: 27,
+        borderWidth: 2,
+        borderColor: COLORS.red,
     },
-    name: {
+    accountInfo: {
+        flex: 1,
+        gap: 2,
+    },
+    accountName: {
         color: COLORS.gray_700,
-        fontSize: 24,
-        lineHeight: 32,
+        fontSize: 18,
+        lineHeight: 24,
         fontWeight: "700",
-        textAlign: "center",
     },
-    email: {
-        marginTop: 4,
+    accountEmail: {
         color: COLORS.gray_500,
-        fontSize: 15,
-        lineHeight: 22,
-        textAlign: "center",
-    },
-    badge: {
-        marginTop: 14,
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        borderRadius: 999,
-        backgroundColor: COLORS.green_light,
-    },
-    badgeText: {
-        color: COLORS.green_dark,
         fontSize: 13,
-        fontWeight: "700",
+        lineHeight: 18,
     },
     statusBadge: {
-        marginTop: 10,
-        paddingHorizontal: 12,
-        paddingVertical: 6,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
         borderRadius: 999,
         backgroundColor: COLORS.green_light,
     },
@@ -79,15 +72,11 @@ export const profileScreen = StyleSheet.create({
     },
     statusText: {
         color: COLORS.green_dark,
-        fontSize: 13,
+        fontSize: 12,
         fontWeight: "700",
     },
     offlineText: {
         color: COLORS.gray_500,
-    },
-    stats: {
-        alignItems: "center",
-        gap: 12,
     },
     section: {
         gap: 12,

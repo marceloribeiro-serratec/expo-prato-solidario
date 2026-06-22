@@ -1,4 +1,5 @@
 import { Image, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
     HeartHandshake,
     LogOut,
@@ -20,15 +21,16 @@ const fallbackAvatarUrl =
     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=180&h=180&fit=crop&crop=face";
 
 export function ProfileScreen() {
-    const { user, profile, signOut } = useAuth();
+    const { user, profile, signOut, isConnected } = useAuth();
 
     const userName = profile?.name ?? user?.name ?? "Usuario";
     const userEmail = profile?.email ?? user?.email ?? "email nao informado";
     const userRole = profile?.role ?? user?.role ?? "user";
     const authProvider = profile?.profile ?? "email";
+    const isUserOnline = Boolean(user) && isConnected;
 
     return (
-        <View style={profileScreen.container}>
+        <SafeAreaView style={profileScreen.container}>
             <View style={profileScreen.headerContainer}>
                 <Header
                     title="Perfil"
@@ -38,7 +40,6 @@ export function ProfileScreen() {
                     showMenu={true}
                 />
             </View>
-
             <ScrollView
                 contentContainerStyle={profileScreen.content}
                 showsVerticalScrollIndicator={false}
@@ -58,6 +59,22 @@ export function ProfileScreen() {
                     <View style={profileScreen.badge}>
                         <Text style={profileScreen.badgeText}>
                             Nivel 5 - Doador solidario
+                        </Text>
+                    </View>
+
+                    <View
+                        style={[
+                            profileScreen.statusBadge,
+                            !isUserOnline && profileScreen.offlineBadge,
+                        ]}
+                    >
+                        <Text
+                            style={[
+                                profileScreen.statusText,
+                                !isUserOnline && profileScreen.offlineText,
+                            ]}
+                        >
+                            {isUserOnline ? "Online" : "Offline"}
                         </Text>
                     </View>
                 </View>
@@ -110,6 +127,6 @@ export function ProfileScreen() {
                     />
                 </View>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
 }

@@ -60,7 +60,7 @@ export function HistoryScreen() {
     }
 
     return (
-        <View style={styles.container}>
+        <View  style={styles.container}>
             {/* Bloco Superior (Fixo) */}
             <View>
                 <View style={styles.headerContainer}>

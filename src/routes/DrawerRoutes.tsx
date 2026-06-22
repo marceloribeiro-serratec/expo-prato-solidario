@@ -1,6 +1,7 @@
 import { CustomDrawerContent } from "@/components/CustomDrawerContent";
 import ProdutosScreen from "@/pages/ProdutosScreen";
 import { ProfileScreen } from "@/pages/ProfileScreen";
+import { SettingsScreen } from "@/pages/SettingsScreen";
 import { SobreNosScreen } from "@/pages/SobreNosScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { BottomTabsRoutes } from "./BottomTabsRoutes";
@@ -10,6 +11,7 @@ const Drawer = createDrawerNavigator<RootDrawerParamList>();
 export type RootDrawerParamList = {
     AppTabs: undefined;
     Perfil: undefined;
+    Configuracoes: undefined;
     Sobre: undefined;
     Menu: undefined;
 };
@@ -33,9 +35,14 @@ export function DrawerRoutes() {
                 component={BottomTabsRoutes}
                 options={{ drawerLabel: "Home" }}
             />
-            <Drawer.Screen name="Perfil" component={ProfileScreen} />
-            <Drawer.Screen name="Sobre" component={SobreNosScreen} />
-            <Drawer.Screen name="Menu" component={ProdutosScreen} />
+            <Drawer.Screen name="Perfil" component={ProfileScreen} options={{ drawerLabel: "Perfil" }} />
+            <Drawer.Screen
+                name="Configuracoes"
+                component={SettingsScreen}
+                options={{ drawerLabel: "Configuracoes" }}
+            />
+            <Drawer.Screen name="Sobre" component={SobreNosScreen} options={{ drawerLabel: "Sobre" }} />
+            <Drawer.Screen name="Menu" component={ProdutosScreen} options={{ drawerLabel: "Menu" }} />
         </Drawer.Navigator>
     );
 }
